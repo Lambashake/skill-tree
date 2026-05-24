@@ -73,7 +73,7 @@ const SynthAudioModule = {
 
 // Re-Engineered Vector Glyphs with %22 Encoded XML attributes to fix modern engine mask drops
 const MASK_GLYPHS = {
-    loop: `url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 12c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 6.74C4.46 8.23 4 9.57 4 11c0 4.42 3.58 8 8 8v3l4-4-4-4v3z%22/%3E%3C/svg%3E")`,
+    loop: `url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 12c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z%22/%3E%3C/svg%3E")`,
     psych: `url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M12 2c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l2.79-2.79C10.09 18.66 11.03 19 12 19c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z%22/%3E%3C/svg%3E")`,
     scarcity: `url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M21 11H3c-.55 0-1 .45-1 1s.45 1 1 1h18c-.55 0 1-.45 1-1s-.45-1-1-1zm-9-7c-3.87 0-7 3.13-7 7h14c0-3.87-3.13-7-7-7zm0 14c-3.87 0-7-3.13-7-7h14c0 3.87-3.13 7-7 7z%22/%3E%3C/svg%3E")`,
     collab: `url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 2.01 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z%22/%3E%3C/svg%3E")`,
@@ -260,6 +260,48 @@ function commitNodeModifications() {
     saveAndFlush();
 }
 
+// Processing Matrix Experience Increments
+function handleFormSubmit() {
+    const descInput = document.getElementById('task-desc');
+    const diffSelect = document.getElementById('task-diff');
+    if (!descInput.value.trim()) return;
+
+    logTask(descInput.value.trim(), parseInt(diffSelect.value));
+    descInput.value = '';
+}
+
+function logTask(desc, difficulty) {
+    let energyGain = difficulty * 100;
+    const rightNow = new Date().toDateString();
+    
+    if (gridState.streaks.lastLogDate) {
+        const pastDay = new Date();
+        pastDay.setDate(pastDay.getDate() - 1);
+        
+        if (gridState.streaks.lastLogDate === pastDay.toDateString()) {
+            gridState.streaks.currentStreak++;
+        } else if (gridState.streaks.lastLogDate !== rightNow) {
+            gridState.streaks.currentStreak = 1;
+        }
+    } else {
+        gridState.streaks.currentStreak = 1;
+    }
+    
+    gridState.streaks.lastLogDate = rightNow;
+    gridState.profile.currentXp += energyGain;
+    
+    let boundary = gridState.profile.level * 500;
+    while (gridState.profile.currentXp >= boundary) {
+        gridState.profile.currentXp -= boundary;
+        gridState.profile.level++;
+        gridState.profile.skillPoints++;
+        boundary = gridState.profile.level * 500;
+    }
+    
+    SynthAudioModule.triggerEngraveSound();
+    saveAndFlush();
+}
+
 function deleteTargetNode() {
     const id = document.getElementById('edit-node-target-id').value;
     const data = locateNode(id);
@@ -307,48 +349,6 @@ function commitSectorModifications() {
     saveAndFlush();
 }
 
-// Processing Matrix Experience Increments
-function handleFormSubmit() {
-    const descInput = document.getElementById('task-desc');
-    const diffSelect = document.getElementById('task-diff');
-    if (!descInput.value.trim()) return;
-
-    logTask(descInput.value.trim(), parseInt(diffSelect.value));
-    descInput.value = '';
-}
-
-function logTask(desc, difficulty) {
-    let energyGain = difficulty * 100;
-    const rightNow = new Date().toDateString();
-    
-    if (gridState.streaks.lastLogDate) {
-        const pastDay = new Date();
-        pastDay.setDate(pastDay.getDate() - 1);
-        
-        if (gridState.streaks.lastLogDate === pastDay.toDateString()) {
-            gridState.streaks.currentStreak++;
-        } else if (gridState.streaks.lastLogDate !== rightNow) {
-            gridState.streaks.currentStreak = 1;
-        }
-    } else {
-        gridState.streaks.currentStreak = 1;
-    }
-    
-    gridState.streaks.lastLogDate = rightNow;
-    gridState.profile.currentXp += energyGain;
-    
-    let boundary = gridState.profile.level * 500;
-    while (gridState.profile.currentXp >= boundary) {
-        gridState.profile.currentXp -= boundary;
-        gridState.profile.level++;
-        gridState.profile.skillPoints++;
-        boundary = gridState.profile.level * 500;
-    }
-    
-    SynthAudioModule.triggerEngraveSound();
-    saveAndFlush();
-}
-
 // Isolated Static Tooltip Display
 function refreshTooltipText(node) {
     const title = document.getElementById('tt-name');
@@ -367,7 +367,7 @@ function refreshTooltipText(node) {
     status.innerText = `RANK: ${node.rank} / ${node.maxRank} // CLICK LEFT TO EXTEND, RIGHT TO RETRACT`;
 }
 
-// Render DOM Interface Pipeline
+// Render DOM Interface Pipeline — Synchronized with CSS Framework Variables
 function renderSystemInterface() {
     // HUD Sync
     document.getElementById('hud-level').innerText = gridState.profile.level;
@@ -395,8 +395,16 @@ function renderSystemInterface() {
         container.innerHTML = '';
 
         gridState.trees[sector].forEach(node => {
+            const isMaxed = node.rank === node.maxRank;
+            const hasPoints = node.rank > 0;
+            
+            // Generate contextual status state classes matching style.css rules
+            let structuralClasses = "tron-node-row";
+            if (isMaxed) structuralClasses += " maxed";
+            else if (hasPoints) structuralClasses += " has-points";
+
             const nodeEl = document.createElement('div');
-            nodeEl.className = `node-item-wrapper ${node.rank === node.maxRank ? 'maxed' : ''}`;
+            nodeEl.className = structuralClasses;
             
             // Interaction listeners
             nodeEl.addEventListener('mouseenter', () => {
@@ -411,19 +419,15 @@ function renderSystemInterface() {
                 purgePoint(node.id);
             });
 
-            // Pip progress elements
-            let pipsHtml = '';
-            for (let i = 0; i < node.maxRank; i++) {
-                pipsHtml += `<div class="progress-pip ${i < node.rank ? 'filled' : ''}"></div>`;
-            }
-
             nodeEl.innerHTML = `
-                <div class="node-vector-glyph" style="mask-image: ${node.mask}; -webkit-mask-image: ${node.mask};"></div>
-                <div class="node-core-details">
-                    <div class="node-label-identity">${node.name}</div>
-                    <div class="node-pip-track">${pipsHtml}</div>
+                <div class="node-meta-left">
+                    <div class="css-mask-icon" style="mask-image: ${node.mask}; -webkit-mask-image: ${node.mask};"></div>
+                    <div class="node-string-title">${node.name}</div>
                 </div>
-                <button class="node-inline-edit-btn" onclick="openNodeEditorMatrix(event, '${node.id}')">⋮</button>
+                <div class="node-right-action-cluster">
+                    <button class="node-config-gear-trigger" onclick="openNodeEditorMatrix(event, '${node.id}')">⋮</button>
+                    <div class="node-charge-pip">${node.rank}/${node.maxRank}</div>
+                </div>
             `;
             container.appendChild(nodeEl);
         });
@@ -451,14 +455,16 @@ function triggerSystemReset() {
 
 // Core Mainframe System Bootstrap Launch
 document.addEventListener("DOMContentLoaded", () => {
-    // Synchronize username persistence if needed
-    const nameInput = document.getElementById('user-archetype');
-    const storedName = localStorage.getItem('tron_user_archetype_name');
-    if (storedName) nameInput.value = storedName;
-    
-    nameInput.addEventListener('input', () => {
-        localStorage.setItem('tron_user_archetype_name', nameInput.value);
-    });
+    // Synchronize username persistence - corrected to find class selector match (.archetype-input)
+    const nameInput = document.querySelector('.archetype-input') || document.getElementById('user-archetype');
+    if (nameInput) {
+        const storedName = localStorage.getItem('tron_user_archetype_name');
+        if (storedName) nameInput.value = storedName;
+        
+        nameInput.addEventListener('input', () => {
+            localStorage.setItem('tron_user_archetype_name', nameInput.value);
+        });
+    }
 
     renderSystemInterface();
     refreshTooltipText(null);
