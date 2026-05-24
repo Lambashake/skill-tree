@@ -539,9 +539,9 @@ body {
     background: var(--grid-panel);
     border: 1px solid var(--neon-core);
     box-shadow: 0 0 30px var(--neon-glow);
-    width: 90%;
-    max-width: 500px;
-    padding: 2rem;
+    width: 90%;          /* Changed from fixed pixels to percentage */
+    max-width: 400px;    /* Keeps it from getting too big on desktop */
+    padding: 1.5rem;     /* Slightly smaller padding for mobile */
     position: relative;
 }
 
@@ -705,5 +705,24 @@ body {
     }
     .tron-node-row {
         height: auto; /* Stop rows from being fixed height on small screens */
+    }
+}
+/* --- MOBILE FIXES --- */
+@media (max-width: 768px) {
+    /* 1. Prevent inputs from breaking out of the screen */
+    input, textarea, .injector-form-panel {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* 2. Stack buttons vertically so they don't get squished */
+    .modal-action-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    /* 3. Ensure the main grid padding doesn't push elements off-screen */
+    #grid-network {
+        padding: 1rem !important;
     }
 }
