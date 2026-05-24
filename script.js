@@ -1,186 +1,397 @@
-// 1. DYNAMIC SYSTEM REPOSITORY (Skeletal mapping with dependencies)
-const INITIAL_TREES = {
-    crucible: {
-        color: "#d97706",
-        tiers: {
-            1: [{ id: "c_core", name: "Core Loop Architecture", rank: 0, maxRank: 3, prereqs: [] }],
-            2: [
-                { id: "c_psych", name: "Psychological Incentives", rank: 0, maxRank: 3, prereqs: ["c_core"] },
-                { id: "c_flow", name: "Resource Flow & Economy", rank: 0, maxRank: 2, prereqs: ["c_core"] }
-            ],
-            3: [
-                { id: "c_coauthor", name: "Co-Authorship Frameworks", rank: 0, maxRank: 3, prereqs: ["c_psych", "w_micro"] }, // Cross dependency
-                { id: "c_asym", name: "Asymmetric Systems", rank: 0, maxRank: 2, prereqs: ["c_flow"] }
-            ],
-            4: [{ id: "c_hope", name: "Systems of Radical Hope", rank: 0, maxRank: 1, prereqs: ["c_coauthor", "wc_facilitate"] }] // Cross dependency
-        }
-    },
-    weave: {
-        color: "#10b981",
-        tiers: {
-            1: [{ id: "w_res", name: "Deep Research Routine", rank: 0, maxRank: 3, prereqs: [] }],
-            2: [
-                { id: "w_branch", name: "Branching Logic Development", rank: 0, maxRank: 3, prereqs: ["w_res"] },
-                { id: "w_micro", name: "Micro-Narrative Craft", rank: 0, maxRank: 2, prereqs: ["w_res"] }
-            ],
-            3: [
-                { id: "w_synth", name: "Science Synthesis Prose", rank: 0, maxRank: 3, prereqs: ["w_branch"] },
-                { id: "w_pace", name: "Structural Pacing Frameworks", rank: 0, maxRank: 2, prereqs: ["w_branch", "c_psych"] } // Cross dependency
-            ],
-            4: [{ id: "w_mythos", name: "The Cosmic Mythos Execution", rank: 0, maxRank: 1, prereqs: ["w_synth"] }]
-        }
-    },
-    wildcard: {
-        color: "#06b6d4",
-        tiers: {
-            1: [{ id: "wc_rhythm", name: "Daily Rhythm Foundations", rank: 0, maxRank: 3, prereqs: [] }],
-            2: [
-                { id: "wc_sprint", name: "Deep Work Sprint Blocks", rank: 0, maxRank: 3, prereqs: ["wc_rhythm"] },
-                { id: "wc_optimize", name: "Biovessel Optimization (Diet/Gym)", rank: 0, maxRank: 3, prereqs: ["wc_rhythm"] }
-            ],
-            3: [
-                { id: "wc_facilitate", name: "Dynamic Room Facilitation", rank: 0, maxRank: 2, prereqs: ["wc_optimize"] },
-                { id: "wc_acoustic", name: "Acoustic Landscapes (Audio)", rank: 0, maxRank: 3, prereqs: ["wc_sprint"] }
-            ],
-            4: [{ id: "wc_poly", name: "Total Polymathy Synthesis", rank: 0, maxRank: 1, prereqs: ["wc_facilitate", "wc_acoustic"] }]
-        }
-    }
-};
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
-// State Engine Hydration
-let gameState = JSON.parse(localStorage.getItem('rpg_matrix_save_data')) || {
-    profile: { name: "SYSTEM ARCHETYPE", level: 1, currentXp: 0, skillPoints: 3 },
-    streaks: { currentStreak: 0, lastLogDate: null },
-    trees: INITIAL_TREES
-};
-
-// Flatten utility for validation routines
-function findNodeById(nodeId) {
-    for (let treeKey in gameState.trees) {
-        for (let tierKey in gameState.trees[treeKey].tiers) {
-            const node = gameState.trees[treeKey].tiers[tierKey].find(n => n.id === nodeId);
-            if (node) return node;
-        }
-    }
-    return null;
+:root {
+    --bg-canvas: #1c1f22;
+    --panel-dark: #121416;
+    --chalk-white: #f5f5f5;
+    --ink-black: #080808;
 }
 
-// 2. THE CHRONO LOGGING ENGINE (Tracks actions & calculates curves)
-function logTask(description, difficulty) {
-    let xpBase = difficulty * 100;
-    const todayString = new Date().toDateString();
-    
-    if (gameState.streaks.lastLogDate) {
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        
-        if (gameState.streaks.lastLogDate === yesterday.toDateString()) {
-            gameState.streaks.currentStreak++;
-            if (gameState.streaks.currentStreak === 3) xpBase += 50;
-            if (gameState.streaks.currentStreak === 5) xpBase += 150;
-            if (gameState.streaks.currentStreak >= 7 && gameState.streaks.currentStreak % 7 === 0) xpBase += 300;
-        } else if (gameState.streaks.lastLogDate !== todayString) {
-            gameState.streaks.currentStreak = 1;
-        }
-    } else {
-        gameState.streaks.currentStreak = 1;
-    }
-    
-    gameState.streaks.lastLogDate = todayString;
-    gameState.profile.currentXp += xpBase;
-    
-    evaluateLevelUp();
-    syncAndRender();
+body {
+    background-color: var(--bg-canvas);
+    color: var(--chalk-white);
+    font-family: 'Space Mono', monospace;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
 }
 
-function evaluateLevelUp() {
-    let targetXp = gameState.profile.level * 500;
-    while (gameState.profile.currentXp >= targetXp) {
-        gameState.profile.currentXp -= targetXp;
-        gameState.profile.level++;
-        gameState.profile.skillPoints++;
-        targetXp = gameState.profile.level * 500;
-    }
+/* Layered Sketch Background Texture */
+.canvas-grain {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    opacity: 0.04;
+    background-image: radial-gradient(var(--chalk-white) 1px, transparent 0);
+    background-size: 8px 8px;
+    z-index: -1;
+    pointer-events: none;
 }
 
-// 3. CORE ALLOCATION UTILITY (Purchases upgrades using RPG thresholds)
-function purchaseNode(nodeId) {
-    const node = findNodeById(nodeId);
-    if (!node || gameState.profile.skillPoints < 1 || node.rank >= node.maxRank) return;
-    
-    // Evaluate cross-tree line alignments
-    const dependenciesMet = node.prereqs.every(reqId => {
-        const target = findNodeById(reqId);
-        return target && target.rank > 0;
-    });
-    
-    if (node.prereqs.length > 0 && !dependenciesMet) return;
-    
-    gameState.profile.skillPoints--;
-    node.rank++;
-    
-    syncAndRender();
+/* Expressive Basquiat HUD Layout */
+#basquiat-hud {
+    background: var(--panel-dark);
+    padding: 2rem 2rem 0 2rem;
+    border-bottom: 4px solid var(--chalk-white);
+    position: relative;
 }
 
-// 4. INTERFACE DOM BUILDER (Generates structural components)
-function renderMatrixUI() {
-    // HUD Data sync
-    document.getElementById('hud-level').innerText = gameState.profile.level;
-    document.getElementById('hud-points').innerText = gameState.profile.skillPoints;
-    document.getElementById('hud-streak').innerText = gameState.streaks.currentStreak;
-    document.getElementById('hud-xp-current').innerText = gameState.profile.currentXp;
-    
-    const neededXp = gameState.profile.level * 500;
-    document.getElementById('hud-xp-needed').innerText = neededXp;
-    document.getElementById('xp-bar-fill').style.width = `${(gameState.profile.currentXp / neededXp) * 100}%`;
-    
-    // Core Columns Generator loop
-    for (let treeKey in gameState.trees) {
-        const container = document.getElementById(`nodes-${treeKey}`);
-        container.innerHTML = '';
-        const tree = gameState.trees[treeKey];
-        
-        for (let tier = 1; tier <= 4; tier++) {
-            const row = document.createElement('div');
-            row.className = 'tier-row';
-            
-            tree.tiers[tier].forEach(node => {
-                const button = document.createElement('div');
-                
-                // Track prerequisite validation status styles
-                const depsMet = node.prereqs.every(reqId => findNodeById(reqId).rank > 0);
-                let statusClass = '';
-                if (node.rank >= node.maxRank) statusClass = 'maxed';
-                else if (node.rank > 0) statusClass = 'unlocked';
-                else if (node.prereqs.length === 0 || depsMet) statusClass = 'available';
-                
-                button.className = `skill-node ${statusClass}`;
-                button.style.setProperty('--tree-color', tree.color);
-                button.onclick = () => purchaseNode(node.id);
-                
-                button.innerHTML = `
-                    <div class="node-name">${node.name}</div>
-                    <div class="node-rank">${node.rank} / ${node.maxRank}</div>
-                `;
-                row.appendChild(button);
-            });
-            container.appendChild(row);
-        }
-    }
+.hud-main {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
 }
 
-function handleFormSubmit() {
-    const desc = document.getElementById('task-desc');
-    const diff = document.getElementById('task-diff');
-    logTask(desc.value, parseInt(diff.value));
-    desc.value = '';
-    diff.value = '1';
+#canvas-title {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    margin: 0;
+    color: var(--chalk-white);
+    text-shadow: 2px 2px 0px #e11d48;
 }
 
-function syncAndRender() {
-    localStorage.setItem('rpg_matrix_save_data', JSON.stringify(gameState));
-    renderMatrixUI();
+.streak-scribble {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #eab308;
+    text-decoration: underline cubic-bezier(0.4, 0, 0.2, 1) wavy;
 }
 
-// Bootstrap Initiation Execution
-window.onload = renderMatrixUI;
+.crown-level-box {
+    text-align: center;
+    position: relative;
+}
+
+.basquiat-crown {
+    font-size: 2.2rem;
+    animation: crownFloat 3s ease-in-out infinite;
+    margin-bottom: -5px;
+}
+
+@keyframes crownFloat {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-6px) rotate(5deg); }
+}
+
+.level-badge {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.8rem;
+    border: 3px solid var(--chalk-white);
+    padding: 2px 12px;
+    transform: rotate(-2deg);
+    background: var(--ink-black);
+}
+
+.points-box {
+    border: 4px dashed var(--chalk-white);
+    padding: 0.5rem 1.5rem;
+    text-align: center;
+    transform: rotate(3deg);
+    background: #000;
+}
+
+#hud-points {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2.2rem;
+    color: #2563eb;
+}
+
+.points-label {
+    font-size: 0.7rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Raw Chalk XP Fill Line */
+.xp-container-raw {
+    width: calc(100% + 4rem);
+    margin-left: -2rem;
+    background: #000;
+    height: 28px;
+    margin-top: 2rem;
+    position: relative;
+    border-top: 3px solid var(--chalk-white);
+}
+
+#xp-fill-raw {
+    background: #e11d48;
+    height: 100%;
+    width: 0%;
+    transition: width 0.5s cubic-bezier(0.15, 0.85, 0.45, 1);
+    border-right: 3px solid var(--chalk-white);
+}
+
+.xp-counter-label {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--chalk-white);
+    mix-blend-mode: difference;
+}
+
+/* Form Styling */
+#input-console-raw {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+}
+
+#task-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background: #000;
+    padding: 1rem;
+    border: 3px solid var(--chalk-white);
+    transform: rotate(-1deg);
+    box-shadow: 6px 6px 0px var(--ink-black);
+}
+
+#task-desc {
+    flex: 1;
+    min-width: 250px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px dashed var(--chalk-white);
+    color: #fff;
+    font-family: inherit;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+#task-desc:focus { outline: none; border-bottom-style: solid; }
+
+#task-diff {
+    background: var(--panel-dark);
+    border: 2px solid var(--chalk-white);
+    color: #fff;
+    font-family: inherit;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+#task-form button {
+    font-family: 'Permanent Marker', cursive;
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+    font-size: 1.1rem;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+#task-form button:hover {
+    transform: scale(1.05) rotate(2deg);
+    background: #eab308;
+}
+
+/* Structural Chaos Grid Matrix */
+#canvas-matrix {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 3rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem 2rem;
+}
+
+.matrix-column {
+    background: var(--ink-black);
+    border: 4px solid var(--chalk-white);
+    padding: 2rem 1.5rem;
+    position: relative;
+    box-shadow: 10px 10px 0px rgba(0,0,0,0.4);
+}
+
+#col-crucible { transform: rotate(-0.5deg); }
+#col-weave { transform: rotate(0.6deg); }
+#col-wildcard { transform: rotate(-0.3deg); }
+
+.column-header-raw {
+    text-align: center;
+    border-bottom: 3px double var(--chalk-white);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.tree-glyph {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: -0.5rem;
+}
+
+.column-header-raw h2 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.6rem;
+    margin: 0.5rem 0 0 0;
+    letter-spacing: 1px;
+}
+
+.sub-label {
+    margin: 0.3rem 0 0 0;
+    font-size: 0.75rem;
+    color: #777;
+    text-transform: uppercase;
+}
+
+/* Vertical Tier Layout Core */
+.tiers-container-raw {
+    display: flex;
+    flex-direction: column-reverse; /* Tier 1 directly at baseline base */
+    gap: 2rem;
+}
+
+.tier-row-raw {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    position: relative;
+}
+
+/* Expressive Basquiat Node Canvas Units */
+.skill-node-raw {
+    background: var(--panel-dark);
+    border: 3px solid #333;
+    padding: 1rem;
+    width: 100%;
+    max-width: 200px;
+    text-align: left;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.skill-node-raw.available {
+    border-color: #666;
+    border-style: dashed;
+}
+
+.skill-node-raw.unlocked {
+    border-color: var(--chalk-white);
+    transform: scale(1.02) rotate(1deg);
+}
+
+.skill-node-raw.maxed {
+    border-color: var(--accent-color);
+    background: #000;
+    box-shadow: inset 0 0 15px rgba(255,255,255,0.05);
+    transform: scale(1.04) rotate(-1.5deg);
+}
+
+/* Unique Stylized Skill Text Markup */
+.node-display-glyph {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #444;
+}
+.skill-node-raw.unlocked .node-display-glyph,
+.skill-node-raw.maxed .node-display-glyph {
+    color: var(--accent-color);
+}
+
+.node-title-raw {
+    font-size: 0.85rem;
+    font-weight: bold;
+    line-height: 1.2;
+    height: 2.4rem;
+    overflow: hidden;
+    color: #888;
+}
+.skill-node-raw.unlocked .node-title-raw,
+.skill-node-raw.maxed .node-title-raw {
+    color: var(--chalk-white);
+}
+
+.node-rank-raw {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-align: right;
+    color: #444;
+}
+.skill-node-raw.unlocked .node-rank-raw { color: var(--chalk-white); }
+.skill-node-raw.maxed .node-rank-raw { color: var(--accent-color); }
+
+/* Absolute Expressive Hover Tooltip Panel overlay */
+.node-tooltip-raw {
+    display: none;
+    position: absolute;
+    bottom: 115%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    background: var(--chalk-white);
+    color: var(--ink-black);
+    border: 3px solid var(--ink-black);
+    padding: 0.85rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    z-index: 1000;
+    box-shadow: 5px 5px 0px var(--ink-black);
+    pointer-events: none;
+}
+
+.node-tooltip-raw::after {
+    content: '';
+    position: absolute;
+    top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: var(--ink-black) transparent transparent transparent;
+}
+
+.skill-node-raw:hover .node-tooltip-raw {
+    display: block;
+}
+
+.tooltip-action-alert {
+    margin-top: 0.5rem;
+    font-weight: bold;
+    color: #e11d48;
+    border-top: 1px dotted #ccc;
+    padding-top: 0.25rem;
+    text-transform: uppercase;
+}
+
+/* Dangerous Destruction Reset Elements */
+#canvas-footer {
+    text-align: center;
+    padding: 3rem 0;
+    background: var(--ink-black);
+    border-top: 4px solid var(--chalk-white);
+}
+
+#nuke-system-btn {
+    font-family: 'Permanent Marker', cursive;
+    background: transparent;
+    color: #555;
+    border: 2px dashed #333;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#nuke-system-btn:hover {
+    color: #fff;
+    background: #e11d48;
+    border-color: var(--chalk-white);
+    transform: scale(1.05) rotate(-1deg);
+    box-shadow: 0 0 20px #e11d48;
+}
+
+.skull-glyph { font-size: 1.2rem; }
