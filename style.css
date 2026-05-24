@@ -1,38 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Special+Elite&display=swap');
 
 :root {
-    --bg-canvas: #1c1f22;
-    --panel-dark: #121416;
-    --chalk-white: #f5f5f5;
-    --ink-black: #080808;
+    --bg-canvas: #16181a;
+    --panel-wood: #222529;
+    --chalk-white: #fcfaf2; /* Raw oil pastel white */
+    --ink-black: #050505;
 }
 
 body {
     background-color: var(--bg-canvas);
     color: var(--chalk-white);
-    font-family: 'Space Mono', monospace;
+    font-family: 'Special Elite', system-ui, monospace;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     position: relative;
 }
 
-/* Layered Sketch Background Texture */
+/* Street Art Textures and Charcoal Smudges */
 .canvas-grain {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
-    opacity: 0.04;
-    background-image: radial-gradient(var(--chalk-white) 1px, transparent 0);
-    background-size: 8px 8px;
-    z-index: -1;
+    opacity: 0.08;
+    background-image: radial-gradient(#fff 1px, transparent 0), radial-gradient(#000 1px, transparent 0);
+    background-size: 12px 12px;
+    background-position: 0 0, 6px 6px;
+    z-index: -2;
     pointer-events: none;
 }
 
-/* Expressive Basquiat HUD Layout */
+.street-smudge {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    opacity: 0.15;
+    pointer-events: none;
+}
+.smudge-1 { top: 10%; left: 5%; width: 400px; height: 400px; background: #e11d48; }
+.smudge-2 { bottom: 20%; right: 5%; width: 500px; height: 500px; background: #eab308; }
+
+/* Crossed-Out Words (Basquiat Technique: Cross words out so they get read more) */
+.crossed-text {
+    text-decoration: line-through solid #e11d48 4px;
+    color: #666;
+    margin-right: 8px;
+}
+
+/* Raw Bebop Jazz HUD Layout */
 #basquiat-hud {
-    background: var(--panel-dark);
-    padding: 2rem 2rem 0 2rem;
-    border-bottom: 4px solid var(--chalk-white);
+    background: var(--ink-black);
+    padding: 2.5rem 2rem 0 2rem;
+    border-bottom: 8px ridge #444;
     position: relative;
 }
 
@@ -43,87 +62,112 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 #canvas-title {
     font-family: 'Permanent Marker', cursive;
-    font-size: 2.5rem;
-    letter-spacing: 2px;
-    margin: 0;
+    font-size: 3.2rem;
+    line-height: 0.9;
+    letter-spacing: -1px;
+    margin: 0 0 0.5rem 0;
     color: var(--chalk-white);
-    text-shadow: 2px 2px 0px #e11d48;
+    text-transform: uppercase;
+    transform: skewX(-4deg);
 }
 
-.streak-scribble {
-    font-size: 0.9rem;
+.crossed-out-poetry {
+    font-size: 1rem;
+    letter-spacing: 2px;
     font-weight: bold;
-    color: #eab308;
-    text-decoration: underline cubic-bezier(0.4, 0, 0.2, 1) wavy;
 }
 
 .crown-level-box {
     text-align: center;
     position: relative;
+    background: #eab308;
+    color: #000;
+    padding: 10px 20px;
+    border: 4px solid var(--chalk-white);
+    transform: rotate(-4deg) scale(1.1);
 }
 
 .basquiat-crown {
-    font-size: 2.2rem;
-    animation: crownFloat 3s ease-in-out infinite;
-    margin-bottom: -5px;
-}
-
-@keyframes crownFloat {
-    0%, 100% { transform: translateY(0) rotate(-5deg); }
-    50% { transform: translateY(-6px) rotate(5deg); }
+    font-size: 3rem;
+    position: absolute;
+    top: -38px;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 1;
 }
 
 .level-badge {
     font-family: 'Permanent Marker', cursive;
-    font-size: 1.8rem;
-    border: 3px solid var(--chalk-white);
-    padding: 2px 12px;
-    transform: rotate(-2deg);
-    background: var(--ink-black);
+    font-size: 2.2rem;
+    margin-top: 5px;
 }
 
 .points-box {
-    border: 4px dashed var(--chalk-white);
-    padding: 0.5rem 1.5rem;
-    text-align: center;
-    transform: rotate(3deg);
-    background: #000;
+    border: 5px solid #2563eb;
+    padding: 0.75rem 2rem;
+    text-align: left;
+    transform: rotate(2deg);
+    background: var(--panel-wood);
 }
 
 #hud-points {
     font-family: 'Permanent Marker', cursive;
-    font-size: 2.2rem;
-    color: #2563eb;
+    font-size: 3rem;
+    color: var(--chalk-white);
+    line-height: 1;
 }
 
 .points-label {
-    font-size: 0.7rem;
-    font-weight: bold;
+    font-size: 0.75rem;
     letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
-/* Raw Chalk XP Fill Line */
-.xp-container-raw {
+.cryptic-subtext {
+    font-size: 0.7rem;
+    color: #888;
+    margin-top: 4px;
+}
+
+/* X-Ray / Anatomical Skeleton Progress Bar */
+.xp-container-skeletal {
     width: calc(100% + 4rem);
     margin-left: -2rem;
-    background: #000;
-    height: 28px;
-    margin-top: 2rem;
+    background: #111;
+    height: 35px;
+    margin-top: 2.5rem;
     position: relative;
-    border-top: 3px solid var(--chalk-white);
+    border-top: 5px solid var(--chalk-white);
+    overflow: hidden;
 }
 
 #xp-fill-raw {
-    background: #e11d48;
+    background: #e11d48; /* Red muscle tissue underlying */
     height: 100%;
     width: 0%;
-    transition: width 0.5s cubic-bezier(0.15, 0.85, 0.45, 1);
-    border-right: 3px solid var(--chalk-white);
+    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.ribcage-lines {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    pointer-events: none;
+}
+
+.ribcage-lines span {
+    width: 4px;
+    height: 80%;
+    background: var(--chalk-white);
+    opacity: 0.4;
 }
 
 .xp-counter-label {
@@ -132,50 +176,66 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.8rem;
-    font-weight: bold;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
     color: var(--chalk-white);
     mix-blend-mode: difference;
 }
 
-/* Form Styling */
+/* Chaotic Input Form Console */
 #input-console-raw {
-    max-width: 800px;
-    margin: 3rem auto;
+    max-width: 900px;
+    margin: 4rem auto;
     padding: 0 1.5rem;
 }
 
 #task-form {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
-    background: #000;
-    padding: 1rem;
-    border: 3px solid var(--chalk-white);
-    transform: rotate(-1deg);
-    box-shadow: 6px 6px 0px var(--ink-black);
+    gap: 1.5rem;
+    background: var(--ink-black);
+    padding: 1.5rem;
+    border: 5px solid #fff;
+    transform: rotate(1deg);
+}
+
+.input-wrapper-chaotic {
+    flex: 1;
+    min-width: 300px;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 #task-desc {
-    flex: 1;
-    min-width: 250px;
+    width: 100%;
     background: transparent;
     border: none;
-    border-bottom: 2px dashed var(--chalk-white);
+    border-bottom: 4px solid var(--chalk-white);
     color: #fff;
     font-family: inherit;
-    padding: 0.5rem;
-    font-size: 1rem;
+    padding: 0.75rem 0;
+    font-size: 1.1rem;
 }
 
-#task-desc:focus { outline: none; border-bottom-style: solid; }
+#task-desc:focus { outline: none; border-bottom-color: #e11d48; }
+
+.input-scratch-mark {
+    position: absolute;
+    right: 10px;
+    color: #e11d48;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.2rem;
+}
 
 #task-diff {
-    background: var(--panel-dark);
-    border: 2px solid var(--chalk-white);
+    background: var(--panel-wood);
+    border: 3px solid var(--chalk-white);
     color: #fff;
     font-family: inherit;
-    padding: 0.5rem;
+    padding: 0.75rem;
+    font-size: 1rem;
     cursor: pointer;
 }
 
@@ -183,131 +243,144 @@ body {
     font-family: 'Permanent Marker', cursive;
     background: #fff;
     color: #000;
-    border: 2px solid #000;
-    font-size: 1.1rem;
-    padding: 0.5rem 1.5rem;
+    border: 3px solid #000;
+    font-size: 1.3rem;
+    padding: 0.5rem 2rem;
     cursor: pointer;
-    transition: transform 0.1s;
+    transform: rotate(-2deg);
 }
 
 #task-form button:hover {
+    background: #2563eb;
+    color: #fff;
     transform: scale(1.05) rotate(2deg);
-    background: #eab308;
 }
 
-/* Structural Chaos Grid Matrix */
+/* Asymmetric Mixed-Media Columns (Looks like discarded canvas doors) */
 #canvas-matrix {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-    gap: 3rem;
+    gap: 4rem;
     max-width: 1600px;
     margin: 0 auto;
-    padding: 0 2rem 6rem 2rem;
+    padding: 0 2rem 8rem 2rem;
 }
 
-.matrix-column {
+.scrap-panel {
     background: var(--ink-black);
-    border: 4px solid var(--chalk-white);
-    padding: 2rem 1.5rem;
+    border: 6px solid var(--chalk-white);
+    padding: 2.5rem 1.5rem;
     position: relative;
-    box-shadow: 10px 10px 0px rgba(0,0,0,0.4);
+    transform: rotate(var(--rotate-deg));
+    outline: 4px solid var(--ink-black);
 }
 
-#col-crucible { transform: rotate(-0.5deg); }
-#col-weave { transform: rotate(0.6deg); }
-#col-wildcard { transform: rotate(-0.3deg); }
+/* Splattered background accents inside the cards */
+.scrap-panel::before {
+    content: 'SKULL // BONES';
+    position: absolute;
+    bottom: 10px; right: 10px;
+    font-size: 2.5rem;
+    font-family: 'Permanent Marker', cursive;
+    color: rgba(255,255,255,0.02);
+    pointer-events: none;
+}
 
 .column-header-raw {
-    text-align: center;
-    border-bottom: 3px double var(--chalk-white);
+    text-align: left;
+    border-bottom: 5px dashed var(--accent-color);
     padding-bottom: 1.5rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
 }
 
 .tree-glyph {
     font-family: 'Permanent Marker', cursive;
-    font-size: 3rem;
+    font-size: 4rem;
+    line-height: 1;
     color: var(--accent-color);
-    margin-bottom: -0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .column-header-raw h2 {
     font-family: 'Permanent Marker', cursive;
-    font-size: 1.6rem;
-    margin: 0.5rem 0 0 0;
-    letter-spacing: 1px;
+    font-size: 2.2rem;
+    margin: 0;
+    letter-spacing: -1px;
 }
 
 .sub-label {
-    margin: 0.3rem 0 0 0;
-    font-size: 0.75rem;
-    color: #777;
-    text-transform: uppercase;
+    margin: 0.5rem 0 0 0;
+    font-size: 0.8rem;
+    color: #aaa;
+    font-weight: bold;
 }
 
-/* Vertical Tier Layout Core */
+/* Improvisational Node Layout Layers */
 .tiers-container-raw {
     display: flex;
-    flex-direction: column-reverse; /* Tier 1 at baseline base */
-    gap: 2rem;
+    flex-direction: column-reverse; /* Tier 1 at baseline bottom */
+    gap: 2.5rem;
 }
 
 .tier-row-raw {
     display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    position: relative;
+    justify-content: space-between;
+    gap: 1rem;
 }
 
-/* Expressive Basquiat Node Canvas Units */
+/* Basquiat Anatomical Node Plates */
 .skill-node-raw {
-    background: var(--panel-dark);
-    border: 3px solid #333;
-    padding: 1rem;
+    background: var(--panel-wood);
+    border: 4px solid #3a3a3a;
+    padding: 1.25rem 1rem;
     width: 100%;
-    max-width: 200px;
-    text-align: left;
+    position: relative;
     cursor: pointer;
     user-select: none;
-    position: relative;
-    transition: transform 0.2s, border-color 0.2s;
+    transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .skill-node-raw.available {
     border-color: #666;
-    border-style: dashed;
+    border-style: dotted;
 }
 
 .skill-node-raw.unlocked {
     border-color: var(--chalk-white);
-    transform: scale(1.02) rotate(1deg);
+    background: #000;
+    transform: rotate(1.5deg) scale(1.02);
+    box-shadow: -5px 5px 0px var(--accent-color);
 }
 
 .skill-node-raw.maxed {
     border-color: var(--accent-color);
-    background: #000;
-    box-shadow: inset 0 0 15px rgba(255,255,255,0.05);
-    transform: scale(1.04) rotate(-1.5deg);
+    background: var(--ink-black);
+    transform: rotate(-2deg) scale(1.05);
+    box-shadow: 6px 6px 0px var(--chalk-white);
 }
 
-/* Unique Stylized Skill Text Markup */
+/* Skeletal/Muscular Visual Indicators inside Nodes */
 .node-display-glyph {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 0.75rem;
     color: #444;
+    transition: color 0.2s;
 }
 .skill-node-raw.unlocked .node-display-glyph,
 .skill-node-raw.maxed .node-display-glyph {
     color: var(--accent-color);
+    text-shadow: 2px 2px 0px #000;
 }
 
 .node-title-raw {
-    font-size: 0.85rem;
-    font-weight: bold;
-    line-height: 1.2;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 0.95rem;
+    line-height: 1.1;
     height: 2.4rem;
     overflow: hidden;
-    color: #888;
+    color: #666;
 }
 .skill-node-raw.unlocked .node-title-raw,
 .skill-node-raw.maxed .node-title-raw {
@@ -316,31 +389,31 @@ body {
 
 .node-rank-raw {
     font-family: 'Permanent Marker', cursive;
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    margin-top: 0.75rem;
     text-align: right;
-    color: #444;
+    color: #333;
 }
 .skill-node-raw.unlocked .node-rank-raw { color: var(--chalk-white); }
 .skill-node-raw.maxed .node-rank-raw { color: var(--accent-color); }
 
-/* Absolute Expressive Hover Tooltip Panel overlay */
+/* Absolute Street Poet Tooltip Boxes */
 .node-tooltip-raw {
     display: none;
     position: absolute;
-    bottom: 115%;
+    bottom: 120%;
     left: 50%;
     transform: translateX(-50%);
-    width: 260px;
+    width: 280px;
     background: var(--chalk-white);
     color: var(--ink-black);
-    border: 3px solid var(--ink-black);
-    padding: 0.85rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
+    border: 5px solid var(--ink-black);
+    padding: 1rem;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.8rem;
     line-height: 1.4;
     z-index: 1000;
-    box-shadow: 5px 5px 0px var(--ink-black);
+    box-shadow: 8px 8px 0px var(--accent-color);
     pointer-events: none;
 }
 
@@ -349,7 +422,7 @@ body {
     position: absolute;
     top: 100%; left: 50%;
     transform: translateX(-50%);
-    border-width: 8px;
+    border-width: 10px;
     border-style: solid;
     border-color: var(--ink-black) transparent transparent transparent;
 }
@@ -359,39 +432,47 @@ body {
 }
 
 .tooltip-action-alert {
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
     font-weight: bold;
-    color: #e11d48;
-    border-top: 1px dotted #ccc;
-    padding-top: 0.25rem;
-    text-transform: uppercase;
+    color: #fff;
+    background: #000;
+    padding: 4px;
+    text-align: center;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
 }
 
-/* Dangerous Destruction Reset Elements */
+/* Nuke Box Footer */
 #canvas-footer {
     text-align: center;
-    padding: 3rem 0;
+    padding: 4rem 0;
     background: var(--ink-black);
-    border-top: 4px solid var(--chalk-white);
+    border-top: 6px solid var(--chalk-white);
 }
 
 #nuke-system-btn {
     font-family: 'Permanent Marker', cursive;
     background: transparent;
-    color: #555;
-    border: 2px dashed #333;
-    padding: 0.75rem 2rem;
-    font-size: 1rem;
+    color: #444;
+    border: 4px solid #222;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
     cursor: pointer;
     transition: all 0.2s;
+    transform: rotate(0.5deg);
 }
 
 #nuke-system-btn:hover {
-    color: #fff;
-    background: #e11d48;
-    border-color: var(--chalk-white);
-    transform: scale(1.05) rotate(-1deg);
-    box-shadow: 0 0 20px #e11d48;
+    color: #000;
+    background: var(--chalk-white);
+    border-color: #e11d48;
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: -10px 10px 0px #e11d48;
 }
 
-.skull-glyph { font-size: 1.2rem; }
+.footer-scribbles {
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    color: #444;
+    letter-spacing: 3px;
+}
