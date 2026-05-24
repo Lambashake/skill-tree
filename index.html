@@ -3,105 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BASQUIAT // ARCHETYPE CANVAS</title>
+    <title>ODYSSEY // SKILL ARCHETYPE</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Layered Street Textures & Discarded Wood Gradients -->
-    <div class="canvas-grain"></div>
-    <div class="street-smudge smudge-1"></div>
-    <div class="street-smudge smudge-2"></div>
+    <!-- Cinematic Background Ambient Layers -->
+    <div class="bg-overlay"></div>
+    <div class="dust-particles"></div>
 
-    <!-- Raw Bebop HUD -->
-    <header id="basquiat-hud">
-        <div class="hud-main">
-            <div class="identity-block">
-                <h1 id="canvas-title">SYSTEM ARCHETYPE</h1>
-                <div class="crossed-out-poetry">
-                    <span class="crossed-text">SAMO©</span> <span>STREAK:</span> <span id="hud-streak">0</span> <span>DAYS ALIVE</span>
+    <!-- Premium Epic HUD -->
+    <header id="odyssey-hud">
+        <div class="hud-container">
+            <!-- Left Side: User Persona & Level Badge -->
+            <div class="hud-left">
+                <div class="level-shield">
+                    <span class="shield-laurel">❖</span>
+                    <span id="hud-level">1</span>
+                </div>
+                <div class="identity-details">
+                    <h1 id="canvas-title">GAME DESIGNER & EDUCATOR</h1>
+                    <div class="archetype-label">SYSTEM ARCHETYPE // LEVEL PROGRESS</div>
                 </div>
             </div>
             
-            <div class="crown-level-box">
-                <div class="basquiat-crown">👑</div>
-                <div class="level-badge">LVL <span id="hud-level">1</span></div>
-            </div>
-
-            <div class="points-box">
-                <div id="hud-points">3</div>
-                <div class="points-label">SPARK POINTS AVAILABLE</div>
-                <div class="cryptic-subtext">💵 $̶1̶0̶0̶0̶ ̶N̶E̶W̶ ̶Y̶O̶R̶K̶</div>
+            <!-- Right Side: Ability Points Available -->
+            <div class="hud-right">
+                <div class="points-counter-container">
+                    <div class="points-label">ABILITY POINTS AVAILABLE</div>
+                    <div id="hud-points" class="points-glow">3</div>
+                </div>
             </div>
         </div>
 
-        <!-- X-Ray / Skeletal Ribcage XP Progress Bar -->
-        <div class="xp-container-skeletal">
-            <div id="xp-fill-raw"></div>
-            <div class="ribcage-lines">
-                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <!-- Sleek Geometric Experience Bar -->
+        <div class="xp-bar-wrapper">
+            <div class="xp-track">
+                <div id="xp-fill"></div>
+                <div class="xp-markers">
+                    <span></span><span></span><span></span><span></span>
+                </div>
             </div>
-            <div class="xp-counter-label"><span id="hud-xp-current">0</span> // <span id="hud-xp-needed">500</span> XP (BLOOD / BONE)</div>
+            <div class="xp-text-display">
+                <span id="hud-xp-current">0</span> / <span id="hud-xp-needed">500</span> XP // <span class="streak-highlight">STREAK: <span id="hud-streak">0</span> DAYS</span>
+            </div>
         </div>
     </header>
 
-    <!-- Frantic Scribble Input Console -->
-    <section id="input-console-raw">
+    <!-- Sleek Minimalist Quest Logger (Input Console) -->
+    <section id="quest-logger-console">
         <form id="task-form" onsubmit="event.preventDefault(); handleFormSubmit();">
-            <div class="input-wrapper-chaotic">
-                <input type="text" id="task-desc" placeholder="SCRIBBLE A COMPLETED TASK TO COMMUNICATE..." required>
-                <span class="input-scratch-mark">✗ ✗ ✗</span>
+            <div class="input-container-sleek">
+                <input type="text" id="task-desc" placeholder="RECORD A COMPLETED ODYSSEY CONTRACT..." required>
+                <div class="input-accent-line"></div>
             </div>
-            <select id="task-diff">
-                <option value="1">TIER 1 [TRIVIAL CHIPS]</option>
-                <option value="2">TIER 2 [MINOR FRACTURE]</option>
-                <option value="3">TIER 3 [MODERATE WEIGHT]</option>
-                <option value="4">TIER 4 [DEMANDING MUSCLE]</option>
-                <option value="5">TIER 5 [HEROIC SKULL]</option>
-            </select>
-            <button type="submit">COMPILE + BURN</button>
+            <div class="select-container-sleek">
+                <select id="task-diff">
+                    <option value="1">TIER I [TRIVIAL BOUNTY]</option>
+                    <option value="2">TIER II [MINOR ENCOUNTER]</option>
+                    <option value="3">TIER III [CHOSEN QUEST]</option>
+                    <option value="4">TIER IV [HEROIC CONFLICT]</option>
+                    <option value="5">TIER V [LEGENDARY CONQUEST]</option>
+                </select>
+            </div>
+            <button type="submit" class="odyssey-btn-gold">ENGRAVE + RECORD</button>
         </form>
     </section>
 
-    <!-- Mixed-Media Scrap Wood Grid -->
+    <!-- Mythic Three-Tiered Skill Tree Matrix -->
     <main id="canvas-matrix">
-        <!-- Panel 1: The Crucible (Blood Red Neo-Expressionism) -->
-        <div class="matrix-column scrap-panel" id="col-crucible" style="--accent-color: #e11d48; --rotate-deg: -1.5deg;">
-            <div class="column-header-raw">
-                <div class="tree-glyph">⎋</div>
+        
+        <!-- Pillar 1: The Crucible (The Hunter / Systems & Hope) -->
+        <div class="matrix-column pillar-card" id="col-crucible" style="--pillar-gold: #ffcc00; --pillar-glow: rgba(255, 204, 0, 0.15);">
+            <div class="pillar-header">
+                <div class="pillar-icon">🔱</div>
                 <h2>THE CRUCIBLE</h2>
-                <p class="sub-label">S̶Y̶S̶T̶E̶M̶S̶ + RADICAL HOPE [HOPE] [HOPE]</p>
+                <div class="pillar-sub">SYSTEMS & RADICAL HOPE</div>
             </div>
             <div class="tiers-container-raw" id="nodes-crucible"></div>
         </div>
 
-        <!-- Panel 2: The Weave (Cadmium Yellow Oil Pastel) -->
-        <div class="matrix-column scrap-panel" id="col-weave" style="--accent-color: #eab308; --rotate-deg: 1.2deg;">
-            <div class="column-header-raw">
-                <div class="tree-glyph">⌥</div>
+        <!-- Pillar 2: The Weave (The Assassin / Creative & Textures) -->
+        <div class="matrix-column pillar-card" id="col-weave" style="--pillar-gold: #e5c158; --pillar-glow: rgba(229, 193, 88, 0.15);">
+            <div class="pillar-header">
+                <div class="pillar-icon">🦅</div>
                 <h2>THE WEAVE</h2>
-                <p class="sub-label">WRITING / DIALECTICS / TEXTURE</p>
+                <div class="pillar-sub">WRITING & DIALECTICS</div>
             </div>
             <div class="tiers-container-raw" id="nodes-weave"></div>
         </div>
 
-        <!-- Panel 3: The Wild Card (Electric Cobalt Blue Street Fragment) -->
-        <div class="matrix-column scrap-panel" id="col-wildcard" style="--accent-color: #2563eb; --rotate-deg: -0.8deg;">
-            <div class="column-header-raw">
-                <div class="tree-glyph">◇</div>
+        <!-- Pillar 3: The Wild Card (The Warrior / Catalyst & Sound) -->
+        <div class="matrix-column pillar-card" id="col-wildcard" style="--pillar-gold: #c5a059; --pillar-glow: rgba(197, 160, 89, 0.15);">
+            <div class="pillar-header">
+                <div class="pillar-icon">⚔️</div>
                 <h2>THE WILD CARD</h2>
-                <p class="sub-label">CATALYSTS & BIO-VESSEL OPTIMIZATION</p>
+                <div class="pillar-sub">CATALYSTS & SOUND</div>
             </div>
             <div class="tiers-container-raw" id="nodes-wildcard"></div>
         </div>
+
     </main>
 
-    <!-- Traditional Scrap Box Reset Nuke -->
+    <!-- Clean Premium Reset Footer -->
     <footer id="canvas-footer">
         <button id="nuke-system-btn" onclick="triggerSystemReset()">
-            <span class="skull-glyph">💀</span> DESTRUCTION OF DATA (REQUIRES CONFIRMATION)
+            RESET ALL ABILITIES
         </button>
-        <div class="footer-scribbles">☠ PLATO'S CAVE / 1983 / OIL ON SCRAP WOOD ☠</div>
+        <div class="footer-fineprint">© 431 BCE // ARCHETYPE DEVELOPMENT MATRIX</div>
     </footer>
 
     <script src="script.js"></script>
