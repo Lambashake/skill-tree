@@ -380,7 +380,18 @@ function triggerSystemReset() {
 // Pure Interface Paint Pipeline
 function paintGridUI() {
     document.getElementById('hud-level').innerText = gridState.profile.level;
-    document.getElementById('hud-points').innerText = gridState.profile.skillPoints;
+    const pointsInput = document.getElementById('hud-points-input');
+    if (pointsInput) {
+        // Sets the number inside the input field
+        pointsInput.value = gridState.profile.skillPoints;
+        
+        // Listens for manual changes you type in, saves them, and rerenders
+        pointsInput.onchange = (e) => {
+            const newPoints = parseInt(e.target.value);
+            gridState.profile.skillPoints = isNaN(newPoints) ? 0 : newPoints;
+            localStorage.setItem('tron_grid_save_matrix_v3', JSON.stringify(gridState));
+        };
+    }
     document.getElementById('hud-streak').innerText = gridState.streaks.currentStreak;
     document.getElementById('hud-xp-current').innerText = gridState.profile.currentXp;
     
