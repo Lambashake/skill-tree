@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap');
 
-/* TRON Vector Variable Light Matrix Profiles */
+/* ==========================================================================
+   1. TRON SYSTEM VARIABLES & CONFIGS
+   ========================================================================== */
 body[data-theme="cyan"]   { --neon-core: #00f0ff; --neon-glow: rgba(0, 240, 255, 0.4); }
 body[data-theme="orange"] { --neon-core: #ff6c00; --neon-glow: rgba(255, 108, 0, 0.4); }
 body[data-theme="pink"]   { --neon-core: #ff007c; --neon-glow: rgba(255, 0, 124, 0.4); }
@@ -15,12 +17,16 @@ body[data-theme="green"]  { --neon-core: #00ff66; --neon-glow: rgba(0, 255, 102,
     --text-muted: #3a4f66;
 }
 
+/* ==========================================================================
+   2. CORE FRAMEWORK & BACKGROUND ARCHITECTURE
+   ========================================================================== */
 body {
     background-color: var(--grid-dark);
     color: var(--text-primary);
     font-family: 'Rajdhani', sans-serif;
     font-weight: 500;
-    margin: 0; padding: 0;
+    margin: 0; 
+    padding: 0;
     overflow-x: hidden;
     position: relative;
     letter-spacing: 0.5px;
@@ -38,7 +44,9 @@ body {
     pointer-events: none;
 }
 
-/* Main Frame HUD Navigation Layout */
+/* ==========================================================================
+   3. MAIN HUD FRAME & NAVIGATION
+   ========================================================================== */
 #tron-hud {
     background: linear-gradient(to bottom, #04080e, var(--grid-dark));
     border-bottom: 2px solid var(--neon-core);
@@ -87,6 +95,23 @@ body {
     letter-spacing: 1.5px;
 }
 
+.archetype-input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    width: 100%;
+    outline: none;
+    border-bottom: 2px solid transparent;
+}
+
+.archetype-input:focus {
+    border-bottom: 2px solid var(--neon-core);
+}
+
 .grid-subtext {
     font-size: 0.75rem;
     color: var(--text-muted);
@@ -94,7 +119,7 @@ body {
     margin-top: 0.2rem;
 }
 
-/* Customizer Dropdown Deck Selector Console */
+/* Theme Dropdown Selector Console */
 .theme-console {
     display: flex;
     align-items: center;
@@ -150,7 +175,9 @@ body {
     text-shadow: 0 0 8px var(--neon-core), 0 0 15px var(--neon-glow);
 }
 
-/* Trace Rails Progress Bar Vector Layout */
+/* ==========================================================================
+   4. PROGRESS TRACK RAILS
+   ========================================================================== */
 .vector-bar-wrapper {
     max-width: 1400px;
     margin: 1rem auto 0 auto;
@@ -178,7 +205,9 @@ body {
     transition: width 0.4s ease-out;
 }
 
-/* Command Entry Input Deck */
+/* ==========================================================================
+   5. COMMAND ENTRY CONSOLE
+   ========================================================================== */
 #input-terminal-deck {
     max-width: 1400px;
     margin: 2rem auto;
@@ -222,6 +251,7 @@ body {
     cursor: pointer;
 }
 
+/* Buttons */
 .tron-btn {
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
@@ -242,19 +272,9 @@ body {
     box-shadow: 0 0 15px var(--neon-core);
 }
 
-.tron-btn.min-padding {
-    padding: 0.25rem 1rem;
-}
-
-.tron-btn.secondary {
-    border-color: var(--text-muted);
-    color: var(--text-primary);
-    box-shadow: none;
-}
-.tron-btn.secondary:hover {
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-}
+.tron-btn.min-padding { padding: 0.25rem 1rem; }
+.tron-btn.secondary { border-color: var(--text-muted); color: var(--text-primary); box-shadow: none; }
+.tron-btn.secondary:hover { background: rgba(255,255,255,0.1); color: #fff; }
 
 .text-accent-red {
     border-color: #ff0055 !important;
@@ -267,10 +287,11 @@ body {
     box-shadow: 0 0 15px #ff0055 !important;
 }
 
-/* Corrected Baseline Alignment Grid System Network Wrapper */
+/* ==========================================================================
+   6. MATRIX GRID & SECTOR NODES
+   ========================================================================== */
 #grid-network {
     display: grid;
-    /* Forces 3 equal columns on desktop */
     grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem;
     max-width: 1400px;
@@ -278,19 +299,9 @@ body {
     padding: 0 3rem 16rem 3rem; 
     position: relative;
     z-index: 5;
-    align-items: stretch; /* Forces equal height columns */
+    align-items: stretch;
 }
 
-.sector-column {
-    background: rgba(6, 11, 19, 0.85);
-    border: 1px solid var(--grid-border);
-    padding: 1.5rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Light Laser Tube Header Lines */
 .sector-column {
     background: rgba(6, 11, 19, 0.85);
     border: 1px solid var(--grid-border);
@@ -328,6 +339,7 @@ body {
     cursor: pointer;
     transition: color 0.2s, transform 0.2s;
 }
+
 .sector-config-btn:hover {
     color: var(--neon-core);
     transform: rotate(45deg);
@@ -350,7 +362,7 @@ body {
     flex-grow: 1;
 }
 
-/* Row-Based Interactive Skill Matrices */
+/* Interactive Matrix Rows */
 .tron-node-row {
     background: rgba(2, 4, 8, 0.9);
     border: 1px solid var(--grid-border);
@@ -359,7 +371,7 @@ body {
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    height: 70px; /* Added for uniform box height */
+    height: 70px; 
     box-sizing: border-box; 
     user-select: none;
     position: relative;
@@ -380,7 +392,7 @@ body {
     pointer-events: none; 
 }
 
-/* Re-Engineered CSS Mask Engine using %22 safe encoding */
+/* Vector Asset Icon Masks */
 .css-mask-icon {
     width: 24px;
     height: 24px;
@@ -394,7 +406,7 @@ body {
     transition: background-color 0.2s, filter 0.2s;
 }
 
-/* State Changes Mapping Dynamically to Chosen Neon Color Profiles */
+/* Dynamic State Classes */
 .tron-node-row.has-points {
     border-color: var(--neon-core);
 }
@@ -422,6 +434,7 @@ body {
     color: #9bb1cc;
     transition: color 0.2s;
 }
+
 .tron-node-row:hover .node-string-title { color: #fff; }
 .tron-node-row.maxed .node-string-title { font-weight: 700; color: #fff; }
 
@@ -431,7 +444,6 @@ body {
     gap: 0.75rem;
 }
 
-/* Node Customization Gear Trigger */
 .node-config-gear-trigger {
     background: transparent;
     border: none;
@@ -442,6 +454,7 @@ body {
     transition: color 0.2s, transform 0.2s;
     z-index: 12;
 }
+
 .node-config-gear-trigger:hover {
     color: var(--neon-core);
     transform: rotate(45deg);
@@ -457,10 +470,11 @@ body {
     pointer-events: none;
     transition: color 0.2s;
 }
+
 .tron-node-row.has-points .node-charge-pip { color: var(--neon-core); text-shadow: 0 0 5px var(--neon-core); }
 .tron-node-row.maxed .node-charge-pip { color: #fff; text-shadow: 0 0 8px #fff; }
 
-/* Dynamic Vector Insertion Fields */
+/* Dynamic Field Injectors */
 .dynamic-node-injector {
     margin-top: 1.5rem;
     border-top: 1px dashed var(--grid-border);
@@ -478,6 +492,7 @@ body {
     cursor: pointer;
     transition: all 0.2s;
 }
+
 .injector-toggle-btn:hover {
     border-color: var(--neon-core);
     color: var(--neon-core);
@@ -493,11 +508,10 @@ body {
     border: 1px solid var(--grid-border);
 }
 
-.injector-form-panel.active {
-    display: flex;
-}
+.injector-form-panel.active { display: flex; }
 
-.injector-form-panel input, .injector-form-panel textarea {
+.injector-form-panel input, 
+.injector-form-panel textarea {
     background: #020408;
     border: 1px solid var(--grid-border);
     color: #fff;
@@ -506,7 +520,9 @@ body {
     padding: 0.4rem;
     outline: none;
 }
-.injector-form-panel input:focus, .injector-form-panel textarea:focus {
+
+.injector-form-panel input:focus, 
+.injector-form-panel textarea:focus {
     border-color: var(--neon-core);
 }
 
@@ -514,13 +530,26 @@ body {
     display: flex;
     gap: 0.5rem;
 }
+
 .injector-row-group input {
     width: 60px;
     text-align: center;
     font-family: 'Orbitron', sans-serif;
 }
 
-/* High-Tech Terminal Modification Overlay Frame */
+.task-description-box {
+    display: none;
+    font-size: 0.8rem;
+    color: #a4b7cd;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    margin-top: 5px;
+    border: 1px solid var(--grid-border);
+}
+
+/* ==========================================================================
+   7. MODALS OVERLAYS & TOOLTIPS
+   ========================================================================== */
 .editor-modal-overlay {
     display: none;
     position: fixed;
@@ -531,17 +560,16 @@ body {
     align-items: center;
     justify-content: center;
 }
-.editor-modal-overlay.active {
-    display: flex;
-}
+
+.editor-modal-overlay.active { display: flex; }
 
 .editor-modal-box {
     background: var(--grid-panel);
     border: 1px solid var(--neon-core);
     box-shadow: 0 0 30px var(--neon-glow);
-    width: 90%;          /* Changed from fixed pixels to percentage */
-    max-width: 400px;    /* Keeps it from getting too big on desktop */
-    padding: 1.5rem;     /* Slightly smaller padding for mobile */
+    width: 90%;
+    max-width: 400px;
+    padding: 1.5rem;
     position: relative;
 }
 
@@ -559,12 +587,15 @@ body {
     gap: 0.35rem;
     margin-bottom: 1.25rem;
 }
+
 .modal-field label {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.7rem;
     color: var(--text-muted);
 }
-.modal-field input, .modal-field textarea {
+
+.modal-field input, 
+.modal-field textarea {
     background: #020408;
     border: 1px solid var(--grid-border);
     color: #fff;
@@ -573,7 +604,9 @@ body {
     font-size: 0.9rem;
     outline: none;
 }
-.modal-field input:focus, .modal-field textarea:focus {
+
+.modal-field input:focus, 
+.modal-field textarea:focus {
     border-color: var(--neon-core);
 }
 
@@ -583,12 +616,13 @@ body {
     align-items: center;
     margin-top: 2rem;
 }
+
 .modal-right-buttons {
     display: flex;
     gap: 0.75rem;
 }
 
-/* Fixed Viewport Target Tooltip Card Overlay Frame */
+/* Fixed HUD Tooltip Card System */
 .fixed-tooltip-frame {
     position: fixed;
     bottom: 2rem;
@@ -605,7 +639,7 @@ body {
     transition: border-color 0.2s;
 }
 
-/* Tron-Style Outer Reticle Corner Vectors */
+/* Reticle Corner Aesthetics */
 .tooltip-angle-tl, .tooltip-angle-tr, .tooltip-angle-bl, .tooltip-angle-br {
     position: absolute; width: 6px; height: 6px; border: 1px solid var(--neon-core); pointer-events: none;
 }
@@ -639,7 +673,9 @@ body {
     margin-top: 0.5rem;
 }
 
-/* Master Baseline Anchor Footer Platform */
+/* ==========================================================================
+   8. FOOTER BASE PLATFORM
+   ========================================================================== */
 #grid-mainframe-base {
     position: fixed;
     bottom: 0; left: 0; width: 100%;
@@ -659,35 +695,12 @@ body {
     cursor: pointer;
     letter-spacing: 0.5px;
 }
-.purge-link:hover {
-    color: var(--neon-core);
-}
-/* Responsive Mobile Optimization */
-@media (max-width: 768px) {
-    #grid-network {
-        grid-template-columns: 1fr; /* Force 1 column on mobile */
-        padding: 1rem;
-        gap: 1rem;
-    }
 
-    .hud-wrapper {
-        flex-direction: column; /* Stack HUD elements */
-        gap: 1rem;
-    }
+.purge-link:hover { color: var(--neon-core); }
 
-    #input-terminal-deck {
-        padding: 0 1rem;
-    }
-
-    .sector-column {
-        min-height: auto; /* Remove fixed height on mobile to save space */
-    }
-
-    .tron-node-row {
-        height: auto; /* Allow row to expand if text is long */
-        padding: 0.75rem;
-    }
-}
+/* ==========================================================================
+   9. RESPONSIVE BREAKPOINTS (TABLET & MOBILE OPTIMIZATIONS)
+   ========================================================================== */
 @media (max-width: 1100px) {
     #grid-network {
         grid-template-columns: repeat(2, 1fr); /* Tablet: 2 columns */
@@ -696,57 +709,38 @@ body {
 
 @media (max-width: 768px) {
     #grid-network {
-        grid-template-columns: 1fr; /* Mobile: 1 column */
-        padding: 1rem;
+        grid-template-columns: 1fr !important; /* Force 1 column layout */
+        padding: 1rem !important;
         gap: 1rem;
     }
-    .sector-column {
-        min-height: auto; /* Allow natural height on mobile */
-    }
-    .tron-node-row {
-        height: auto; /* Stop rows from being fixed height on small screens */
-    }
-}
-/* --- MOBILE FIXES --- */
-@media (max-width: 768px) {
-    /* 1. Prevent inputs from breaking out of the screen */
-    input, textarea, .injector-form-panel {
-        width: 100%;
-        box-sizing: border-box;
+
+    .hud-wrapper {
+        flex-direction: column; /* Stack HUD elements vertically */
+        gap: 1rem;
     }
 
-    /* 2. Stack buttons vertically so they don't get squished */
+    #input-terminal-deck {
+        padding: 0 1rem;
+    }
+
+    .sector-column {
+        min-height: auto; /* Collapse empty spaces */
+    }
+
+    .tron-node-row {
+        height: auto; /* Natural wrapped heights */
+        padding: 0.75rem;
+    }
+
+    input, 
+    textarea, 
+    .injector-form-panel {
+        width: 100%;
+        box-sizing: border-box; /* Limit breakout layouts */
+    }
+
     .modal-action-row {
         flex-direction: column;
         gap: 0.5rem;
     }
-
-    /* 3. Ensure the main grid padding doesn't push elements off-screen */
-    #grid-network {
-        padding: 1rem !important;
-    }
-}
-archetype-input {
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    width: 100%;
-    outline: none;
-    border-bottom: 2px solid transparent;
-}
-.archetype-input:focus {
-    border-bottom: 2px solid var(--neon-core);
-}
-.task-description-box {
-    display: none;
-    font-size: 0.8rem;
-    color: #a4b7cd;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.3);
-    margin-top: 5px;
-    border: 1px solid var(--grid-border);
 }
