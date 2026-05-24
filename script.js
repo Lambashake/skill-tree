@@ -1,5 +1,78 @@
-// Minimal unified geometric icon vectors replacing volatile emojis
-const SVG_ICONS = {
+// Native 8-Bit Web Audio API Sound Generation Module (No Assets Needed)
+const AudioEngine = {
+    ctx: null,
+
+    init() {
+        if (!this.ctx) {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    },
+
+    playHover() {
+        this.init();
+        let osc = this.ctx.createOscillator();
+        let gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(150, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(300, this.ctx.currentTime + 0.04);
+        gain.gain.setValueAtTime(0.05, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.04);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.04);
+    },
+
+    playInvestment() {
+        this.init();
+        let osc = this.ctx.createOscillator();
+        let gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(400, this.ctx.currentTime);
+        osc.frequency.setValueAtTime(800, this.ctx.currentTime + 0.06);
+        gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.15);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.15);
+    },
+
+    playRefund() {
+        this.init();
+        let osc = this.ctx.createOscillator();
+        let gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(600, this.ctx.currentTime);
+        osc.frequency.setValueAtTime(250, this.ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.18);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.18);
+    },
+
+    playEngrave() {
+        this.init();
+        let now = this.ctx.currentTime;
+        [0, 0.06, 0.12].forEach((delay, idx) => {
+            let osc = this.ctx.createOscillator();
+            let gain = this.ctx.createGain();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(300 + (idx * 200), now + delay);
+            gain.gain.setValueAtTime(0.1, now + delay);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.08);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now + delay);
+            osc.stop(now + delay + 0.08);
+        });
+    }
+};
+
+// Unified Minimalist Non-Emoji Design Language Vector Objects
+const GLYPHS = {
     loop: `<svg viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 12c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 6.74C4.46 8.23 4 9.57 4 11c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>`,
     psych: `<svg viewBox="0 0 24 24"><path d="M12 2c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l2.79-2.79C10.09 18.66 11.03 19 12 19c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>`,
     scarcity: `<svg viewBox="0 0 24 24"><path d="M21 11H3c-.55 0-1 .45-1 1s.45 1 1 1h18c-.55 0 1-.45 1-1s-.45-1-1-1zm-9-7c-3.87 0-7 3.13-7 7h14c0-3.87-3.13-7-7-7zm0 14c-3.87 0-7-3.13-7-7h14c0 3.87-3.13 7-7 7z"/></svg>`,
@@ -20,91 +93,53 @@ const SVG_ICONS = {
     poly: `<svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5v-5l-10 5-10-5v5z"/></svg>`
 };
 
-// 1. GAME DATA ARCHITECTURE (5 possible ability points per node max rank)
-const INITIAL_TREES = {
-    crucible: {
-        color: "#ffcc00", 
-        tiers: {
-            1: [{ id: "c_core", name: "CORE LOOP ARCHITECTURE", glyph: SVG_ICONS.loop, rank: 0, maxRank: 5, prereqs: [], desc: "Architect structural design interactions. The base engine that governs player behavior.", unlocks: ["c_psych", "c_flow"] }],
-            2: [
-                { id: "c_psych", name: "PSYCHOLOGICAL INCENTIVES", glyph: SVG_ICONS.psych, rank: 0, maxRank: 5, prereqs: ["c_core"], desc: "Incorporate intrinsic motivation systems and feedback mechanisms into layouts.", unlocks: ["c_coauthor", "w_pace"] },
-                { id: "c_flow", name: "RESOURCE FLOW & SCARCITY", glyph: SVG_ICONS.scarcity, rank: 0, maxRank: 5, prereqs: ["c_core"], desc: "Balance economic loops, balancing system leaks, inflation curves, and point scarcity.", unlocks: ["c_asym"] }
-            ],
-            3: [
-                { id: "c_coauthor", name: "CO-AUTHORSHIP FRAMEWORKS", glyph: SVG_ICONS.collab, rank: 0, maxRank: 5, prereqs: ["c_psych", "w_micro"], desc: "Empower non-traditional creators or community units to natively co-author design spaces.", unlocks: ["c_hope"] },
-                { id: "c_asym", name: "ASYMMETRIC POWER DYNAMICS", glyph: SVG_ICONS.asym, rank: 0, maxRank: 5, prereqs: ["c_flow"], desc: "Introduce structural asymmetry into starting systems, driving specialized strategic loops.", unlocks: [] }
-            ],
-            4: [{ id: "c_hope", name: "SYSTEMS OF RADICAL HOPE", glyph: SVG_ICONS.hope, rank: 0, maxRank: 5, prereqs: ["c_coauthor", "wc_facilitate"], desc: "Capstone: Channel raw mechanical interaction loops into structures that generate collective hope.", unlocks: [] }]
-        }
-    },
-    weave: {
-        color: "#e5c158", 
-        tiers: {
-            1: [{ id: "w_res", name: "DEEP RESEARCH ROUTINE", glyph: SVG_ICONS.research, rank: 0, maxRank: 5, prereqs: [], desc: "Excavate raw source artifacts. Sift through archives and academic contexts to build structural backdrops.", unlocks: ["w_branch", "w_micro"] }],
-            2: [
-                { id: "w_branch", name: "BRANCHING LOGIC SYSTEMS", glyph: SVG_ICONS.branch, rank: 0, maxRank: 5, prereqs: ["w_res"], desc: "Construct flexible content flows that branch gracefully around complex user interactions.", unlocks: ["w_synth", "w_pace"] },
-                { id: "w_micro", name: "MICRONARRATIVE CRAFT", glyph: SVG_ICONS.micro, rank: 0, maxRank: 5, prereqs: ["w_res"], desc: "Distill massive atmospheric details into minimalist, hard-hitting interface prose.", unlocks: ["c_coauthor"] }
-            ],
-            3: [
-                { id: "w_synth", name: "SCIENCE SYNTHESIS PROSE", glyph: SVG_ICONS.synth, rank: 0, maxRank: 5, prereqs: ["w_branch"], desc: "Translate complex system concepts, data behaviors, or algorithmic bias into accessible narratives.", unlocks: ["w_mythos"] },
-                { id: "w_pace", name: "STRUCTURAL PACING ARCS", glyph: SVG_ICONS.pacing, rank: 0, maxRank: 5, prereqs: ["w_branch", "c_psych"], desc: "Calibrate structural storytelling beats with mechanical tension over sustained periods.", unlocks: [] }
-            ],
-            4: [{ id: "w_mythos", name: "THE COSMIC MYTHOS", glyph: SVG_ICONS.mythos, rank: 0, maxRank: 5, prereqs: ["w_synth"], desc: "Capstone: Integrate grand thematic perspectives with deep empathy to generate eternal texts.", unlocks: [] }]
-        }
-    },
-    wildcard: {
-        color: "#c5a059", 
-        tiers: {
-            1: [{ id: "wc_rhythm", name: "DAILY RHYTHM FOUNDATION", glyph: SVG_ICONS.rhythm, rank: 0, maxRank: 5, prereqs: [], desc: "Establish rigid structural time limits. Quarantine morning focus windows from modern communication leaks.", unlocks: ["wc_sprint", "wc_optimize"] }],
-            2: [
-                { id: "wc_sprint", name: "DEEP WORK SPRINT BLOCKS", glyph: SVG_ICONS.sprint, rank: 0, maxRank: 5, prereqs: ["wc_rhythm"], desc: "Isolate uninterrupted execution periods to complete complex mechanical goals.", unlocks: ["wc_acoustic"] },
-                { id: "wc_optimize", name: "BIO-VESSEL OPTIMIZATION", glyph: SVG_ICONS.biovessel, rank: 0, maxRank: 5, prereqs: ["wc_rhythm"], desc: "Systematically calibrate foundational physiological habits—sleep cycles, mobility patterns, and fuel vectors to maximize life expectancy [L.E.].", unlocks: ["wc_facilitate"] }
-            ],
-            3: [
-                { id: "wc_facilitate", name: "DYNAMIC ROOM FACILITATION", glyph: SVG_ICONS.facilitate, rank: 0, maxRank: 5, prereqs: ["wc_optimize"], desc: "Control group attention dynamics, analyze real-time friction points, and manage live social workshops.", unlocks: ["c_hope"] },
-                { id: "wc_acoustic", name: "ACOUSTIC LANDSCAPES", glyph: SVG_ICONS.acoustic, rank: 0, maxRank: 5, prereqs: ["wc_sprint"], desc: "Deconstruct frequency manipulation and composition principles to construct rich acoustic tapestries.", unlocks: ["wc_poly"] }
-            ],
-            4: [{ id: "wc_poly", name: "TOTAL POLYMATHY SYNTHESIS", glyph: SVG_ICONS.poly, rank: 0, maxRank: 5, prereqs: ["wc_facilitate", "wc_acoustic"], desc: "Capstone: Fuse biological longevity, somatic performance, sound logic, and system theory into an ultimate life practice.", unlocks: [] }]
-        }
-    }
+// Flat Accessible Architecture Model (Prereq Requirements Completely Purged)
+const FLAT_TREES = {
+    crucible: [
+        { id: "c_core", name: "CORE LOOP ARCHITECTURE", glyph: GLYPHS.loop, rank: 0, maxRank: 5, desc: "Architect structural design interactions. The base engine that governs player behavior." },
+        { id: "c_psych", name: "PSYCHOLOGICAL INCENTIVES", glyph: GLYPHS.psych, rank: 0, maxRank: 5, desc: "Incorporate intrinsic motivation systems and feedback mechanisms into layouts." },
+        { id: "c_flow", name: "RESOURCE FLOW & SCARCITY", glyph: GLYPHS.scarcity, rank: 0, maxRank: 5, desc: "Balance economic loops, balancing system leaks, inflation curves, and point scarcity." },
+        { id: "c_coauthor", name: "CO-AUTHORSHIP FRAMEWORKS", glyph: GLYPHS.collab, rank: 0, maxRank: 5, desc: "Empower non-traditional creators or community units to natively co-author design spaces." },
+        { id: "c_asym", name: "ASYMMETRIC POWER DYNAMICS", glyph: GLYPHS.asym, rank: 0, maxRank: 5, desc: "Introduce structural asymmetry into starting systems, driving specialized strategic loops." },
+        { id: "c_hope", name: "SYSTEMS OF RADICAL HOPE", glyph: GLYPHS.hope, rank: 0, maxRank: 5, desc: "Capstone: Channel raw mechanical interaction loops into structures that generate collective hope." }
+    ],
+    weave: [
+        { id: "w_res", name: "DEEP RESEARCH ROUTINE", glyph: GLYPHS.research, rank: 0, maxRank: 5, desc: "Excavate raw source artifacts. Sift through archives and academic contexts to build structural backdrops." },
+        { id: "w_branch", name: "BRANCHING LOGIC SYSTEMS", glyph: GLYPHS.branch, rank: 0, maxRank: 5, desc: "Construct flexible content flows that branch gracefully around complex user interactions." },
+        { id: "w_micro", name: "MICRONARRATIVE CRAFT", glyph: GLYPHS.micro, rank: 0, maxRank: 5, desc: "Distill massive atmospheric details into minimalist, hard-hitting interface prose." },
+        { id: "w_synth", name: "SCIENCE SYNTHESIS PROSE", glyph: GLYPHS.synth, rank: 0, maxRank: 5, desc: "Translate complex system concepts, data behaviors, or algorithmic bias into accessible narratives." },
+        { id: "w_pace", name: "STRUCTURAL PACING ARCS", glyph: GLYPHS.pacing, rank: 0, maxRank: 5, desc: "Calibrate structural storytelling beats with mechanical tension over sustained periods." },
+        { id: "w_mythos", name: "THE COSMIC MYTHOS", glyph: GLYPHS.mythos, rank: 0, maxRank: 5, desc: "Capstone: Integrate grand thematic perspectives with deep empathy to generate eternal texts." }
+    ],
+    wildcard: [
+        { id: "wc_rhythm", name: "DAILY RHYTHM FOUNDATION", glyph: GLYPHS.rhythm, rank: 0, maxRank: 5, desc: "Establish rigid structural time limits. Quarantine morning focus windows from modern communication leaks." },
+        { id: "wc_sprint", name: "DEEP WORK SPRINT BLOCKS", glyph: GLYPHS.sprint, rank: 0, maxRank: 5, desc: "Isolate uninterrupted execution periods to complete complex mechanical goals." },
+        { id: "wc_optimize", name: "BIO-VESSEL OPTIMIZATION", glyph: GLYPHS.biovessel, rank: 0, maxRank: 5, desc: "Systematically calibrate foundational physiological habits—sleep cycles, mobility patterns, and fuel vectors to maximize life expectancy [L.E.]." },
+        { id: "wc_facilitate", name: "DYNAMIC ROOM FACILITATION", glyph: GLYPHS.facilitate, rank: 0, maxRank: 5, desc: "Control group attention dynamics, analyze real-time friction points, and manage live social workshops." },
+        { id: "wc_acoustic", name: "ACOUSTIC LANDSCAPES", glyph: GLYPHS.acoustic, rank: 0, maxRank: 5, desc: "Deconstruct frequency manipulation and composition principles to construct rich acoustic tapestries." },
+        { id: "wc_poly", name: "TOTAL POLYMATHY SYNTHESIS", glyph: GLYPHS.poly, rank: 0, maxRank: 5, desc: "Capstone: Fuse biological longevity, somatic performance, sound logic, and system theory into an ultimate life practice." }
+    ]
 };
 
-// State Persistence Controller - Hydrating profile with 8 starting points instead of 3
-let gameState = JSON.parse(localStorage.getItem('odyssey_skill_tree_save')) || {
-    profile: { name: "SYSTEM ARCHETYPE", level: 1, currentXp: 0, skillPoints: 8 },
+// Initial State Blueprint (Starts natively with 8 Ability Points)
+let gameState = JSON.parse(localStorage.getItem('retro_arcade_tree_save')) || {
+    profile: { level: 1, currentXp: 0, skillPoints: 8 },
     streaks: { currentStreak: 0, lastLogDate: null },
-    trees: JSON.parse(JSON.stringify(INITIAL_TREES))
+    trees: JSON.parse(JSON.stringify(FLAT_TREES))
 };
 
-// Deep Search Utilities
 function findNodeById(nodeId) {
-    for (let treeKey in gameState.trees) {
-        for (let tierKey in gameState.trees[treeKey].tiers) {
-            const node = gameState.trees[treeKey].tiers[tierKey].find(n => n.id === nodeId);
-            if (node) return node;
-        }
+    for (let key in gameState.trees) {
+        const node = gameState.trees[key].find(n => n.id === nodeId);
+        if (node) return node;
     }
     return null;
 }
 
-function hasActiveDependents(parentNodeId) {
-    for (let treeKey in gameState.trees) {
-        for (let tierKey in gameState.trees[treeKey].tiers) {
-            const rowNodes = gameState.trees[treeKey].tiers[tierKey];
-            for (let targetNode of rowNodes) {
-                if (targetNode.prereqs.includes(parentNodeId) && targetNode.rank > 0) {
-                    return true; 
-                }
-            }
-        }
-    }
-    return false;
-}
-
-// 2. XP & STREAK CALCULATOR ENGINE
+// XP Logging Calculations
 function logTask(description, difficulty) {
-    let xpBase = difficulty * 100;
-    const todayString = new Date().toDateString();
+    let xpGain = difficulty * 100;
+    const today = new Date().toDateString();
     
     if (gameState.streaks.lastLogDate) {
         const yesterday = new Date();
@@ -112,161 +147,159 @@ function logTask(description, difficulty) {
         
         if (gameState.streaks.lastLogDate === yesterday.toDateString()) {
             gameState.streaks.currentStreak++;
-            if (gameState.streaks.currentStreak === 3) xpBase += 50;
-            if (gameState.streaks.currentStreak === 5) xpBase += 150;
-            if (gameState.streaks.currentStreak >= 7 && gameState.streaks.currentStreak % 7 === 0) xpBase += 300;
-        } else if (gameState.streaks.lastLogDate !== todayString) {
+        } else if (gameState.streaks.lastLogDate !== today) {
             gameState.streaks.currentStreak = 1;
         }
     } else {
         gameState.streaks.currentStreak = 1;
     }
     
-    gameState.streaks.lastLogDate = todayString;
-    gameState.profile.currentXp += xpBase;
+    gameState.streaks.lastLogDate = today;
+    gameState.profile.currentXp += xpGain;
     
-    evaluateLevelUp();
+    // Evaluate Levels
+    let target = gameState.profile.level * 500;
+    while (gameState.profile.currentXp >= target) {
+        gameState.profile.currentXp -= target;
+        gameState.profile.level++;
+        gameState.profile.skillPoints++;
+        target = gameState.profile.level * 500;
+    }
+    
+    AudioEngine.playEngrave();
     syncAndRender();
 }
 
-function evaluateLevelUp() {
-    let targetXp = gameState.profile.level * 500;
-    while (gameState.profile.currentXp >= targetXp) {
-        gameState.profile.currentXp -= targetXp;
-        gameState.profile.level++;
-        gameState.profile.skillPoints++;
-        targetXp = gameState.profile.level * 500;
-    }
-}
-
-// 3. SKILL INVESTMENT RUNTIME (LEFT CLICK)
-function purchaseNode(nodeId) {
+// Point Allocation Engines
+function investPoint(nodeId) {
     const node = findNodeById(nodeId);
     if (!node || gameState.profile.skillPoints < 1 || node.rank >= node.maxRank) return;
-    
-    const dependenciesMet = node.prereqs.every(reqId => {
-        const target = findNodeById(reqId);
-        return target && target.rank > 0;
-    });
-    
-    if (node.prereqs.length > 0 && !dependenciesMet) return;
     
     gameState.profile.skillPoints--;
     node.rank++;
     
+    AudioEngine.playInvestment();
     syncAndRender();
+    updateTooltip(node);
 }
 
-// 4. POINT REFUND ENGINE (RIGHT CLICK COOLDOWN INTERCEPT)
-function refundNodePoint(nodeId) {
+function refundPoint(nodeId) {
     const node = findNodeById(nodeId);
     if (!node || node.rank <= 0) return;
-    
-    if (hasActiveDependents(nodeId)) {
-        console.warn(`🔒 REFUND LOCKED // HIGHER CONSTELLATIONS RELY ON THIS ABILITY`);
-        return;
-    }
     
     node.rank--;
     gameState.profile.skillPoints++;
     
+    AudioEngine.playRefund();
     syncAndRender();
+    updateTooltip(node);
 }
 
-// 5. ABILITY NUKE CONTROLLER (Resets back to baseline 8 starting points)
+// Viewport-Fixed Non-Overlapping Tooltip Pipeline
+function updateTooltip(node) {
+    const header = document.getElementById('tt-name');
+    const body = document.getElementById('tt-desc');
+    const footer = document.getElementById('tt-action');
+    const panel = document.getElementById('fixed-global-tooltip');
+    
+    if (!node) {
+        header.innerText = "SYSTEM CONSOLE ACTIVE";
+        body.innerText = "Hover over any modular ability block to parse its baseline blueprint configuration data.";
+        footer.innerText = "READY FOR SELECTION";
+        panel.style.borderColor = "#1f293a";
+        return;
+    }
+    
+    header.innerText = node.name;
+    body.innerText = node.desc;
+    
+    if (node.rank >= node.maxRank) {
+        footer.innerText = "👑 ABILITY CONSTELLATION FULLY MASTERED";
+    } else {
+        footer.innerText = `[LEFT-CLICK] TO ALLOCATE POINT // [RIGHT-CLICK] TO PURGE (${node.rank}/${node.maxRank})`;
+    }
+    
+    // Dynamically colour-match terminal boundaries based on current target tree column context
+    if (node.id.startsWith('c_')) panel.style.borderColor = "#00ff66";
+    else if (node.id.startsWith('w_')) panel.style.borderColor = "#ff0055";
+    else if (node.id.startsWith('wc_')) panel.style.borderColor = "#00e1ff";
+}
+
 function triggerSystemReset() {
-    const message = "⚠️ RESET ABILITIES?\n\nThis will return all invested Ability Points and clear your progress trees completely.";
-    if (confirm(message)) {
+    if (confirm("⚠️ RUN FACTORY SYSTEM FORMAT?\n\nThis will purge all logs and restore terminal matrix to 8 baseline points.")) {
         gameState = {
-            profile: { name: "SYSTEM ARCHETYPE", level: 1, currentXp: 0, skillPoints: 8 },
+            profile: { level: 1, currentXp: 0, skillPoints: 8 },
             streaks: { currentStreak: 0, lastLogDate: null },
-            trees: JSON.parse(JSON.stringify(INITIAL_TREES))
+            trees: JSON.parse(JSON.stringify(FLAT_TREES))
         };
         syncAndRender();
+        updateTooltip(null);
     }
 }
 
-// 6. EPIC RENDER MATRIX
-function renderMatrixUI() {
+// Rendering Logic
+function renderConsole() {
     document.getElementById('hud-level').innerText = gameState.profile.level;
     document.getElementById('hud-points').innerText = gameState.profile.skillPoints;
     document.getElementById('hud-streak').innerText = gameState.streaks.currentStreak;
     document.getElementById('hud-xp-current').innerText = gameState.profile.currentXp;
     
-    const neededXp = gameState.profile.level * 500;
-    document.getElementById('hud-xp-needed').innerText = neededXp;
+    const targetXp = gameState.profile.level * 500;
+    document.getElementById('hud-xp-needed').innerText = targetXp;
+    document.getElementById('xp-fill').style.width = `${(gameState.profile.currentXp / targetXp) * 100}%`;
     
-    document.getElementById('xp-fill').style.width = `${(gameState.profile.currentXp / neededXp) * 100}%`;
-    
-    for (let treeKey in gameState.trees) {
-        const container = document.getElementById(`nodes-${treeKey}`);
+    for (let key in gameState.trees) {
+        const container = document.getElementById(`nodes-${key}`);
         if (!container) continue;
-        
         container.innerHTML = '';
-        const tree = gameState.trees[treeKey];
         
-        for (let tier = 1; tier <= 4; tier++) {
-            const row = document.createElement('div');
-            row.className = 'tier-row-raw';
+        gameState.trees[key].forEach(node => {
+            const block = document.createElement('div');
             
-            if (!tree.tiers[tier]) continue;
+            let stateClass = '';
+            if (node.rank >= node.maxRank) stateClass = 'maxed';
+            else if (node.rank > 0) stateClass = 'has-points';
             
-            tree.tiers[tier].forEach(node => {
-                const button = document.createElement('div');
-                
-                const depsMet = node.prereqs.every(reqId => {
-                    const prereqNode = findNodeById(reqId);
-                    return prereqNode && prereqNode.rank > 0;
-                });
-                
-                let statusClass = '';
-                if (node.rank >= node.maxRank) statusClass = 'maxed';
-                else if (node.rank > 0) statusClass = 'unlocked';
-                else if (node.prereqs.length === 0 || depsMet) statusClass = 'available';
-                
-                button.className = `skill-node-raw ${statusClass}`;
-                button.style.setProperty('--pillar-gold', tree.color);
-                
-                button.onclick = () => purchaseNode(node.id);
-                button.oncontextmenu = (e) => {
-                    e.preventDefault(); 
-                    refundNodePoint(node.id);
-                };
-                
-                let actionNotice = "⚡ CLICK TO ACQUIRE ABILITY";
-                if (node.rank >= node.maxRank) actionNotice = "👑 ABILITY FULLY MASTERED";
-                else if (node.rank > 0 && !hasActiveDependents(node.id)) actionNotice = "⚡ CLICK TO UPGRADE // [RIGHT-CLICK] TO REFUND POINT";
-                else if (node.rank > 0 && hasActiveDependents(node.id)) actionNotice = "🔒 LOCKED // HIGHER SKILLS REQUIRE THIS UNLOCK";
-                else if (statusClass === '') actionNotice = "🔒 LOCKED // PATHWAY NOT YET REACHED";
-                
-                button.innerHTML = `
-                    <div class="node-display-glyph">${node.glyph}</div>
-                    <div class="node-rank-raw">${node.rank}/${node.maxRank}</div>
-                    <div class="node-tooltip-raw">
-                        <strong>${node.name}</strong>
-                        <div class="node-tooltip-desc">${node.desc}</div>
-                        <div class="tooltip-action-alert">${actionNotice}</div>
-                    </div>
-                `;
-                row.appendChild(button);
-            });
-            container.appendChild(row);
-        }
+            block.className = `retro-node-bar ${stateClass}`;
+            
+            block.onclick = () => investPoint(node.id);
+            block.oncontextmenu = (e) => { e.preventDefault(); refundPoint(node.id); };
+            
+            block.onmouseenter = () => {
+                AudioEngine.playHover();
+                updateTooltip(node);
+            };
+            block.onmouseleave = () => {
+                updateTooltip(null);
+            };
+            
+            block.innerHTML = `
+                <div class="node-meta-left">
+                    <div class="retro-glyph-box">${node.glyph}</div>
+                    <span class="node-title-string">${node.name}</span>
+                </div>
+                <div class="node-pip-counter">${node.rank}/${node.maxRank}</div>
+            `;
+            
+            container.appendChild(block);
+        });
     }
 }
 
 function handleFormSubmit() {
     const desc = document.getElementById('task-desc');
     const diff = document.getElementById('task-diff');
-    if (!desc || !diff) return;
     logTask(desc.value, parseInt(diff.value));
     desc.value = '';
     diff.value = '1';
 }
 
 function syncAndRender() {
-    localStorage.setItem('odyssey_skill_tree_save', JSON.stringify(gameState));
-    renderMatrixUI();
+    localStorage.setItem('retro_arcade_tree_save', JSON.stringify(gameState));
+    renderConsole();
 }
 
-window.onload = renderMatrixUI;
+window.onload = () => {
+    renderConsole();
+    updateTooltip(null);
+};
