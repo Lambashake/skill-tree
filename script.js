@@ -68,6 +68,24 @@ const SynthAudioModule = {
             osc.start(time + delay);
             osc.stop(time + delay + 0.06);
         });
+    },
+
+    triggerLevelUpSound() {
+        this.init();
+        let time = this.audioCtx.currentTime;
+        // High pitched rewarding chord progression
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, index) => {
+            let osc = this.audioCtx.createOscillator();
+            let gain = this.audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, time + (index * 0.08));
+            gain.gain.setValueAtTime(0.05, time + (index * 0.08));
+            gain.gain.exponentialRampToValueAtTime(0.001, time + (index * 0.08) + 0.3);
+            osc.connect(gain);
+            gain.connect(this.audioCtx.destination);
+            osc.start(time + (index * 0.08));
+            osc.stop(time + (index * 0.08) + 0.3);
+        });
     }
 };
 
@@ -333,6 +351,26 @@ function logTask(desc, difficulty) {
         gridState.profile.currentXp -= boundary;
         gridState.profile.level++;
         gridState.profile.skillPoints++;
+        
+        // LEVEL UP POPUP & AUDIO TRIGGER
+        SynthAudioModule.triggerLevelUpSound();
+        alert(`⚡ LEVEL UP DETECTED ⚡\n\nYour neural matrix has expanded to LEVEL ${gridState.profile.level}. +1 Skill Point allocated.`);
+        
+        boundary = gridState.profile.level * 500;
+    }
+    
+    SynthAudioModule.triggerEngraveSound();
+    saveAndFlush();
+}
+    
+    gridState.streaks.lastLogDate = rightNow;
+    gridState.profile.currentXp += energyGain;
+    
+    let boundary = gridState.profile.level * 500;
+    while (gridState.profile.currentXp >= boundary) {
+        gridState.profile.currentXp -= boundary;
+        gridState.profile.level++;
+        gridState.profile.skillPoints++;
         boundary = gridState.profile.level * 500;
     }
     
@@ -380,18 +418,67 @@ function triggerSystemReset() {
 // Pure Interface Paint Pipeline
 function paintGridUI() {
     document.getElementById('hud-level').innerText = gridState.profile.level;
+    
     const pointsInput = document.getElementById('hud-points-input');
     if (pointsInput) {
-        // Sets the number inside the input field
         pointsInput.value = gridState.profile.skillPoints;
         
-        // Listens for manual changes you type in, saves them, and rerenders
+        // Listens for manual inputs, updates internal matrix system, and syncs
         pointsInput.onchange = (e) => {
             const newPoints = parseInt(e.target.value);
             gridState.profile.skillPoints = isNaN(newPoints) ? 0 : newPoints;
             localStorage.setItem('tron_grid_save_matrix_v3', JSON.stringify(gridState));
+            saveAndFlush();
         };
     }
+    
+    document.getElementById('hud-streak').innerText = gridState.streaks.currentStreak;
+    document.getElementById('hud-xp-current').innerText = gridState.profile.currentXp;
+    
+    const maxBound = gridState.profile.level * 500;
+    document.getElementById('hud-xp-needed').innerText = maxBound;
+    document.getElementById('xp-fill').style.width = `${(gridState.profile.currentXp / maxBound) * 100}%`;
+    
+    for (let sector in gridState.trees) {
+        const meta = gridState.sectorMeta[sector] || INITIAL_SECTOR_META[sector];
+        document.getElementById(`title-${sector}`).innerText = meta.title;
+        document.getElementById(`sub-${sector}`).innerText = meta.sub;
+
+        const rootStack = document.getElementById(`nodes-${sector}`);
+        if (!rootStack) continue;
+        rootStack.innerHTML = '';
+        
+        gridState.trees[sector].forEach(node => {
+            const row = document.createElement('div');
+            
+            let modifier = '';
+            if (node.rank >= node.maxRank) modifier = 'maxed';
+            else if (node.rank > 0) modifier = 'has-points';
+            
+            row.className = `tron-node-row ${modifier}`;
+            row.onclick = () => toggleDescription(row);
+            
+            // TRON Themed Inline Styles for the dynamic drop box
+            row.innerHTML = `
+                <div class="node-meta-left">
+                    <div class="css-mask-image" style="-webkit-mask-image: ${node.mask}; mask-image: ${node.mask};"></div>
+                    <span class="node-string-title">${node.name}</span>
+                </div>
+                <div class="node-right-action-cluster" onclick="event.stopPropagation()">
+                    <button class="tron-btn min-padding text-accent-red" onclick="purgePoint('${node.id}')">-</button>
+                    <button class="tron-btn min-padding" onclick="allocatePoint('${node.id}')">+</button>
+                    <div class="node-charge-pip">${node.rank}/${node.maxRank}</div>
+                    <button class="node-config-gear-trigger" onclick="openNodeEditorMatrix(event, '${node.id}')">⚙️</button>
+                </div>
+                <div class="task-description-box" style="display:none; width: 100%; padding: 12px; margin-top: 8px; border-top: 1px dashed var(--grid-border); color: var(--text-primary, #fff); background: rgba(2, 4, 8, 0.45); font-family: 'Share Tech Mono', monospace; font-size: 0.9rem; letter-spacing: 0.5px; box-sizing: border-box; text-transform: uppercase;">
+                    <span style="color: var(--neon-core); font-weight: bold; margin-right: 4px;">// SYS_DESC:</span> ${node.desc}
+                </div>
+            `;
+            
+            rootStack.appendChild(row);
+        });
+    }
+}
     document.getElementById('hud-streak').innerText = gridState.streaks.currentStreak;
     document.getElementById('hud-xp-current').innerText = gridState.profile.currentXp;
     
