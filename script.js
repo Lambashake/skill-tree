@@ -234,32 +234,6 @@ function openNodeEditorMatrix(event, nodeId) {
     document.getElementById('mainframe-node-editor-modal').classList.add('active');
 }
 
-function closeNodeEditorMatrix() {
-    document.getElementById('mainframe-node-editor-modal').classList.remove('active');
-}
-
-function commitNodeModifications() {
-    const id = document.getElementById('edit-node-target-id').value;
-    const name = document.getElementById('edit-node-name').value.trim().toUpperCase();
-    const desc = document.getElementById('edit-node-desc').value.trim();
-    const max = parseInt(document.getElementById('edit-node-max').value) || 5;
-    
-    const data = locateNode(id);
-    if (data) {
-        data.node.name = name;
-        data.node.desc = desc;
-        data.node.maxRank = max;
-        if (data.node.rank > max) {
-            gridState.profile.skillPoints += (data.node.rank - max);
-            data.node.rank = max;
-        }
-    }
-    
-    closeNodeEditorMatrix();
-    SynthAudioModule.triggerCommitSound();
-    saveAndFlush();
-}
-
 // Processing Matrix Experience Increments
 function handleFormSubmit() {
     const descInput = document.getElementById('task-desc');
@@ -302,6 +276,32 @@ function logTask(desc, difficulty) {
     saveAndFlush();
 }
 
+function closeNodeEditorMatrix() {
+    document.getElementById('mainframe-node-editor-modal').classList.remove('active');
+}
+
+function commitNodeModifications() {
+    const id = document.getElementById('edit-node-target-id').value;
+    const name = document.getElementById('edit-node-name').value.trim().toUpperCase();
+    const desc = document.getElementById('edit-node-desc').value.trim();
+    const max = parseInt(document.getElementById('edit-node-max').value) || 5;
+    
+    const data = locateNode(id);
+    if (data) {
+        data.node.name = name;
+        data.node.desc = desc;
+        data.node.maxRank = max;
+        if (data.node.rank > max) {
+            gridState.profile.skillPoints += (data.node.rank - max);
+            data.node.rank = max;
+        }
+    }
+    
+    closeNodeEditorMatrix();
+    SynthAudioModule.triggerCommitSound();
+    saveAndFlush();
+}
+
 function deleteTargetNode() {
     const id = document.getElementById('edit-node-target-id').value;
     const data = locateNode(id);
@@ -328,6 +328,7 @@ function openSectorEditorMatrix(sectorId) {
     document.getElementById('mainframe-sector-editor-modal').classList.add('active');
 }
 
+// Processing Sector Updates
 function closeSectorEditorMatrix() {
     document.getElementById('mainframe-sector-editor-modal').classList.remove('active');
 }
@@ -367,12 +368,17 @@ function refreshTooltipText(node) {
     status.innerText = `RANK: ${node.rank} / ${node.maxRank} // CLICK LEFT TO EXTEND, RIGHT TO RETRACT`;
 }
 
-// Render DOM Interface Pipeline — Synchronized with CSS Framework Variables
+// Render DOM Interface Pipeline — Synchronized with HTML Dynamic Upgrades
 function renderSystemInterface() {
     // HUD Sync
     document.getElementById('hud-level').innerText = gridState.profile.level;
-    document.getElementById('hud-points').innerText = gridState.profile.skillPoints;
     document.getElementById('hud-streak').innerText = gridState.streaks.currentStreak;
+    
+    // Updated to lock safely into the newly instantiated dynamic input field element
+    const pointsInput = document.getElementById('hud-points-input');
+    if (pointsInput && document.activeElement !== pointsInput) {
+        pointsInput.value = gridState.profile.skillPoints;
+    }
     
     const xpNeeded = gridState.profile.level * 500;
     document.getElementById('hud-xp-current').innerText = gridState.profile.currentXp;
@@ -398,7 +404,6 @@ function renderSystemInterface() {
             const isMaxed = node.rank === node.maxRank;
             const hasPoints = node.rank > 0;
             
-            // Generate contextual status state classes matching style.css rules
             let structuralClasses = "tron-node-row";
             if (isMaxed) structuralClasses += " maxed";
             else if (hasPoints) structuralClasses += " has-points";
@@ -406,7 +411,6 @@ function renderSystemInterface() {
             const nodeEl = document.createElement('div');
             nodeEl.className = structuralClasses;
             
-            // Interaction listeners
             nodeEl.addEventListener('mouseenter', () => {
                 SynthAudioModule.triggerHoverSound();
                 refreshTooltipText(node);
@@ -455,7 +459,6 @@ function triggerSystemReset() {
 
 // Core Mainframe System Bootstrap Launch
 document.addEventListener("DOMContentLoaded", () => {
-    // Synchronize username persistence - corrected to find class selector match (.archetype-input)
     const nameInput = document.querySelector('.archetype-input') || document.getElementById('user-archetype');
     if (nameInput) {
         const storedName = localStorage.getItem('tron_user_archetype_name');
@@ -463,6 +466,31 @@ document.addEventListener("DOMContentLoaded", () => {
         
         nameInput.addEventListener('input', () => {
             localStorage.setItem('tron_user_archetype_name', nameInput.value);
+        });
+    }
+
+    // Explicit state listener mapping to handle immediate direct input updates to point storage banks
+    const pointsInput = document.getElementById('hud-points-input');
+    if (pointsInput) {
+        pointsInput.addEventListener('input', () => {
+            let val = parseInt(pointsInput.value);
+            if (isNaN(val) || val < 0) val = 0;
+            gridState.profile.skillPoints = val;
+            localStorage.setItem('tron_grid_save_matrix_v3', JSON.stringify(gridState));
+            // Trigger downstream sub-component rendering passes without stripping focus away from the input
+            for (let sector in gridState.trees) {
+                gridState.trees[sector].forEach(node => {
+                    const el = document.querySelector(`[onclick*="${node.id}"]`);
+                    if (el) {
+                        const row = el.closest('.tron-node-row');
+                        if (row) {
+                            const isMaxed = node.rank === node.maxRank;
+                            const hasPoints = node.rank > 0;
+                            row.className = "tron-node-row" + (isMaxed ? " maxed" : hasPoints ? " has-points" : "");
+                        }
+                    }
+                });
+            }
         });
     }
 
