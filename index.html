@@ -3,101 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PORTFOLIO CORE // ABILITY ARCHETYPE</title>
+    <title>THE GRID // IDENTITY SYSTEM ARCHETYPE</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-theme="cyan">
 
-    <!-- Retro CRT Simulation Layer Overlay -->
-    <div class="crt-scanlines"></div>
+    <!-- Digital Light Grid Background Background Overlay -->
+    <div class="grid-canvas"></div>
 
-    <header id="retro-terminal-hud">
+    <header id="tron-hud">
         <div class="hud-wrapper">
-            <div class="hud-profile">
-                <div class="pixel-avatar">👾</div>
+            <div class="hud-identity">
+                <div class="identity-disc"></div>
                 <div>
-                    <h1>SYSTEMS ARCHETYPE MATRIX</h1>
-                    <div class="terminal-subtext">RUNNING:// PROFILE_SYS_2026.BAT</div>
+                    <h1>SYSTEM ARCHETYPE MATRIX</h1>
+                    <div class="grid-subtext">USER_ACCESS:// SYSTEM_DECK_2026.SYS</div>
                 </div>
             </div>
+
+            <!-- Core Customization Console -->
+            <div class="theme-console">
+                <label for="theme-select">GRID SECTOR COLOR:</label>
+                <select id="theme-select" onchange="changeGridTheme(this.value)">
+                    <option value="cyan">CYAN GRID (MAIN)</option>
+                    <option value="orange">IDENTITY ORANGE</option>
+                    <option value="pink">RECONGNIZER PINK</option>
+                    <option value="amber">OUTLANDS AMBER</option>
+                    <option value="green">GRID-CORE GREEN</option>
+                </select>
+            </div>
             
-            <div class="hud-stats-panel">
-                <div class="stat-block">
-                    <span class="label">LVL:</span>
-                    <span id="hud-level" class="value glow-green">1</span>
+            <div class="hud-data-nodes">
+                <div class="data-node">
+                    <span class="label">LVL</span>
+                    <span id="hud-level" class="value text-glow">1</span>
                 </div>
-                <div class="stat-block">
-                    <span class="label">POINTS:</span>
-                    <span id="hud-points" class="value glow-amber">8</span>
+                <div class="data-node">
+                    <span class="label">POINTS</span>
+                    <span id="hud-points" class="value text-glow">8</span>
                 </div>
-                <div class="stat-block">
-                    <span class="label">STREAK:</span>
-                    <span id="hud-streak" class="value glow-cyan">0</span>
+                <div class="data-node">
+                    <span class="label">STREAK</span>
+                    <span id="hud-streak" class="value text-glow">0</span>
                 </div>
             </div>
         </div>
 
-        <!-- Retro Hardware-Style XP Loading Bar -->
-        <div class="xp-bar-container">
-            <div class="xp-label-row">
-                <span>XP PROGRESS: <span id="hud-xp-current">0</span> / <span id="hud-xp-needed">500</span></span>
+        <!-- Light-Cycle Vector Progress Bar -->
+        <div class="vector-bar-wrapper">
+            <div class="vector-label-row">
+                <span>ENERGY SYNTHESIS: <span id="hud-xp-current">0</span> / <span id="hud-xp-needed">500</span> TRACE RAILS</span>
             </div>
-            <div class="xp-frame">
+            <div class="vector-frame">
                 <div id="xp-fill"></div>
             </div>
         </div>
     </header>
 
-    <!-- Retro Console Form Input Box -->
-    <section id="console-input-deck">
+    <!-- Command Input Deck Terminal -->
+    <section id="input-terminal-deck">
         <form id="task-form" onsubmit="event.preventDefault(); handleFormSubmit();">
-            <input type="text" id="task-desc" placeholder="INPUT COMPLETED CONTRACT DATA..." required>
+            <input type="text" id="task-desc" placeholder="COMPILE NEW LOGGED CONTRACT TRACE..." required autocomplete="off">
             <select id="task-diff">
-                <option value="1">TIER I [+100 XP]</option>
-                <option value="2">TIER II [+200 XP]</option>
-                <option value="3">TIER III [+300 XP]</option>
-                <option value="4">TIER IV [+400 XP]</option>
-                <option value="5">TIER V [+500 XP]</option>
+                <option value="1">TIER I [100 ENERGY]</option>
+                <option value="2">TIER II [200 ENERGY]</option>
+                <option value="3">TIER III [300 ENERGY]</option>
+                <option value="4">TIER IV [400 ENERGY]</option>
+                <option value="5">TIER V [500 ENERGY]</option>
             </select>
-            <button type="submit" class="retro-btn">ENGRAVE</button>
+            <button type="submit" class="tron-btn">ENGRAVE</button>
         </form>
     </section>
 
-    <!-- Fully Unlocked Skill Tree Terminal -->
-    <main id="terminal-grid">
+    <!-- The Tree Grid Network System -->
+    <main id="grid-network">
         
-        <!-- Pillar 1: Systems & Radical Hope -->
-        <div class="grid-column" id="col-crucible" style="--node-accent: #00ff66;">
-            <div class="column-title-plate">THE CRUCIBLE</div>
-            <div class="column-subtitle">SYSTEMS & HOPE</div>
-            <div class="node-stack" id="nodes-crucible"></div>
+        <!-- Sector 1: Systems & Radical Hope -->
+        <div class="sector-column" id="sector-crucible">
+            <div class="sector-header-plate">THE CRUCIBLE</div>
+            <div class="sector-sub">SYSTEMS & HOPE</div>
+            <div class="node-container-stack" id="nodes-crucible"></div>
         </div>
 
-        <!-- Pillar 2: Writing & Dialectics -->
-        <div class="grid-column" id="col-weave" style="--node-accent: #ff0055;">
-            <div class="column-title-plate">THE WEAVE</div>
-            <div class="column-subtitle">WRITING & DIALECTICS</div>
-            <div class="node-stack" id="nodes-weave"></div>
+        <!-- Sector 2: Writing & Dialectics -->
+        <div class="sector-column" id="sector-weave">
+            <div class="sector-header-plate">THE WEAVE</div>
+            <div class="sector-sub">WRITING & DIALECTICS</div>
+            <div class="node-container-stack" id="nodes-weave"></div>
         </div>
 
-        <!-- Pillar 3: Catalysts & Sound -->
-        <div class="grid-column" id="col-wildcard" style="--node-accent: #00e1ff;">
-            <div class="column-title-plate">THE WILD CARD</div>
-            <div class="column-subtitle">CATALYSTS & SOUND</div>
-            <div class="node-stack" id="nodes-wildcard"></div>
+        <!-- Sector 3: Catalysts & Sound -->
+        <div class="sector-column" id="sector-wildcard">
+            <div class="sector-header-plate">THE WILD CARD</div>
+            <div class="sector-sub">CATALYSTS & SOUND</div>
+            <div class="node-container-stack" id="nodes-wildcard"></div>
         </div>
 
     </main>
 
-    <!-- Persistent Fixed Viewport Target Floating Card (Prevents Layer Bleedout Completely) -->
-    <div id="fixed-global-tooltip" class="fixed-tooltip-panel">
-        <div class="tooltip-header" id="tt-name">SKILL DETAILS</div>
-        <div class="tooltip-body" id="tt-desc">Hover over any ability node to read core operational data blueprints.</div>
-        <div class="tooltip-footer" id="tt-action">READY FOR ARCHIVAL DEPLOYMENT</div>
+    <!-- Fixed Floating Context Display Control Frame (Zero Layout Interference) -->
+    <div id="fixed-grid-tooltip" class="fixed-tooltip-frame">
+        <div class="tooltip-angle-tl"></div><div class="tooltip-angle-tr"></div>
+        <div class="tooltip-angle-bl"></div><div class="tooltip-angle-br"></div>
+        <div class="tooltip-title" id="tt-name">SYSTEM READY</div>
+        <div class="tooltip-desc" id="tt-desc">Safely scan user nodes inside the vector matrix streams to extract node metadata blueprints.</div>
+        <div class="tooltip-status" id="tt-action">SECURE SECTOR ACCESS</div>
     </div>
 
-    <footer id="retro-base-deck">
-        <button class="nuke-btn" onclick="triggerSystemReset()">FACTORY RESET CONSOLE</button>
+    <footer id="grid-mainframe-base">
+        <button class="purge-link" onclick="triggerSystemReset()">PURGE MAIN SYSTEM DECK</button>
     </footer>
 
     <script src="script.js"></script>
