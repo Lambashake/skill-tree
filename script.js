@@ -1,20 +1,20 @@
 /**
- * Updates a skill's visual look, number tally, and color signature.
- * @param {string} skillId - The identifier matching the data-skill attribute.
- * @param {number} currentPoints - Current point allocation value.
+ * Updates a skill's numeric text representation and toggles color active states.
+ * @param {string} skillId - The precise unique ID corresponding to data-skill.
+ * @param {number} currentPoints - Total points currently allocated to this skill.
  */
 function updateSkillState(skillId, currentPoints) {
-    // Locate target container using its key binding
+    // Select the target skill item via its data token attribute
     const skillElement = document.querySelector(`[data-skill="${skillId}"]`);
     
     if (skillElement) {
         const pointsDisplay = skillElement.querySelector('.skill-points');
         
-        // Isolate maximum limit boundary directly out of existing element string data
+        // Grab max limits right out of the text content securely
         const maxPoints = pointsDisplay.textContent.split('/').pop().trim();
         pointsDisplay.textContent = `${currentPoints} / ${maxPoints}`;
 
-        // Switch color profiles depending on active point thresholds
+        // Add class modifiers to shift icons between grey and vibrant styles
         if (currentPoints > 0) {
             skillElement.classList.add('active');
         } else {
@@ -22,6 +22,3 @@ function updateSkillState(skillId, currentPoints) {
         }
     }
 }
-
-// Global execution test call (Remove or comment out when linking live systems):
-// updateSkillState('heavy-impact', 2);
