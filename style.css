@@ -1,29 +1,31 @@
 :root {
-    /* Easily tweak your colors and themes right here */
-    --color-inactive: #4a4a52;   /* Dull grey for 0 points */
-    --color-active: #00ffcc;     /* Vibrant color when points > 0 */
+    /* Color Variables for States */
+    --color-inactive: #4a4a52;   /* Dull grey for skills with 0 points */
+    --color-active: #00ffcc;     /* Custom vibrant theme color when points > 0 */
     --glow-active: rgba(0, 255, 204, 0.25);
 }
 
-/* CONTAINER: Enforces uniform tree widths down the row */
+/* CONTAINER: Flexbox layout that arranges columns safely */
 .skill-wrapper {
-    display: grid;
-    grid-auto-columns: minmax(0, 1fr); 
-    grid-auto-flow: column;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allows wrapping safely on mobile/smaller viewports */
     gap: 24px;
     max-width: 1200px;
     margin: 0 auto;
+    align-items: stretch; /* IMPORTANT: Forces all child boxes to have equal height */
 }
 
-/* TREE BOX: height: 100% forces boxes to match the tallest sibling */
+/* TREE BOX: flex: 1 forces equal widths across all columns */
 .skill-tree-box {
+    flex: 1;
+    min-width: 280px; /* Prevents columns from squeezing too tight */
     background-color: #1a1a1e; 
     border: 1px solid #2a2a30;
     border-radius: 12px;
     padding: 24px;
     display: flex;
     flex-direction: column;
-    height: 100%; 
     box-sizing: border-box;
 }
 
@@ -43,7 +45,7 @@
     gap: 16px;
 }
 
-/* INDIVIDUAL SKILL ROW LAYOUT */
+/* INDIVIDUAL SKILL ROWS */
 .skill-item {
     display: flex;
     align-items: center;
@@ -51,12 +53,12 @@
     padding: 8px 0;
 }
 
-/* MINIMALIST SVG LINE DRAWING CONFIGURATION */
+/* INTERACTIVE SVG LINE DRAWING STYLES */
 .skill-icon-svg {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
-    stroke: var(--color-inactive); /* Default grey state */
+    stroke: var(--color-inactive); /* Muted state by default */
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -82,7 +84,7 @@
     opacity: 0.6;
 }
 
-/* ACTIVE STATE CSS MODIFIERS */
+/* ACTIVE MODIFIERS: Applied automatically when point values > 0 */
 .skill-item.active .skill-icon-svg {
     stroke: var(--color-active);
     filter: drop-shadow(0 0 4px var(--glow-active));
