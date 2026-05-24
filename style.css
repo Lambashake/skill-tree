@@ -1,100 +1,42 @@
-:root {
-    /* Color Variables for States */
-    --color-inactive: #4a4a52;   /* Dull grey for skills with 0 points */
-    --color-active: #00ffcc;     /* Custom vibrant theme color when points > 0 */
-    --glow-active: rgba(0, 255, 204, 0.25);
+.skill-container {
+    width: 100%;
+    display: block; /* Ensures the container occupies space */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-/* CONTAINER: Flexbox layout that arranges columns safely */
 .skill-wrapper {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap; /* Allows wrapping safely on mobile/smaller viewports */
-    gap: 24px;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-items: stretch; /* IMPORTANT: Forces all child boxes to have equal height */
+    flex-wrap: wrap; /* Allows wrapping if the screen is too small */
+    gap: 20px;
+    justify-content: flex-start;
 }
 
-/* TREE BOX: flex: 1 forces equal widths across all columns */
 .skill-tree-box {
-    flex: 1;
-    min-width: 280px; /* Prevents columns from squeezing too tight */
-    background-color: #1a1a1e; 
+    flex: 1 1 300px; /* Each box will try to be 300px wide, but grow to fill space */
+    background-color: #1a1a1e;
     border: 1px solid #2a2a30;
     border-radius: 12px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
+    padding: 20px;
     box-sizing: border-box;
 }
 
 .tree-title {
-    font-size: 1.25rem;
+    color: white;
     margin-top: 0;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
     border-bottom: 1px solid #2a2a30;
     padding-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-.skill-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-/* INDIVIDUAL SKILL ROWS */
 .skill-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 8px 0;
-}
-
-/* INTERACTIVE SVG LINE DRAWING STYLES */
-.skill-icon-svg {
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
-    stroke: var(--color-inactive); /* Muted state by default */
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    fill: none;
-    transition: stroke 0.3s ease, filter 0.3s ease;
-}
-
-.skill-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.skill-name {
-    font-size: 1rem;
-    font-weight: 500;
+    padding: 10px 0;
     color: #8a8a93;
-    transition: color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
 }
 
-.skill-points {
-    font-size: 0.8rem;
-    color: #8a8a93;
-    opacity: 0.6;
-}
-
-/* ACTIVE MODIFIERS: Applied automatically when point values > 0 */
-.skill-item.active .skill-icon-svg {
-    stroke: var(--color-active);
-    filter: drop-shadow(0 0 4px var(--glow-active));
-}
-
-.skill-item.active .skill-name {
-    color: #ffffff;
-}
-
-.skill-item.active .skill-points {
-    color: var(--color-active);
-    opacity: 1;
+.skill-item.active {
+    color: #00ffcc;
 }
