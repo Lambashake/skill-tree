@@ -1,224 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE GRID // IDENTITY SYSTEM ARCHETYPE</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body data-theme="cyan">
+<div class="skill-wrapper">
 
-    <!-- Digital Light Grid Background Overlay -->
-    <div class="grid-canvas"></div>
-
-    <header id="tron-hud">
-        <div class="hud-wrapper">
-            <div class="hud-identity">
-                <div class="identity-disc"></div>
-                <div>
-                    <h1>SYSTEM ARCHETYPE MATRIX</h1>
-                    <div class="grid-subtext">USER_ACCESS:// SYSTEM_DECK_2026.SYS</div>
-                </div>
-            </div>
-
-            <!-- Core Customization Console -->
-            <div class="theme-console">
-                <label for="theme-select">GRID SECTOR COLOR:</label>
-                <select id="theme-select" onchange="changeGridTheme(this.value)">
-                    <option value="cyan">CYAN GRID (MAIN)</option>
-                    <option value="orange">IDENTITY ORANGE</option>
-                    <option value="pink">RECONGNIZER PINK</option>
-                    <option value="amber">OUTLANDS AMBER</option>
-                    <option value="green">GRID-CORE GREEN</option>
-                </select>
-            </div>
+    <!-- TREE 1: OFFENSE -->
+    <div class="skill-tree-box">
+        <h3 class="tree-title">Offense</h3>
+        <div class="skill-list">
             
-            <div class="hud-data-nodes">
-                <div class="data-node">
-                    <span class="label">LVL</span>
-                    <span id="hud-level" class="value text-glow">1</span>
-                </div>
-                <div class="data-node">
-                    <span class="label">POINTS</span>
-                    <span id="hud-points" class="value text-glow">8</span>
-                </div>
-                <div class="data-node">
-                    <span class="label">STREAK</span>
-                    <span id="hud-streak" class="value text-glow">0</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Light-Cycle Vector Progress Bar -->
-        <div class="vector-bar-wrapper">
-            <div class="vector-label-row">
-                <span>ENERGY SYNTHESIS: <span id="hud-xp-current">0</span> / <span id="hud-xp-needed">500</span> TRACE RAILS</span>
-            </div>
-            <div class="vector-frame">
-                <div id="xp-fill"></div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Command Input Deck Terminal -->
-    <section id="input-terminal-deck">
-        <form id="task-form" onsubmit="event.preventDefault(); handleFormSubmit();">
-            <input type="text" id="task-desc" placeholder="COMPILE NEW LOGGED CONTRACT TRACE..." required autocomplete="off">
-            <select id="task-diff">
-                <option value="1">TIER I [100 ENERGY]</option>
-                <option value="2">TIER II [200 ENERGY]</option>
-                <option value="3">TIER III [300 ENERGY]</option>
-                <option value="4">TIER IV [400 ENERGY]</option>
-                <option value="5">TIER V [500 ENERGY]</option>
-            </select>
-            <button type="submit" class="tron-btn">ENGRAVE</button>
-        </form>
-    </section>
-
-    <!-- The Tree Grid Network System -->
-    <main id="grid-network">
-        
-        <!-- Sector 1 Column Architecture -->
-        <div class="sector-column" id="sector-crucible">
-            <div class="sector-header-row">
-                <div class="sector-header-plate" id="title-crucible">THE CRUCIBLE</div>
-                <button class="sector-config-btn" onclick="openSectorEditorMatrix('crucible')" title="Edit Tree Specifications">⚙️</button>
-            </div>
-            <div class="sector-sub" id="sub-crucible">SYSTEMS & HOPE</div>
-            <div class="node-container-stack" id="nodes-crucible"></div>
-            
-            <div class="dynamic-node-injector">
-                <button class="injector-toggle-btn" onclick="toggleInjectorDeck('crucible')">+ INITIALIZE NEW VECTOR NODE</button>
-                <div class="injector-form-panel" id="form-deck-crucible">
-                    <input type="text" id="add-name-crucible" placeholder="NODE IDENTIFIER...">
-                    <textarea id="add-desc-crucible" placeholder="FUNCTION BLUEPRINT SPECIFICATION..."></textarea>
-                    <div class="injector-row-group">
-                        <input type="number" id="add-max-crucible" value="5" min="1" max="10" placeholder="MAX">
-                        <button class="tron-btn min-padding" onclick="injectCustomNode('crucible')">INJECT</button>
-                    </div>
+            <!-- Skill 1 -->
+            <div class="skill-item active" data-skill="precision-strike">
+                <svg class="skill-icon-svg" viewBox="0 0 24 24">
+                    <line x1="14.5" y1="9.5" x2="22" y2="2"></line>
+                    <line x1="10" y1="14" x2="15" y2="9"></line>
+                    <line x1="7" y1="17" x2="10" y2="14"></line>
+                    <line x1="2" y1="22" x2="7" y2="17"></line>
+                    <line x1="13" y1="16" x2="16" y2="13"></line>
+                </svg>
+                <div class="skill-info">
+                    <span class="skill-name">Precision Strike</span>
+                    <span class="skill-points">1 / 3</span>
                 </div>
             </div>
-        </div>
 
-        <!-- Sector 2 Column Architecture -->
-        <div class="sector-column" id="sector-weave">
-            <div class="sector-header-row">
-                <div class="sector-header-plate" id="title-weave">THE WEAVE</div>
-                <button class="sector-config-btn" onclick="openSectorEditorMatrix('weave')" title="Edit Tree Specifications">⚙️</button>
-            </div>
-            <div class="sector-sub" id="sub-weave">WRITING & DIALECTICS</div>
-            <div class="node-container-stack" id="nodes-weave"></div>
-
-            <div class="dynamic-node-injector">
-                <button class="injector-toggle-btn" onclick="toggleInjectorDeck('weave')">+ INITIALIZE NEW VECTOR NODE</button>
-                <div class="injector-form-panel" id="form-deck-weave">
-                    <input type="text" id="add-name-weave" placeholder="NODE IDENTIFIER...">
-                    <textarea id="add-desc-weave" placeholder="FUNCTION BLUEPRINT SPECIFICATION..."></textarea>
-                    <div class="injector-row-group">
-                        <input type="number" id="add-max-weave" value="5" min="1" max="10" placeholder="MAX">
-                        <button class="tron-btn min-padding" onclick="injectCustomNode('weave')">INJECT</button>
-                    </div>
+            <!-- Skill 2 -->
+            <div class="skill-item" data-skill="chain-lightning">
+                <svg class="skill-icon-svg" viewBox="0 0 24 24">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <div class="skill-info">
+                    <span class="skill-name">Chain Lightning</span>
+                    <span class="skill-points">0 / 5</span>
                 </div>
             </div>
-        </div>
 
-        <!-- Sector 3 Column Architecture -->
-        <div class="sector-column" id="sector-wildcard">
-            <div class="sector-header-row">
-                <div class="sector-header-plate" id="title-wildcard">THE WILD CARD</div>
-                <button class="sector-config-btn" onclick="openSectorEditorMatrix('wildcard')" title="Edit Tree Specifications">⚙️</button>
-            </div>
-            <div class="sector-sub" id="sub-wildcard">CATALYSTS & VISIONS</div>
-            <div class="node-container-stack" id="nodes-wildcard"></div>
-
-            <div class="dynamic-node-injector">
-                <button class="injector-toggle-btn" onclick="toggleInjectorDeck('wildcard')">+ INITIALIZE NEW VECTOR NODE</button>
-                <div class="injector-form-panel" id="form-deck-wildcard">
-                    <input type="text" id="add-name-wildcard" placeholder="NODE IDENTIFIER...">
-                    <textarea id="add-desc-wildcard" placeholder="FUNCTION BLUEPRINT SPECIFICATION..."></textarea>
-                    <div class="injector-row-group">
-                        <input type="number" id="add-max-wildcard" value="5" min="1" max="10" placeholder="MAX">
-                        <button class="tron-btn min-padding" onclick="injectCustomNode('wildcard')">INJECT</button>
-                    </div>
+            <!-- Skill 3 -->
+            <div class="skill-item" data-skill="heavy-impact">
+                <svg class="skill-icon-svg" viewBox="0 0 24 24">
+                    <path d="M14.5 2 L22 9.5 L15 16.5 L7.5 9 L14.5 2 Z"></path>
+                    <line x1="11" y1="12" x2="2" y2="21"></line>
+                </svg>
+                <div class="skill-info">
+                    <span class="skill-name">Heavy Impact</span>
+                    <span class="skill-points">0 / 3</span>
                 </div>
             </div>
-        </div>
 
-    </main>
-
-    <!-- Floating Tooltip Card overlay Frame -->
-    <div id="fixed-grid-tooltip" class="fixed-tooltip-frame">
-        <div class="tooltip-angle-tl"></div><div class="tooltip-angle-tr"></div>
-        <div class="tooltip-angle-bl"></div><div class="tooltip-angle-br"></div>
-        <div class="tooltip-title" id="tt-name">SYSTEM READY</div>
-        <div class="tooltip-desc" id="tt-desc">Safely scan user nodes inside the vector matrix streams to extract node metadata blueprints.</div>
-        <div class="tooltip-status" id="tt-action">SECURE SECTOR ACCESS</div>
-    </div>
-
-    <!-- Node Editor Module Modal Overlay -->
-    <div id="mainframe-node-editor-modal" class="editor-modal-overlay">
-        <div class="editor-modal-box">
-            <div class="tooltip-angle-tl"></div><div class="tooltip-angle-tr"></div>
-            <div class="tooltip-angle-bl"></div><div class="tooltip-angle-br"></div>
-            <div class="modal-title">EDIT_NODE_SPECIFICATIONS://</div>
-            <input type="hidden" id="edit-node-target-id">
-            
-            <div class="modal-field">
-                <label>IDENTIFIER LABEL</label>
-                <input type="text" id="edit-node-name">
-            </div>
-            
-            <div class="modal-field">
-                <label>FUNCTION BLUEPRINT BEHAVIOR DESCRIPTION</label>
-                <textarea id="edit-node-desc" rows="3"></textarea>
-            </div>
-            
-            <div class="modal-field">
-                <label>MAX ARCHETYPE CAPACITY LIMIT</label>
-                <input type="number" id="edit-node-max" min="1" max="20">
-            </div>
-            
-            <div class="modal-action-row">
-                <button class="tron-btn text-accent-red" onclick="deleteTargetNode()">DELETE NODE</button>
-                <div class="modal-right-buttons">
-                    <button class="tron-btn secondary" onclick="closeNodeEditorMatrix()">ABORT</button>
-                    <button class="tron-btn" onclick="commitNodeModifications()">COMMIT</button>
-                </div>
-            </div>
         </div>
     </div>
 
-    <!-- Tree Column Header Editor Modal Overlay -->
-    <div id="mainframe-sector-editor-modal" class="editor-modal-overlay">
-        <div class="editor-modal-box">
-            <div class="tooltip-angle-tl"></div><div class="tooltip-angle-tr"></div>
-            <div class="tooltip-angle-bl"></div><div class="tooltip-angle-br"></div>
-            <div class="modal-title">EDIT_TREE_SPECIFICATIONS://</div>
-            <input type="hidden" id="edit-sector-target-id">
+    <!-- TREE 2: DEFENSE -->
+    <div class="skill-tree-box">
+        <h3 class="tree-title">Defense</h3>
+        <div class="skill-list">
             
-            <div class="modal-field">
-                <label>TREE SECTOR HEADLINE</label>
-                <input type="text" id="edit-sector-title">
-            </div>
-            
-            <div class="modal-field">
-                <label>SUBTEXT FUNCTION ARCHETYPE</label>
-                <input type="text" id="edit-sector-sub">
-            </div>
-            
-            <div class="modal-action-row" style="justify-content: flex-end;">
-                <div class="modal-right-buttons">
-                    <button class="tron-btn secondary" onclick="closeSectorEditorMatrix()">ABORT</button>
-                    <button class="tron-btn" onclick="commitSectorModifications()">UPDATE TREE</button>
+            <!-- Skill 1 -->
+            <div class="skill-item active" data-skill="iron-bastion">
+                <svg class="skill-icon-svg" viewBox="0 0 24 24">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <div class="skill-info">
+                    <span class="skill-name">Iron Bastion</span>
+                    <span class="skill-points">2 / 2</span>
                 </div>
             </div>
+
+            <!-- Skill 2 -->
+            <div class="skill-item" data-skill="regeneration">
+                <svg class="skill-icon-svg" viewBox="0 0 24 24">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <div class="skill-info">
+                    <span class="skill-name">Regeneration</span>
+                    <span class="skill-points">0 / 3</span>
+                </div>
+            </div>
+
+            <!-- Skill 3 -->
+            <div class="skill-item" data-skill="unshakable-anchor">
+                <svg class="skill-icon-svg" viewBox="0 0 24 24">
+                    <circle cx="12" cy="5" r="3"></circle>
+                    <line x1="12" y1="8" x2="12" y2="17"></line>
+                    <path d="M5 12 h14 M6 17 A6 6 0 0 0 18 17"></path>
+                </svg>
+                <div class="skill-info">
+                    <span class="skill-name">Unshakable Anchor</span>
+                    <span class="skill-points">0 / 1</span>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <footer id="grid-mainframe-base">
-        <button class="purge-link" onclick="triggerSystemReset()">PURGE MAIN SYSTEM DECK</button>
-    </footer>
+    <!-- TREE 3: UTILITY -->
+    <div class="skill-tree-box">
+        <h3 class="tree-title">Utility</h3>
+        <div class="skill-list">
+            
+            <!-- Skill 1 -->
+            <div class="skill-item" data-skill="eagle-eye">
+                <svg class="skill-icon-svg" viewBox="0 0 24 24">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <div class="skill-info">
+                    <span class="skill-name">Eagle Eye</span>
+                    <span class="skill-points">0 / 4</span>
+                </div>
+            </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+            <!-- Skill 2 -->
+            <div class="skill-item" data-skill="resourcefulness">
+                <svg class="skill-icon-svg" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <div class="skill-info">
+                    <span class="skill-name">Resourcefulness</span>
+                    <span class="skill-points">0 / 2</span>
+                </div>
+            </div>
+
+            <!-- Skill 3 -->
+            <div class="skill-item" data-skill="fleet-footed">
+                <svg class="skill-icon-svg" viewBox="0 0 24 24">
+                    <path d="M3 22h18 M5 18v-4a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v4 M9 10V6a3 3 0 0 1 6 0v4"></path>
+                </svg>
+                <div class="skill-info">
+                    <span class="skill-name">Fleet Footed</span>
+                    <span class="skill-points">0 / 3</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
