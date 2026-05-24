@@ -3,120 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ODYSSEY // SKILL ARCHETYPE</title>
+    <title>PORTFOLIO CORE // ABILITY ARCHETYPE</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Cinematic Background Ambient Layers -->
-    <div class="bg-overlay"></div>
-    <div class="dust-particles"></div>
+    <!-- Retro CRT Simulation Layer Overlay -->
+    <div class="crt-scanlines"></div>
 
-    <!-- Premium Epic HUD -->
-    <header id="odyssey-hud">
-        <div class="hud-container">
-            <!-- Left Side: User Persona & Level Badge -->
-            <div class="hud-left">
-                <div class="level-shield">
-                    <span class="shield-laurel">❖</span>
-                    <span id="hud-level">1</span>
-                </div>
-                <div class="identity-details">
-                    <h1 id="canvas-title">GAME DESIGNER & EDUCATOR</h1>
-                    <div class="archetype-label">SYSTEM ARCHETYPE // LEVEL PROGRESS</div>
+    <header id="retro-terminal-hud">
+        <div class="hud-wrapper">
+            <div class="hud-profile">
+                <div class="pixel-avatar">👾</div>
+                <div>
+                    <h1>SYSTEMS ARCHETYPE MATRIX</h1>
+                    <div class="terminal-subtext">RUNNING:// PROFILE_SYS_2026.BAT</div>
                 </div>
             </div>
             
-            <!-- Right Side: Ability Points Available -->
-            <div class="hud-right">
-                <div class="points-counter-container">
-                    <div class="points-label">ABILITY POINTS AVAILABLE</div>
-                    <div id="hud-points" class="points-glow">8</div>
+            <div class="hud-stats-panel">
+                <div class="stat-block">
+                    <span class="label">LVL:</span>
+                    <span id="hud-level" class="value glow-green">1</span>
+                </div>
+                <div class="stat-block">
+                    <span class="label">POINTS:</span>
+                    <span id="hud-points" class="value glow-amber">8</span>
+                </div>
+                <div class="stat-block">
+                    <span class="label">STREAK:</span>
+                    <span id="hud-streak" class="value glow-cyan">0</span>
                 </div>
             </div>
         </div>
 
-        <!-- Sleek Geometric Experience Bar -->
-        <div class="xp-bar-wrapper">
-            <div class="xp-track">
-                <div id="xp-fill"></div>
-                <div class="xp-markers">
-                    <span></span><span></span><span></span><span></span>
-                </div>
+        <!-- Retro Hardware-Style XP Loading Bar -->
+        <div class="xp-bar-container">
+            <div class="xp-label-row">
+                <span>XP PROGRESS: <span id="hud-xp-current">0</span> / <span id="hud-xp-needed">500</span></span>
             </div>
-            <div class="xp-text-display">
-                <span id="hud-xp-current">0</span> / <span id="hud-xp-needed">500</span> XP // <span class="streak-highlight">STREAK: <span id="hud-streak">0</span> DAYS</span>
+            <div class="xp-frame">
+                <div id="xp-fill"></div>
             </div>
         </div>
     </header>
 
-    <!-- Sleek Minimalist Quest Logger (Input Console) -->
-    <section id="quest-logger-console">
+    <!-- Retro Console Form Input Box -->
+    <section id="console-input-deck">
         <form id="task-form" onsubmit="event.preventDefault(); handleFormSubmit();">
-            <div class="input-container-sleek">
-                <input type="text" id="task-desc" placeholder="RECORD A COMPLETED ODYSSEY CONTRACT..." required>
-                <div class="input-accent-line"></div>
-            </div>
-            <div class="select-container-sleek">
-                <select id="task-diff">
-                    <option value="1">TIER I [TRIVIAL BOUNTY]</option>
-                    <option value="2">TIER II [MINOR ENCOUNTER]</option>
-                    <option value="3">TIER III [CHOSEN QUEST]</option>
-                    <option value="4">TIER IV [HEROIC CONFLICT]</option>
-                    <option value="5">TIER V [LEGENDARY CONQUEST]</option>
-                </select>
-            </div>
-            <button type="submit" class="odyssey-btn-gold">ENGRAVE + RECORD</button>
+            <input type="text" id="task-desc" placeholder="INPUT COMPLETED CONTRACT DATA..." required>
+            <select id="task-diff">
+                <option value="1">TIER I [+100 XP]</option>
+                <option value="2">TIER II [+200 XP]</option>
+                <option value="3">TIER III [+300 XP]</option>
+                <option value="4">TIER IV [+400 XP]</option>
+                <option value="5">TIER V [+500 XP]</option>
+            </select>
+            <button type="submit" class="retro-btn">ENGRAVE</button>
         </form>
     </section>
 
-    <!-- Mythic Three-Tiered Skill Tree Matrix -->
-    <main id="canvas-matrix">
+    <!-- Fully Unlocked Skill Tree Terminal -->
+    <main id="terminal-grid">
         
-        <!-- Pillar 1: The Crucible (The Hunter / Systems & Hope) -->
-        <div class="matrix-column pillar-card" id="col-crucible" style="--pillar-gold: #ffcc00; --pillar-glow: rgba(255, 204, 0, 0.15);">
-            <div class="pillar-header">
-                <div class="pillar-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 3.99L19.53 19H4.47L12 5.99zM13 13h-2v-4h2v4zm0 4h-2v-2h2v2z"/></svg>
-                </div>
-                <h2>THE CRUCIBLE</h2>
-                <div class="pillar-sub">SYSTEMS & RADICAL HOPE</div>
-            </div>
-            <div class="tiers-container-raw" id="nodes-crucible"></div>
+        <!-- Pillar 1: Systems & Radical Hope -->
+        <div class="grid-column" id="col-crucible" style="--node-accent: #00ff66;">
+            <div class="column-title-plate">THE CRUCIBLE</div>
+            <div class="column-subtitle">SYSTEMS & HOPE</div>
+            <div class="node-stack" id="nodes-crucible"></div>
         </div>
 
-        <!-- Pillar 2: The Weave (The Assassin / Creative & Textures) -->
-        <div class="matrix-column pillar-card" id="col-weave" style="--pillar-gold: #e5c158; --pillar-glow: rgba(229, 193, 88, 0.15);">
-            <div class="pillar-header">
-                <div class="pillar-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L12 15v5c0 .35.19.67.5.84.16.09.33.16.5.09zm5.79-11.36c.13.58.21 1.17.21 1.79 0 4.08-3.05 7.44-7 7.93v-2.06l4.79-4.79c.39-.39.39-1.02 0-1.41l-2.03-2.03c-.39-.39-1.02-.39-1.41 0L12 10.12V4.07c3.95.49 7 3.85 7 7.93 0 .62-.08 1.21-.21 1.79z"/></svg>
-                </div>
-                <h2>THE WEAVE</h2>
-                <div class="pillar-sub">WRITING & DIALECTICS</div>
-            </div>
-            <div class="tiers-container-raw" id="nodes-weave"></div>
+        <!-- Pillar 2: Writing & Dialectics -->
+        <div class="grid-column" id="col-weave" style="--node-accent: #ff0055;">
+            <div class="column-title-plate">THE WEAVE</div>
+            <div class="column-subtitle">WRITING & DIALECTICS</div>
+            <div class="node-stack" id="nodes-weave"></div>
         </div>
 
-        <!-- Pillar 3: The Wild Card (The Warrior / Catalyst & Sound) -->
-        <div class="matrix-column pillar-card" id="col-wildcard" style="--pillar-gold: #c5a059; --pillar-glow: rgba(197, 160, 89, 0.15);">
-            <div class="pillar-header">
-                <div class="pillar-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm-1-17.93c-3.95.49-7 3.85-7 7.93 0 .62.08 1.21.21 1.79L9 11v-1c0-1.1.9-2 2-2h1V4.07zm7.79 11.36c.13-.58.21-1.17.21-1.79 0-4.08-3.05-7.44-7-7.93v3.66l-2.24 2.24c-.2.2-.29.47-.24.75l.5 2.5c.08.37.4.63.78.63h1.43v2.06c3.95-.49 7-3.85 7-7.93z"/></svg>
-                </div>
-                <h2>THE WILD CARD</h2>
-                <div class="pillar-sub">CATALYSTS & SOUND</div>
-            </div>
-            <div class="tiers-container-raw" id="nodes-wildcard"></div>
+        <!-- Pillar 3: Catalysts & Sound -->
+        <div class="grid-column" id="col-wildcard" style="--node-accent: #00e1ff;">
+            <div class="column-title-plate">THE WILD CARD</div>
+            <div class="column-subtitle">CATALYSTS & SOUND</div>
+            <div class="node-stack" id="nodes-wildcard"></div>
         </div>
 
-main>
+    </main>
 
-    <!-- Clean Premium Reset Footer -->
-    <footer id="canvas-footer">
-        <button id="nuke-system-btn" onclick="triggerSystemReset()">
-            RESET ALL ABILITIES
-        </button>
-        <div class="footer-fineprint">© 431 BCE // ARCHETYPE DEVELOPMENT MATRIX</div>
+    <!-- Persistent Fixed Viewport Target Floating Card (Prevents Layer Bleedout Completely) -->
+    <div id="fixed-global-tooltip" class="fixed-tooltip-panel">
+        <div class="tooltip-header" id="tt-name">SKILL DETAILS</div>
+        <div class="tooltip-body" id="tt-desc">Hover over any ability node to read core operational data blueprints.</div>
+        <div class="tooltip-footer" id="tt-action">READY FOR ARCHIVAL DEPLOYMENT</div>
+    </div>
+
+    <footer id="retro-base-deck">
+        <button class="nuke-btn" onclick="triggerSystemReset()">FACTORY RESET CONSOLE</button>
     </footer>
 
     <script src="script.js"></script>
