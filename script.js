@@ -147,7 +147,7 @@ if (!gridState.sectorMeta) {
 function changeGridTheme(themeValue) {
     document.body.setAttribute('data-theme', themeValue);
     gridState.currentTheme = themeValue;
-    localStorage.setItem('tron_grid_save_matrix_v3', JSON.stringify(gridState));
+    saveAndFlush();
 }
 
 function locateNode(nodeId) {
@@ -308,6 +308,15 @@ function commitSectorModifications() {
 }
 
 // Processing Matrix Experience Increments
+function handleFormSubmit() {
+    const descInput = document.getElementById('task-desc');
+    const diffSelect = document.getElementById('task-diff');
+    if (!descInput.value.trim()) return;
+
+    logTask(descInput.value.trim(), parseInt(diffSelect.value));
+    descInput.value = '';
+}
+
 function logTask(desc, difficulty) {
     let energyGain = difficulty * 100;
     const rightNow = new Date().toDateString();
@@ -352,105 +361,105 @@ function refreshTooltipText(node) {
         status.innerText = "SECURE SECTOR ACCESS REGISTERED";
         return;
     }
-    
+
     title.innerText = node.name;
     body.innerText = node.desc;
-    
-    if (node.rank >= node.maxRank) {
-        status.innerText = "⚡ IDENTITY BLUEPRINT MAXIMUM CAPACITY ACHIEVED";
-    } else {
-        status.innerText = `[LEFT CLICK] ALLOCATE POINT // [RIGHT CLICK] PURGE POINT (${node.rank}/${node.maxRank})`;
-    }
+    status.innerText = `RANK: ${node.rank} / ${node.maxRank} // CLICK LEFT TO EXTEND, RIGHT TO RETRACT`;
 }
 
-function triggerSystemReset() {
-    if (confirm("⚠️ WARNING: PURGE ALL LOCAL CUSTOM SECTORS?\n\nThis will reset your environment and metrics back to factory standard presets.")) {
-        gridState = {
-            profile: { level: 1, currentXp: 0, skillPoints: 8 },
-            streaks: { currentStreak: 0, lastLogDate: null },
-            currentTheme: document.getElementById('theme-select').value,
-            sectorMeta: JSON.parse(JSON.stringify(INITIAL_SECTOR_META)),
-            trees: JSON.parse(JSON.stringify(INITIAL_MAPS))
-        };
-        saveAndFlush();
-        refreshTooltipText(null);
-    }
-}
-
-// Pure Interface Paint Pipeline
-function paintGridUI() {
+// Render DOM Interface Pipeline
+function renderSystemInterface() {
+    // HUD Sync
     document.getElementById('hud-level').innerText = gridState.profile.level;
     document.getElementById('hud-points').innerText = gridState.profile.skillPoints;
     document.getElementById('hud-streak').innerText = gridState.streaks.currentStreak;
+    
+    const xpNeeded = gridState.profile.level * 500;
     document.getElementById('hud-xp-current').innerText = gridState.profile.currentXp;
+    document.getElementById('hud-xp-needed').innerText = xpNeeded;
     
-    const maxBound = gridState.profile.level * 500;
-    document.getElementById('hud-xp-needed').innerText = maxBound;
-    document.getElementById('xp-fill').style.width = `${(gridState.profile.currentXp / maxBound) * 100}%`;
+    const percent = Math.min(100, (gridState.profile.currentXp / xpNeeded) * 100);
+    document.getElementById('xp-fill').style.width = `${percent}%`;
     
+    // Theme Dropdown Sync
+    document.getElementById('theme-select').value = gridState.currentTheme;
+    document.body.setAttribute('data-theme', gridState.currentTheme);
+
+    // Columns & Nodes Sync
     for (let sector in gridState.trees) {
-        // Redraw overarching text allocations dynamically
-        const meta = gridState.sectorMeta[sector] || INITIAL_SECTOR_META[sector];
+        const meta = gridState.sectorMeta[sector];
         document.getElementById(`title-${sector}`).innerText = meta.title;
         document.getElementById(`sub-${sector}`).innerText = meta.sub;
 
-        const rootStack = document.getElementById(`nodes-${sector}`);
-        if (!rootStack) continue;
-        rootStack.innerHTML = '';
-        
+        const container = document.getElementById(`nodes-${sector}`);
+        container.innerHTML = '';
+
         gridState.trees[sector].forEach(node => {
-            const row = document.createElement('div');
+            const nodeEl = document.createElement('div');
+            nodeEl.className = `node-item-wrapper ${node.rank === node.maxRank ? 'maxed' : ''}`;
             
-            let modifier = '';
-            if (node.rank >= node.maxRank) modifier = 'maxed';
-            else if (node.rank > 0) modifier = 'has-points';
+            // Interaction listeners
+            nodeEl.addEventListener('mouseenter', () => {
+                SynthAudioModule.triggerHoverSound();
+                refreshTooltipText(node);
+            });
+            nodeEl.addEventListener('mouseleave', () => refreshTooltipText(null));
             
-            row.className = `tron-node-row ${modifier}`;
-            // Toggle description on click
-            row.onclick = () => toggleDescription(row);
-            
-            row.innerHTML = `
-                <div class="node-meta-left">
-                    <div class="css-mask-image" style="-webkit-mask-image: ${node.mask}; mask-image: ${node.mask};"></div>
-                    <span class="node-string-title">${node.name}</span>
+            nodeEl.addEventListener('click', () => allocatePoint(node.id));
+            nodeEl.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                purgePoint(node.id);
+            });
+
+            // Pip progress elements
+            let pipsHtml = '';
+            for (let i = 0; i < node.maxRank; i++) {
+                pipsHtml += `<div class="progress-pip ${i < node.rank ? 'filled' : ''}"></div>`;
+            }
+
+            nodeEl.innerHTML = `
+                <div class="node-vector-glyph" style="mask-image: ${node.mask}; -webkit-mask-image: ${node.mask};"></div>
+                <div class="node-core-details">
+                    <div class="node-label-identity">${node.name}</div>
+                    <div class="node-pip-track">${pipsHtml}</div>
                 </div>
-                <div class="node-right-action-cluster" onclick="event.stopPropagation()">
-                    <button class="tron-btn min-padding text-accent-red" onclick="purgePoint('${node.id}')">-</button>
-                    <button class="tron-btn min-padding" onclick="allocatePoint('${node.id}')">+</button>
-                    <div class="node-charge-pip">${node.rank}/${node.maxRank}</div>
-                    <button class="node-config-gear-trigger" onclick="openNodeEditorMatrix(event, '${node.id}')">⚙️</button>
-                </div>
-                <div class="task-description-box" style="display:none; padding: 10px; border-top: 1px solid var(--grid-border); color: #ccc;">
-                    ${node.desc}
-                </div>
+                <button class="node-inline-edit-btn" onclick="openNodeEditorMatrix(event, '${node.id}')">⋮</button>
             `;
-            
-            rootStack.appendChild(row);
-        });
+            container.appendChild(nodeEl);
         });
     }
-}
-
-function handleFormSubmit() {
-    const note = document.getElementById('task-desc');
-    const tier = document.getElementById('task-diff');
-    logTask(note.value, parseInt(tier.value));
-    note.value = '';
-    tier.value = '1';
 }
 
 function saveAndFlush() {
     localStorage.setItem('tron_grid_save_matrix_v3', JSON.stringify(gridState));
-    paintGridUI();
+    renderSystemInterface();
 }
 
-window.onload = () => {
-    document.getElementById('theme-select').value = gridState.currentTheme;
-    changeGridTheme(gridState.currentTheme);
-    paintGridUI();
-    refreshTooltipText(null);
-};
-function toggleDescription(nodeElement) {
-    const descBox = nodeElement.querySelector('.task-description-box');
-    descBox.style.display = (descBox.style.display === 'none') ? 'block' : 'none';
+function triggerSystemReset() {
+    if (confirm("WARNING: Proceeding will instantly clear your local data logs and revert your nodes to default specifications. Continue?")) {
+        localStorage.removeItem('tron_grid_save_matrix_v3');
+        gridState = {
+            profile: { level: 1, currentXp: 0, skillPoints: 8 },
+            streaks: { currentStreak: 0, lastLogDate: null },
+            currentTheme: "cyan",
+            sectorMeta: JSON.parse(JSON.stringify(INITIAL_SECTOR_META)),
+            trees: JSON.parse(JSON.stringify(INITIAL_MAPS))
+        };
+        saveAndFlush();
+    }
 }
+
+// Core Mainframe System Bootstrap Launch
+document.addEventListener("DOMContentLoaded", () => {
+    // Synchronize username persistence if needed
+    const nameInput = document.getElementById('user-archetype');
+    const storedName = localStorage.getItem('tron_user_archetype_name');
+    if (storedName) nameInput.value = storedName;
+    
+    nameInput.addEventListener('input', () => {
+        localStorage.setItem('tron_user_archetype_name', nameInput.value);
+    });
+
+    renderSystemInterface();
+    refreshTooltipText(null);
+});
