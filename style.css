@@ -270,14 +270,15 @@ body {
 /* Corrected Baseline Alignment Grid System Network Wrapper */
 #grid-network {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(365px, 1fr));
+    /* Forces 3 equal columns on desktop */
+    grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 3rem 16rem 3rem; 
     position: relative;
     z-index: 5;
-    align-items: stretch; /* Locks upper edge of columns together */
+    align-items: stretch; /* Forces equal height columns */
 }
 
 .sector-column {
@@ -685,5 +686,24 @@ body {
     .tron-node-row {
         height: auto; /* Allow row to expand if text is long */
         padding: 0.75rem;
+    }
+}
+@media (max-width: 1100px) {
+    #grid-network {
+        grid-template-columns: repeat(2, 1fr); /* Tablet: 2 columns */
+    }
+}
+
+@media (max-width: 768px) {
+    #grid-network {
+        grid-template-columns: 1fr; /* Mobile: 1 column */
+        padding: 1rem;
+        gap: 1rem;
+    }
+    .sector-column {
+        min-height: auto; /* Allow natural height on mobile */
+    }
+    .tron-node-row {
+        height: auto; /* Stop rows from being fixed height on small screens */
     }
 }
