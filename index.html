@@ -8,7 +8,7 @@
 </head>
 <body data-theme="cyan">
 
-    <!-- Digital Light Grid Background Background Overlay -->
+    <!-- Digital Light Grid Background Overlay -->
     <div class="grid-canvas"></div>
 
     <header id="tron-hud">
@@ -78,13 +78,15 @@
     <!-- The Tree Grid Network System -->
     <main id="grid-network">
         
-        <!-- Sector 1: Systems & Radical Hope -->
+        <!-- Sector 1 Column Architecture -->
         <div class="sector-column" id="sector-crucible">
-            <div class="sector-header-plate">THE CRUCIBLE</div>
-            <div class="sector-sub">SYSTEMS & HOPE</div>
+            <div class="sector-header-row">
+                <div class="sector-header-plate" id="title-crucible">THE CRUCIBLE</div>
+                <button class="sector-config-btn" onclick="openSectorEditorMatrix('crucible')" title="Edit Tree Specifications">⚙️</button>
+            </div>
+            <div class="sector-sub" id="sub-crucible">SYSTEMS & HOPE</div>
             <div class="node-container-stack" id="nodes-crucible"></div>
             
-            <!-- Injection Port for New Node Vectors -->
             <div class="dynamic-node-injector">
                 <button class="injector-toggle-btn" onclick="toggleInjectorDeck('crucible')">+ INITIALIZE NEW VECTOR NODE</button>
                 <div class="injector-form-panel" id="form-deck-crucible">
@@ -98,13 +100,15 @@
             </div>
         </div>
 
-        <!-- Sector 2: Writing & Dialectics -->
+        <!-- Sector 2 Column Architecture -->
         <div class="sector-column" id="sector-weave">
-            <div class="sector-header-plate">THE WEAVE</div>
-            <div class="sector-sub">WRITING & DIALECTICS</div>
+            <div class="sector-header-row">
+                <div class="sector-header-plate" id="title-weave">THE WEAVE</div>
+                <button class="sector-config-btn" onclick="openSectorEditorMatrix('weave')" title="Edit Tree Specifications">⚙️</button>
+            </div>
+            <div class="sector-sub" id="sub-weave">WRITING & DIALECTICS</div>
             <div class="node-container-stack" id="nodes-weave"></div>
 
-            <!-- Injection Port for New Node Vectors -->
             <div class="dynamic-node-injector">
                 <button class="injector-toggle-btn" onclick="toggleInjectorDeck('weave')">+ INITIALIZE NEW VECTOR NODE</button>
                 <div class="injector-form-panel" id="form-deck-weave">
@@ -118,13 +122,15 @@
             </div>
         </div>
 
-        <!-- Sector 3: Catalysts & Visions -->
+        <!-- Sector 3 Column Architecture -->
         <div class="sector-column" id="sector-wildcard">
-            <div class="sector-header-plate">THE WILD CARD</div>
-            <div class="sector-sub">CATALYSTS & VISIONS</div>
+            <div class="sector-header-row">
+                <div class="sector-header-plate" id="title-wildcard">THE WILD CARD</div>
+                <button class="sector-config-btn" onclick="openSectorEditorMatrix('wildcard')" title="Edit Tree Specifications">⚙️</button>
+            </div>
+            <div class="sector-sub" id="sub-wildcard">CATALYSTS & VISIONS</div>
             <div class="node-container-stack" id="nodes-wildcard"></div>
 
-            <!-- Injection Port for New Node Vectors -->
             <div class="dynamic-node-injector">
                 <button class="injector-toggle-btn" onclick="toggleInjectorDeck('wildcard')">+ INITIALIZE NEW VECTOR NODE</button>
                 <div class="injector-form-panel" id="form-deck-wildcard">
@@ -140,7 +146,7 @@
 
     </main>
 
-    <!-- Fixed Floating Context Display Control Frame -->
+    <!-- Floating Tooltip Card overlay Frame -->
     <div id="fixed-grid-tooltip" class="fixed-tooltip-frame">
         <div class="tooltip-angle-tl"></div><div class="tooltip-angle-tr"></div>
         <div class="tooltip-angle-bl"></div><div class="tooltip-angle-br"></div>
@@ -149,7 +155,7 @@
         <div class="tooltip-status" id="tt-action">SECURE SECTOR ACCESS</div>
     </div>
 
-    <!-- Persistent Global Core Node Editor Module Overlay (Fixed Sandbox) -->
+    <!-- Node Editor Module Modal Overlay -->
     <div id="mainframe-node-editor-modal" class="editor-modal-overlay">
         <div class="editor-modal-box">
             <div class="tooltip-angle-tl"></div><div class="tooltip-angle-tr"></div>
@@ -177,6 +183,33 @@
                 <div class="modal-right-buttons">
                     <button class="tron-btn secondary" onclick="closeNodeEditorMatrix()">ABORT</button>
                     <button class="tron-btn" onclick="commitNodeModifications()">COMMIT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tree Column Header Editor Modal Overlay -->
+    <div id="mainframe-sector-editor-modal" class="editor-modal-overlay">
+        <div class="editor-modal-box">
+            <div class="tooltip-angle-tl"></div><div class="tooltip-angle-tr"></div>
+            <div class="tooltip-angle-bl"></div><div class="tooltip-angle-br"></div>
+            <div class="modal-title">EDIT_TREE_SPECIFICATIONS://</div>
+            <input type="hidden" id="edit-sector-target-id">
+            
+            <div class="modal-field">
+                <label>TREE SECTOR HEADLINE</label>
+                <input type="text" id="edit-sector-title">
+            </div>
+            
+            <div class="modal-field">
+                <label>SUBTEXT FUNCTION ARCHETYPE</label>
+                <input type="text" id="edit-sector-sub">
+            </div>
+            
+            <div class="modal-action-row" style="justify-content: flex-end;">
+                <div class="modal-right-buttons">
+                    <button class="tron-btn secondary" onclick="closeSectorEditorMatrix()">ABORT</button>
+                    <button class="tron-btn" onclick="commitSectorModifications()">UPDATE TREE</button>
                 </div>
             </div>
         </div>
