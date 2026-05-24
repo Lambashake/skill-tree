@@ -455,3 +455,7 @@ window.onload = () => {
     paintGridUI();
     refreshTooltipText(null);
 };
+function toggleDescription(nodeElement) {
+    const descBox = nodeElement.querySelector('.task-description-box');
+    descBox.style.display = (descBox.style.display === 'none') ? 'block' : 'none';
+}
