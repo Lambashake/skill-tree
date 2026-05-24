@@ -741,3 +741,12 @@ archetype-input {
 .archetype-input:focus {
     border-bottom: 2px solid var(--neon-core);
 }
+.task-description-box {
+    display: none;
+    font-size: 0.8rem;
+    color: #a4b7cd;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    margin-top: 5px;
+    border: 1px solid var(--grid-border);
+}
