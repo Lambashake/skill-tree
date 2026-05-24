@@ -1,419 +1,417 @@
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Special+Elite&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Montserrat:wght@300;400;600&display=swap');
 
 :root {
-    --bg-canvas: #16181a;
-    --panel-wood: #222529;
-    --chalk-white: #fcfaf2; /* Raw oil pastel white */
-    --ink-black: #050505;
+    --bg-dark-obsidian: #0a0c10;
+    --card-marble-dark: #12161f;
+    --gold-bright: #f5c542;
+    --gold-muted: #af913f;
+    --text-white: #e6ebf5;
+    --text-gray: #8a93a6;
+    --border-color: rgba(245, 197, 66, 0.2);
 }
 
 body {
-    background-color: var(--bg-canvas);
-    color: var(--chalk-white);
-    font-family: 'Special Elite', system-ui, monospace;
+    background-color: var(--bg-dark-obsidian);
+    color: var(--text-white);
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     position: relative;
+    background-image: radial-gradient(circle at 50% 30%, #171f2e 0%, var(--bg-dark-obsidian) 70%);
 }
 
-/* Street Art Textures and Charcoal Smudges */
-.canvas-grain {
+/* Ambient Dust Particles for a Cinematic Background */
+.bg-overlay {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
-    opacity: 0.08;
-    background-image: radial-gradient(#fff 1px, transparent 0), radial-gradient(#000 1px, transparent 0);
-    background-size: 12px 12px;
-    background-position: 0 0, 6px 6px;
+    background: url('https://www.transparenttextures.com/patterns/black-thread.png');
+    opacity: 0.15;
     z-index: -2;
     pointer-events: none;
 }
 
-.street-smudge {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
+.dust-particles {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.4) 100%);
     z-index: -1;
-    opacity: 0.15;
     pointer-events: none;
 }
-.smudge-1 { top: 10%; left: 5%; width: 400px; height: 400px; background: #e11d48; }
-.smudge-2 { bottom: 20%; right: 5%; width: 500px; height: 500px; background: #eab308; }
 
-/* Crossed-Out Words (Basquiat Technique: Cross words out so they get read more) */
-.crossed-text {
-    text-decoration: line-through solid #e11d48 4px;
-    color: #666;
-    margin-right: 8px;
+/* Epic Premium HUD Layout */
+#odyssey-hud {
+    background: linear-gradient(to bottom, #0d111a 0%, rgba(10, 12, 16, 0.9) 80%, transparent 100%);
+    border-bottom: 1px solid var(--border-color);
+    padding: 2rem 3rem 0 3rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-/* Raw Bebop Jazz HUD Layout */
-#basquiat-hud {
-    background: var(--ink-black);
-    padding: 2.5rem 2rem 0 2rem;
-    border-bottom: 8px ridge #444;
-    position: relative;
-}
-
-.hud-main {
-    max-width: 1500px;
+.hud-container {
+    max-width: 1600px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
 }
 
-#canvas-title {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 3.2rem;
-    line-height: 0.9;
-    letter-spacing: -1px;
-    margin: 0 0 0.5rem 0;
-    color: var(--chalk-white);
-    text-transform: uppercase;
-    transform: skewX(-4deg);
-}
-
-.crossed-out-poetry {
-    font-size: 1rem;
-    letter-spacing: 2px;
-    font-weight: bold;
-}
-
-.crown-level-box {
-    text-align: center;
-    position: relative;
-    background: #eab308;
-    color: #000;
-    padding: 10px 20px;
-    border: 4px solid var(--chalk-white);
-    transform: rotate(-4deg) scale(1.1);
-}
-
-.basquiat-crown {
-    font-size: 3rem;
-    position: absolute;
-    top: -38px;
-    left: 50%;
-    transform: translateX(-50%);
-    line-height: 1;
-}
-
-.level-badge {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 2.2rem;
-    margin-top: 5px;
-}
-
-.points-box {
-    border: 5px solid #2563eb;
-    padding: 0.75rem 2rem;
-    text-align: left;
-    transform: rotate(2deg);
-    background: var(--panel-wood);
-}
-
-#hud-points {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 3rem;
-    color: var(--chalk-white);
-    line-height: 1;
-}
-
-.points-label {
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.cryptic-subtext {
-    font-size: 0.7rem;
-    color: #888;
-    margin-top: 4px;
-}
-
-/* X-Ray / Anatomical Skeleton Progress Bar */
-.xp-container-skeletal {
-    width: calc(100% + 4rem);
-    margin-left: -2rem;
-    background: #111;
-    height: 35px;
-    margin-top: 2.5rem;
-    position: relative;
-    border-top: 5px solid var(--chalk-white);
-    overflow: hidden;
-}
-
-#xp-fill-raw {
-    background: #e11d48; /* Red muscle tissue underlying */
-    height: 100%;
-    width: 0%;
-    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.ribcage-lines {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+.hud-left {
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    pointer-events: none;
+    gap: 1.5rem;
 }
 
-.ribcage-lines span {
-    width: 4px;
-    height: 80%;
-    background: var(--chalk-white);
-    opacity: 0.4;
-}
-
-.xp-counter-label {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+.level-shield {
+    position: relative;
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(135deg, #1b2436 0%, #0d121d 100%);
+    border: 2px solid var(--gold-bright);
+    transform: rotate(45deg);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Permanent Marker', cursive;
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-    color: var(--chalk-white);
-    mix-blend-mode: difference;
+    box-shadow: 0 0 15px rgba(245, 197, 66, 0.3);
 }
 
-/* Chaotic Input Form Console */
-#input-console-raw {
+.level-shield span {
+    transform: rotate(-45deg);
+}
+
+#hud-level {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--gold-bright);
+    position: absolute;
+    z-index: 2;
+}
+
+.shield-laurel {
+    font-size: 2.5rem;
+    color: rgba(245, 197, 66, 0.08);
+    position: absolute;
+}
+
+.identity-details #canvas-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.archetype-label {
+    font-size: 0.75rem;
+    color: var(--gold-muted);
+    letter-spacing: 3px;
+    margin-top: 0.25rem;
+    font-weight: 600;
+}
+
+.points-counter-container {
+    text-align: right;
+    background: rgba(18, 22, 31, 0.6);
+    padding: 0.5rem 1.5rem;
+    border-left: 3px solid var(--gold-bright);
+}
+
+.points-label {
+    font-size: 0.7rem;
+    color: var(--text-gray);
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+#hud-points {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--gold-bright);
+    line-height: 1.1;
+    text-shadow: 0 0 10px rgba(245, 197, 66, 0.5);
+}
+
+/* Experience Bar Layout */
+.xp-bar-wrapper {
     max-width: 900px;
-    margin: 4rem auto;
-    padding: 0 1.5rem;
+    margin: 2rem auto 0 auto;
+    padding-bottom: 1rem;
+}
+
+.xp-track {
+    height: 6px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+#xp-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, var(--gold-muted), var(--gold-bright));
+    box-shadow: 0 0 8px var(--gold-bright);
+    transition: width 0.5s ease-out;
+}
+
+.xp-markers span {
+    position: absolute;
+    top: 0; width: 1px; height: 100%;
+    background: rgba(255,255,255,0.15);
+}
+.xp-markers span:nth-child(1) { left: 25%; }
+.xp-markers span:nth-child(2) { left: 50%; }
+.xp-markers span:nth-child(3) { left: 75%; }
+
+.xp-text-display {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-gray);
+    margin-top: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.streak-highlight {
+    color: var(--gold-bright);
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+/* Elegant Minimalist Quest Logger Form */
+#quest-logger-console {
+    max-width: 1100px;
+    margin: 3.5rem auto;
+    padding: 0 2rem;
 }
 
 #task-form {
     display: flex;
-    flex-wrap: wrap;
     gap: 1.5rem;
-    background: var(--ink-black);
-    padding: 1.5rem;
-    border: 5px solid #fff;
-    transform: rotate(1deg);
+    align-items: center;
+    background: rgba(18, 22, 31, 0.8);
+    padding: 1rem 1.5rem;
+    border: 1px solid rgba(245, 197, 66, 0.15);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    border-radius: 4px;
 }
 
-.input-wrapper-chaotic {
+.input-container-sleek {
     flex: 1;
-    min-width: 300px;
     position: relative;
-    display: flex;
-    align-items: center;
 }
 
 #task-desc {
     width: 100%;
     background: transparent;
     border: none;
-    border-bottom: 4px solid var(--chalk-white);
     color: #fff;
     font-family: inherit;
+    font-size: 0.95rem;
     padding: 0.75rem 0;
-    font-size: 1.1rem;
 }
 
-#task-desc:focus { outline: none; border-bottom-color: #e11d48; }
+#task-desc:focus { outline: none; }
 
-.input-scratch-mark {
+.input-accent-line {
     position: absolute;
-    right: 10px;
-    color: #e11d48;
-    font-family: 'Permanent Marker', cursive;
-    font-size: 1.2rem;
+    bottom: 0; left: 0; width: 100%; height: 1px;
+    background: rgba(255,255,255,0.1);
+    transition: background 0.3s;
+}
+#task-desc:focus ~ .input-accent-line {
+    background: var(--gold-bright);
 }
 
-#task-diff {
-    background: var(--panel-wood);
-    border: 3px solid var(--chalk-white);
-    color: #fff;
+.select-container-sleek select {
+    background: #19202e;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-white);
+    padding: 0.75rem 1.5rem;
     font-family: inherit;
-    padding: 0.75rem;
-    font-size: 1rem;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    outline: none;
     cursor: pointer;
 }
 
-#task-form button {
-    font-family: 'Permanent Marker', cursive;
-    background: #fff;
-    color: #000;
-    border: 3px solid #000;
-    font-size: 1.3rem;
-    padding: 0.5rem 2rem;
+.odyssey-btn-gold {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    background: linear-gradient(to bottom, #f5c542, #cfa028);
+    border: none;
+    color: #0b0f17;
+    padding: 0.85rem 2rem;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
     cursor: pointer;
-    transform: rotate(-2deg);
+    box-shadow: 0 4px 15px rgba(245, 197, 66, 0.2);
+    transition: all 0.2s;
 }
 
-#task-form button:hover {
-    background: #2563eb;
-    color: #fff;
-    transform: scale(1.05) rotate(2deg);
+.odyssey-btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 197, 66, 0.4);
+    filter: brightness(1.1);
 }
 
-/* Asymmetric Mixed-Media Columns (Looks like discarded canvas doors) */
+/* Three Pillar Constellation Architecture */
 #canvas-matrix {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-    gap: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 3rem;
     max-width: 1600px;
     margin: 0 auto;
-    padding: 0 2rem 8rem 2rem;
+    padding: 0 2rem 6rem 2rem;
 }
 
-.scrap-panel {
-    background: var(--ink-black);
-    border: 6px solid var(--chalk-white);
-    padding: 2.5rem 1.5rem;
-    position: relative;
-    transform: rotate(var(--rotate-deg));
-    outline: 4px solid var(--ink-black);
+.pillar-card {
+    background: var(--card-marble-dark);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-top: 3px solid var(--pillar-gold);
+    padding: 2.5rem 2rem;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    border-radius: 4px;
+    background-image: radial-gradient(circle at 50% 0%, var(--pillar-glow) 0%, transparent 60%);
 }
 
-/* Splattered background accents inside the cards */
-.scrap-panel::before {
-    content: 'SKULL // BONES';
-    position: absolute;
-    bottom: 10px; right: 10px;
-    font-size: 2.5rem;
-    font-family: 'Permanent Marker', cursive;
-    color: rgba(255,255,255,0.02);
-    pointer-events: none;
+.pillar-header {
+    text-align: center;
+    margin-bottom: 4rem;
 }
 
-.column-header-raw {
-    text-align: left;
-    border-bottom: 5px dashed var(--accent-color);
-    padding-bottom: 1.5rem;
-    margin-bottom: 3rem;
-}
-
-.tree-glyph {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 4rem;
-    line-height: 1;
-    color: var(--accent-color);
+.pillar-icon {
+    font-size: 2rem;
     margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 10px var(--pillar-gold));
 }
 
-.column-header-raw h2 {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 2.2rem;
+.pillar-header h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    letter-spacing: 3px;
     margin: 0;
-    letter-spacing: -1px;
+    color: #fff;
 }
 
-.sub-label {
-    margin: 0.5rem 0 0 0;
-    font-size: 0.8rem;
-    color: #aaa;
-    font-weight: bold;
+.pillar-sub {
+    font-size: 0.7rem;
+    color: var(--text-gray);
+    letter-spacing: 2px;
+    margin-top: 0.4rem;
+    font-weight: 600;
 }
 
-/* Improvisational Node Layout Layers */
+/* Hierarchical Connection Vectors */
 .tiers-container-raw {
     display: flex;
-    flex-direction: column-reverse; /* Tier 1 at baseline bottom */
-    gap: 2.5rem;
+    flex-direction: column-reverse; /* Progression flows upwards */
+    gap: 3.5rem;
+    position: relative;
 }
 
 .tier-row-raw {
     display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+    justify-content: space-around;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 2;
 }
 
-/* Basquiat Anatomical Node Plates */
+/* Assassin's Creed Signature Ability Icon Frame */
 .skill-node-raw {
-    background: var(--panel-wood);
-    border: 4px solid #3a3a3a;
-    padding: 1.25rem 1rem;
-    width: 100%;
+    width: 76px;
+    height: 76px;
+    background: #161c26;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     cursor: pointer;
     user-select: none;
-    transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.6);
 }
 
+/* Node States mapped to UI hierarchy */
 .skill-node-raw.available {
-    border-color: #666;
-    border-style: dotted;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: #1d2636;
+}
+.skill-node-raw.available:hover {
+    border-color: #fff;
+    transform: scale(1.08);
 }
 
 .skill-node-raw.unlocked {
-    border-color: var(--chalk-white);
-    background: #000;
-    transform: rotate(1.5deg) scale(1.02);
-    box-shadow: -5px 5px 0px var(--accent-color);
+    border-color: var(--pillar-gold);
+    background: linear-gradient(135deg, #242e42 0%, #111721 100%);
+    box-shadow: 0 0 15px var(--pillar-glow), inset 0 0 8px var(--pillar-glow);
+}
+.skill-node-raw.unlocked:hover {
+    transform: scale(1.08);
 }
 
 .skill-node-raw.maxed {
-    border-color: var(--accent-color);
-    background: var(--ink-black);
-    transform: rotate(-2deg) scale(1.05);
-    box-shadow: 6px 6px 0px var(--chalk-white);
+    border-color: #fff;
+    background: linear-gradient(135deg, var(--pillar-gold) 0%, #a8811e 100%);
+    box-shadow: 0 0 25px var(--pillar-gold);
+}
+.skill-node-raw.maxed:hover {
+    transform: scale(1.08);
 }
 
-/* Skeletal/Muscular Visual Indicators inside Nodes */
+/* Inner Glyph Visuals */
 .node-display-glyph {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 2rem;
+    font-size: 1.6rem;
+    color: rgba(255,255,255,0.25);
+    transition: color 0.25s;
     line-height: 1;
-    margin-bottom: 0.75rem;
-    color: #444;
-    transition: color 0.2s;
 }
-.skill-node-raw.unlocked .node-display-glyph,
+.skill-node-raw.unlocked .node-display-glyph {
+    color: var(--pillar-gold);
+}
 .skill-node-raw.maxed .node-display-glyph {
-    color: var(--accent-color);
-    text-shadow: 2px 2px 0px #000;
+    color: #0b0f17;
 }
 
-.node-title-raw {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 0.95rem;
-    line-height: 1.1;
-    height: 2.4rem;
-    overflow: hidden;
-    color: #666;
-}
-.skill-node-raw.unlocked .node-title-raw,
-.skill-node-raw.maxed .node-title-raw {
-    color: var(--chalk-white);
-}
-
+/* Elegant Segmented Rank pips below the icon circle */
 .node-rank-raw {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 1.1rem;
-    margin-top: 0.75rem;
-    text-align: right;
-    color: #333;
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text-gray);
+    background: #0d111a;
+    padding: 1px 6px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
 }
-.skill-node-raw.unlocked .node-rank-raw { color: var(--chalk-white); }
-.skill-node-raw.maxed .node-rank-raw { color: var(--accent-color); }
+.skill-node-raw.unlocked .node-rank-raw { border-color: var(--pillar-gold); color: #fff; }
+.skill-node-raw.maxed .node-rank-raw { background: var(--pillar-gold); color: #000; border-color: var(--pillar-gold); }
 
-/* Absolute Street Poet Tooltip Boxes */
+/* Cinematic Floating In-Game Tooltip Box */
 .node-tooltip-raw {
     display: none;
     position: absolute;
-    bottom: 120%;
+    bottom: 130%;
     left: 50%;
     transform: translateX(-50%);
-    width: 280px;
-    background: var(--chalk-white);
-    color: var(--ink-black);
-    border: 5px solid var(--ink-black);
-    padding: 1rem;
-    font-family: 'Special Elite', monospace;
-    font-size: 0.8rem;
-    line-height: 1.4;
-    z-index: 1000;
-    box-shadow: 8px 8px 0px var(--accent-color);
+    width: 320px;
+    background: #0f131c;
+    border: 1px solid var(--pillar-gold);
+    padding: 1.25rem;
+    border-radius: 4px;
+    z-index: 100;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8);
     pointer-events: none;
 }
 
@@ -422,57 +420,72 @@ body {
     position: absolute;
     top: 100%; left: 50%;
     transform: translateX(-50%);
-    border-width: 10px;
+    border-width: 8px;
     border-style: solid;
-    border-color: var(--ink-black) transparent transparent transparent;
+    border-color: var(--pillar-gold) transparent transparent transparent;
+}
+
+.node-tooltip-raw strong {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 0.4rem;
+}
+
+.node-tooltip-desc {
+    font-size: 0.8rem;
+    color: var(--text-gray);
+    line-height: 1.5;
+}
+
+.tooltip-action-alert {
+    margin-top: 1rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--pillar-gold);
+    text-align: center;
 }
 
 .skill-node-raw:hover .node-tooltip-raw {
     display: block;
 }
 
-.tooltip-action-alert {
-    margin-top: 0.75rem;
-    font-weight: bold;
-    color: #fff;
-    background: #000;
-    padding: 4px;
-    text-align: center;
-    font-size: 0.7rem;
-    letter-spacing: 1px;
-}
-
-/* Nuke Box Footer */
+/* Premium Fineprint Footer */
 #canvas-footer {
     text-align: center;
     padding: 4rem 0;
-    background: var(--ink-black);
-    border-top: 6px solid var(--chalk-white);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    background: #080a0e;
 }
 
 #nuke-system-btn {
-    font-family: 'Permanent Marker', cursive;
+    font-family: 'Cinzel', serif;
     background: transparent;
-    color: #444;
-    border: 4px solid #222;
-    padding: 1rem 2.5rem;
-    font-size: 1.2rem;
+    color: var(--text-gray);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 0.75rem 2rem;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
     cursor: pointer;
     transition: all 0.2s;
-    transform: rotate(0.5deg);
 }
 
 #nuke-system-btn:hover {
-    color: #000;
-    background: var(--chalk-white);
-    border-color: #e11d48;
-    transform: scale(1.05) rotate(-2deg);
-    box-shadow: -10px 10px 0px #e11d48;
+    color: #fff;
+    border-color: #f52c2c;
+    background: rgba(245, 44, 44, 0.05);
+    box-shadow: 0 0 15px rgba(245, 44, 44, 0.1);
 }
 
-.footer-scribbles {
-    margin-top: 1.5rem;
-    font-size: 0.75rem;
-    color: #444;
-    letter-spacing: 3px;
+.footer-fineprint {
+    margin-top: 1.2rem;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 2px;
 }
