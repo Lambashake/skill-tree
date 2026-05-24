@@ -267,16 +267,17 @@ body {
     box-shadow: 0 0 15px #ff0055 !important;
 }
 
-/* Re-Engineered Main Matrix Layout Grid Network */
+/* Corrected Baseline Alignment Grid System Network Wrapper */
 #grid-network {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(365px, 1fr));
     gap: 2.5rem;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 3rem 16rem 3rem; 
     position: relative;
     z-index: 5;
+    align-items: start; /* Locks upper edge of columns together */
 }
 
 .sector-column {
@@ -297,6 +298,14 @@ body {
     box-shadow: 0 0 8px var(--neon-core);
 }
 
+.sector-header-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
 .sector-header-plate {
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
@@ -306,6 +315,21 @@ body {
     letter-spacing: 1px;
 }
 
+.sector-config-btn {
+    position: absolute;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+}
+.sector-config-btn:hover {
+    color: var(--neon-core);
+    transform: rotate(45deg);
+}
+
 .sector-sub {
     font-size: 0.7rem;
     color: var(--text-muted);
@@ -313,6 +337,7 @@ body {
     margin: 0.35rem 0 1.5rem 0;
     font-family: 'Orbitron', sans-serif;
     letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .node-container-stack {
@@ -350,7 +375,7 @@ body {
     pointer-events: none; 
 }
 
-/* Hex Encoded Fixed CSS Mask Engine */
+/* Re-Engineered CSS Mask Engine using %22 safe encoding */
 .css-mask-icon {
     width: 24px;
     height: 24px;
