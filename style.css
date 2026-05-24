@@ -750,3 +750,29 @@ archetype-input {
     margin-top: 5px;
     border: 1px solid var(--grid-border);
 }
+/* TRON Unified Theme Inputs */
+.archetype-input,
+.tron-theme-input {
+    background: rgba(2, 4, 8, 0.6);
+    border: 1px solid var(--grid-border);
+    color: var(--text-primary, #fff);
+    font-family: 'Share Tech Mono', 'Orbitron', monospace;
+    font-size: 1.2rem;
+    padding: 0.3rem 0.6rem;
+    outline: none;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tron-theme-input {
+    width: 70px;
+    text-align: center;
+    display: inline-block;
+}
+
+.archetype-input:focus,
+.tron-theme-input:focus {
+    border-color: var(--neon-core);
+    box-shadow: 0 0 10px var(--neon-glow);
+}
