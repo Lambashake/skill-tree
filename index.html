@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE ARCHETYPE // CANVAS</title>
+    <title>BASQUIAT // ARCHETYPE CANVAS</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Basquiat Sketch Canvas Texture Background -->
+    <!-- Layered Street Textures & Discarded Wood Gradients -->
     <div class="canvas-grain"></div>
+    <div class="street-smudge smudge-1"></div>
+    <div class="street-smudge smudge-2"></div>
 
-    <!-- Raw Canvas Header -->
+    <!-- Raw Bebop HUD -->
     <header id="basquiat-hud">
         <div class="hud-main">
             <div class="identity-block">
                 <h1 id="canvas-title">SYSTEM ARCHETYPE</h1>
-                <div class="streak-scribble">STREAK: <span id="hud-streak">0</span> DAYS ACTIVE</div>
+                <div class="crossed-out-poetry">
+                    <span class="crossed-text">SAMO©</span> <span>STREAK:</span> <span id="hud-streak">0</span> <span>DAYS ALIVE</span>
+                </div>
             </div>
             
             <div class="crown-level-box">
@@ -26,70 +30,78 @@
 
             <div class="points-box">
                 <div id="hud-points">3</div>
-                <div class="points-label">SPARK POINTS</div>
+                <div class="points-label">SPARK POINTS AVAILABLE</div>
+                <div class="cryptic-subtext">💵 $̶1̶0̶0̶0̶ ̶N̶E̶W̶ ̶Y̶O̶R̶K̶</div>
             </div>
         </div>
 
-        <!-- Raw Textured XP Meter -->
-        <div class="xp-container-raw">
+        <!-- X-Ray / Skeletal Ribcage XP Progress Bar -->
+        <div class="xp-container-skeletal">
             <div id="xp-fill-raw"></div>
-            <div class="xp-counter-label"><span id="hud-xp-current">0</span> // <span id="hud-xp-needed">500</span> XP</div>
+            <div class="ribcage-lines">
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="xp-counter-label"><span id="hud-xp-current">0</span> // <span id="hud-xp-needed">500</span> XP (BLOOD / BONE)</div>
         </div>
     </header>
 
-    <!-- Raw Form Input Console -->
+    <!-- Frantic Scribble Input Console -->
     <section id="input-console-raw">
         <form id="task-form" onsubmit="event.preventDefault(); handleFormSubmit();">
-            <input type="text" id="task-desc" placeholder="SCRIBBLE A COMPLETED TASK..." required>
+            <div class="input-wrapper-chaotic">
+                <input type="text" id="task-desc" placeholder="SCRIBBLE A COMPLETED TASK TO COMMUNICATE..." required>
+                <span class="input-scratch-mark">✗ ✗ ✗</span>
+            </div>
             <select id="task-diff">
-                <option value="1">TIER 1 (TRIVIAL)</option>
-                <option value="2">TIER 2 (MINOR)</option>
-                <option value="3">TIER 3 (MODERATE)</option>
-                <option value="4">TIER 4 (DEMANDING)</option>
-                <option value="5">TIER 5 (HEROIC)</option>
+                <option value="1">TIER 1 [TRIVIAL CHIPS]</option>
+                <option value="2">TIER 2 [MINOR FRACTURE]</option>
+                <option value="3">TIER 3 [MODERATE WEIGHT]</option>
+                <option value="4">TIER 4 [DEMANDING MUSCLE]</option>
+                <option value="5">TIER 5 [HEROIC SKULL]</option>
             </select>
-            <button type="submit">COMPILE XP</button>
+            <button type="submit">COMPILE + BURN</button>
         </form>
     </section>
 
-    <!-- The Three Tree Columns Grid -->
+    <!-- Mixed-Media Scrap Wood Grid -->
     <main id="canvas-matrix">
-        <!-- Tree 1: The Crucible -->
-        <div class="matrix-column" id="col-crucible" style="--accent-color: #e11d48;">
+        <!-- Panel 1: The Crucible (Blood Red Neo-Expressionism) -->
+        <div class="matrix-column scrap-panel" id="col-crucible" style="--accent-color: #e11d48; --rotate-deg: -1.5deg;">
             <div class="column-header-raw">
                 <div class="tree-glyph">⎋</div>
                 <h2>THE CRUCIBLE</h2>
-                <p class="sub-label">SYSTEMS & IMPACT</p>
+                <p class="sub-label">S̶Y̶S̶T̶E̶M̶S̶ + RADICAL HOPE [HOPE] [HOPE]</p>
             </div>
             <div class="tiers-container-raw" id="nodes-crucible"></div>
         </div>
 
-        <!-- Tree 2: The Weave -->
-        <div class="matrix-column" id="col-weave" style="--accent-color: #eab308;">
+        <!-- Panel 2: The Weave (Cadmium Yellow Oil Pastel) -->
+        <div class="matrix-column scrap-panel" id="col-weave" style="--accent-color: #eab308; --rotate-deg: 1.2deg;">
             <div class="column-header-raw">
                 <div class="tree-glyph">⌥</div>
                 <h2>THE WEAVE</h2>
-                <p class="sub-label">WRITING & NARRATIVE</p>
+                <p class="sub-label">WRITING / DIALECTICS / TEXTURE</p>
             </div>
             <div class="tiers-container-raw" id="nodes-weave"></div>
         </div>
 
-        <!-- Tree 3: The Wild Card -->
-        <div class="matrix-column" id="col-wildcard" style="--accent-color: #2563eb;">
+        <!-- Panel 3: The Wild Card (Electric Cobalt Blue Street Fragment) -->
+        <div class="matrix-column scrap-panel" id="col-wildcard" style="--accent-color: #2563eb; --rotate-deg: -0.8deg;">
             <div class="column-header-raw">
                 <div class="tree-glyph">◇</div>
                 <h2>THE WILD CARD</h2>
-                <p class="sub-label">CATALYSTS & PERSONAL</p>
+                <p class="sub-label">CATALYSTS & BIO-VESSEL OPTIMIZATION</p>
             </div>
             <div class="tiers-container-raw" id="nodes-wildcard"></div>
         </div>
     </main>
 
-    <!-- Footer Command Terminal with Reset Skull -->
+    <!-- Traditional Scrap Box Reset Nuke -->
     <footer id="canvas-footer">
         <button id="nuke-system-btn" onclick="triggerSystemReset()">
-            <span class="skull-glyph">💀</span> RESET WEBSITE? (DESTRUCTION REQUIRES CONFIRMATION)
+            <span class="skull-glyph">💀</span> DESTRUCTION OF DATA (REQUIRES CONFIRMATION)
         </button>
+        <div class="footer-scribbles">☠ PLATO'S CAVE / 1983 / OIL ON SCRAP WOOD ☠</div>
     </footer>
 
     <script src="script.js"></script>
