@@ -1,136 +1,62 @@
-<!-- Main flex container that forces uniform width and height across all trees -->
-<div class="skill-wrapper">
-
-    <!-- TREE 1: OFFENSE -->
-    <div class="skill-tree-box">
-        <h3 class="tree-title">Offense</h3>
-        <div class="skill-list">
-            
-            <!-- Skill 1: Precision Strike -->
-            <div class="skill-item active" data-skill="precision-strike">
-                <svg class="skill-icon-svg" viewBox="0 0 24 24">
-                    <line x1="14.5" y1="9.5" x2="22" y2="2"></line>
-                    <line x1="10" y1="14" x2="15" y2="9"></line>
-                    <line x1="7" y1="17" x2="10" y2="14"></line>
-                    <line x1="2" y1="22" x2="7" y2="17"></line>
-                    <line x1="13" y1="16" x2="16" y2="13"></line>
-                </svg>
-                <div class="skill-info">
+<div class="skill-container">
+    <div class="skill-wrapper">
+        
+        <!-- TREE 1: OFFENSE -->
+        <div class="skill-tree-box">
+            <h3 class="tree-title">Offense</h3>
+            <div class="skill-list">
+                <div class="skill-item active" data-skill="precision-strike">
                     <span class="skill-name">Precision Strike</span>
                     <span class="skill-points">1 / 3</span>
                 </div>
-            </div>
-
-            <!-- Skill 2: Chain Lightning -->
-            <div class="skill-item" data-skill="chain-lightning">
-                <svg class="skill-icon-svg" viewBox="0 0 24 24">
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                </svg>
-                <div class="skill-info">
+                <div class="skill-item" data-skill="chain-lightning">
                     <span class="skill-name">Chain Lightning</span>
                     <span class="skill-points">0 / 5</span>
                 </div>
-            </div>
-
-            <!-- Skill 3: Heavy Impact -->
-            <div class="skill-item" data-skill="heavy-impact">
-                <svg class="skill-icon-svg" viewBox="0 0 24 24">
-                    <path d="M14.5 2 L22 9.5 L15 16.5 L7.5 9 L14.5 2 Z"></path>
-                    <line x1="11" y1="12" x2="2" y2="21"></line>
-                </svg>
-                <div class="skill-info">
+                <div class="skill-item" data-skill="heavy-impact">
                     <span class="skill-name">Heavy Impact</span>
                     <span class="skill-points">0 / 3</span>
                 </div>
             </div>
-
         </div>
-    </div>
 
-    <!-- TREE 2: DEFENSE -->
-    <div class="skill-tree-box">
-        <h3 class="tree-title">Defense</h3>
-        <div class="skill-list">
-            
-            <!-- Skill 1: Iron Bastion -->
-            <div class="skill-item active" data-skill="iron-bastion">
-                <svg class="skill-icon-svg" viewBox="0 0 24 24">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                </svg>
-                <div class="skill-info">
+        <!-- TREE 2: DEFENSE -->
+        <div class="skill-tree-box">
+            <h3 class="tree-title">Defense</h3>
+            <div class="skill-list">
+                <div class="skill-item active" data-skill="iron-bastion">
                     <span class="skill-name">Iron Bastion</span>
                     <span class="skill-points">2 / 2</span>
                 </div>
-            </div>
-
-            <!-- Skill 2: Regeneration -->
-            <div class="skill-item" data-skill="regeneration">
-                <svg class="skill-icon-svg" viewBox="0 0 24 24">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                </svg>
-                <div class="skill-info">
+                <div class="skill-item" data-skill="regeneration">
                     <span class="skill-name">Regeneration</span>
                     <span class="skill-points">0 / 3</span>
                 </div>
-            </div>
-
-            <!-- Skill 3: Unshakable Anchor -->
-            <div class="skill-item" data-skill="unshakable-anchor">
-                <svg class="skill-icon-svg" viewBox="0 0 24 24">
-                    <circle cx="12" cy="5" r="3"></circle>
-                    <line x1="12" y1="8" x2="12" y2="17"></line>
-                    <path d="M5 12 h14 M6 17 A6 6 0 0 0 18 17"></path>
-                </svg>
-                <div class="skill-info">
+                <div class="skill-item" data-skill="unshakable-anchor">
                     <span class="skill-name">Unshakable Anchor</span>
                     <span class="skill-points">0 / 1</span>
                 </div>
             </div>
-
         </div>
-    </div>
 
-    <!-- TREE 3: UTILITY -->
-    <div class="skill-tree-box">
-        <h3 class="tree-title">Utility</h3>
-        <div class="skill-list">
-            
-            <!-- Skill 1: Eagle Eye -->
-            <div class="skill-item" data-skill="eagle-eye">
-                <svg class="skill-icon-svg" viewBox="0 0 24 24">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-                <div class="skill-info">
+        <!-- TREE 3: UTILITY -->
+        <div class="skill-tree-box">
+            <h3 class="tree-title">Utility</h3>
+            <div class="skill-list">
+                <div class="skill-item" data-skill="eagle-eye">
                     <span class="skill-name">Eagle Eye</span>
                     <span class="skill-points">0 / 4</span>
                 </div>
-            </div>
-
-            <!-- Skill 2: Resourcefulness -->
-            <div class="skill-item" data-skill="resourcefulness">
-                <svg class="skill-icon-svg" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="3"></circle>
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                </svg>
-                <div class="skill-info">
+                <div class="skill-item" data-skill="resourcefulness">
                     <span class="skill-name">Resourcefulness</span>
                     <span class="skill-points">0 / 2</span>
                 </div>
-            </div>
-
-            <!-- Skill 3: Fleet Footed -->
-            <div class="skill-item" data-skill="fleet-footed">
-                <svg class="skill-icon-svg" viewBox="0 0 24 24">
-                    <path d="M3 22h18 M5 18v-4a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v4 M9 10V6a3 3 0 0 1 6 0v4"></path>
-                </svg>
-                <div class="skill-info">
+                <div class="skill-item" data-skill="fleet-footed">
                     <span class="skill-name">Fleet Footed</span>
                     <span class="skill-points">0 / 3</span>
                 </div>
             </div>
-
         </div>
-    </div>
 
+    </div>
 </div>
