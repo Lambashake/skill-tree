@@ -265,11 +265,22 @@ function logTask(desc, difficulty) {
     gridState.profile.currentXp += energyGain;
     
     let boundary = gridState.profile.level * 500;
+    let didLevelUp = false;
+
     while (gridState.profile.currentXp >= boundary) {
         gridState.profile.currentXp -= boundary;
         gridState.profile.level++;
         gridState.profile.skillPoints++;
         boundary = gridState.profile.level * 500;
+        didLevelUp = true;
+    }
+    
+    // Trigger Level Up System Alert Window Panel if threshold is crossed
+    if (didLevelUp) {
+        const levelUpPopup = document.getElementById('level-up-popup');
+        if (levelUpPopup) {
+            levelUpPopup.classList.add('active');
+        }
     }
     
     SynthAudioModule.triggerEngraveSound();
