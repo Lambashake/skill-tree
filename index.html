@@ -8,7 +8,6 @@
 </head>
 <body data-theme="cyan">
 
-    <!-- Digital Light Grid Background Overlay -->
     <div class="grid-canvas"></div>
 
     <header id="tron-hud">
@@ -17,11 +16,9 @@
                 <div class="identity-disc"></div>
                 <div>
                     <input type="text" id="user-archetype" value="ENTER NAME" class="archetype-input">
-            
                 </div>
             </div>
 
-            <!-- Core Customization Console -->
             <div class="theme-console">
                 <label for="theme-select">GRID SECTOR COLOR:</label>
                 <select id="theme-select" onchange="changeGridTheme(this.value)">
@@ -38,9 +35,9 @@
                     <span class="label">LVL</span>
                     <span id="hud-level" class="value text-glow">1</span>
                 </div>
-                <div class="data-node">
+                <div class="data-node editable-points-container">
                     <span class="label">POINTS</span>
-                    <span id="hud-points" class="value text-glow">8</span>
+                    <input type="number" id="hud-points-input" class="tron-theme-input text-glow" value="8" min="0">
                 </div>
                 <div class="data-node">
                     <span class="label">STREAK</span>
@@ -49,7 +46,6 @@
             </div>
         </div>
 
-        <!-- Light-Cycle Vector Progress Bar -->
         <div class="vector-bar-wrapper">
             <div class="vector-label-row">
                 <span>ENERGY SYNTHESIS: <span id="hud-xp-current">0</span> / <span id="hud-xp-needed">500</span> TRACE RAILS</span>
@@ -60,7 +56,6 @@
         </div>
     </header>
 
-    <!-- Command Input Deck Terminal -->
     <section id="input-terminal-deck">
         <form id="task-form" onsubmit="event.preventDefault(); handleFormSubmit();">
             <input type="text" id="task-desc" placeholder="Today I..." required autocomplete="off">
@@ -75,10 +70,8 @@
         </form>
     </section>
 
-    <!-- The Tree Grid Network System -->
     <main id="grid-network">
         
-        <!-- Sector 1 Column Architecture -->
         <div class="sector-column" id="sector-crucible">
             <div class="sector-header-row">
                 <div class="sector-header-plate" id="title-crucible">THE CRUCIBLE</div>
@@ -100,7 +93,6 @@
             </div>
         </div>
 
-        <!-- Sector 2 Column Architecture -->
         <div class="sector-column" id="sector-weave">
             <div class="sector-header-row">
                 <div class="sector-header-plate" id="title-weave">THE WEAVE</div>
@@ -122,7 +114,6 @@
             </div>
         </div>
 
-        <!-- Sector 3 Column Architecture -->
         <div class="sector-column" id="sector-wildcard">
             <div class="sector-header-row">
                 <div class="sector-header-plate" id="title-wildcard">THE WILD CARD</div>
@@ -146,7 +137,6 @@
 
     </main>
 
-    <!-- Floating Tooltip Card overlay Frame -->
     <div id="fixed-grid-tooltip" class="fixed-tooltip-frame">
         <div class="tooltip-angle-tl"></div><div class="tooltip-angle-tr"></div>
         <div class="tooltip-angle-bl"></div><div class="tooltip-angle-br"></div>
@@ -155,7 +145,6 @@
         <div class="tooltip-status" id="tt-action">SECURE SECTOR ACCESS</div>
     </div>
 
-    <!-- Node Editor Module Modal Overlay -->
     <div id="mainframe-node-editor-modal" class="editor-modal-overlay">
         <div class="editor-modal-box">
             <div class="tooltip-angle-tl"></div><div class="tooltip-angle-tr"></div>
@@ -188,7 +177,6 @@
         </div>
     </div>
 
-    <!-- Tree Column Header Editor Modal Overlay -->
     <div id="mainframe-sector-editor-modal" class="editor-modal-overlay">
         <div class="editor-modal-box">
             <div class="tooltip-angle-tl"></div><div class="tooltip-angle-tr"></div>
