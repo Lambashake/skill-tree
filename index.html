@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Architecture // Skill Tree</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- HUD Overview Bar -->
+    <header id="rpg-hud">
+        <div class="hud-container">
+            <div class="hud-left">
+                <h1 id="character-name">SYSTEM ARCHETYPE</h1>
+                <div class="streak-badge">STREAK: <span id="hud-streak">0</span> DAYS</div>
+            </div>
+            <div class="hud-right">
+                <div class="level-display">LVL <span id="hud-level">1</span></div>
+                <div class="points-display">ABILITY POINTS: <span id="hud-points">3</span></div>
+            </div>
+        </div>
+        <!-- Progress Bar Background -->
+        <div class="xp-bar-container">
+            <div id="xp-bar-fill"></div>
+        </div>
+        <div class="xp-text"><span id="hud-xp-current">0</span> / <span id="hud-xp-needed">500</span> XP</div>
+    </header>
+
+    <!-- Task Logger Console -->
+    <section id="logger-console">
+        <form id="task-form" onsubmit="event.preventDefault(); handleFormSubmit();">
+            <input type="text" id="task-desc" placeholder="Register completed objective..." required>
+            <select id="task-diff">
+                <option value="1">Tier 1 (Trivial)</option>
+                <option value="2">Tier 2 (Minor)</option>
+                <option value="3">Tier 3 (Moderate)</option>
+                <option value="4">Tier 4 (Demanding)</option>
+                <option value="5">Tier 5 (Heroic)</option>
+            </select>
+            <button type="submit">COMPILE XP</button>
+        </form>
+    </section>
+
+    <!-- Vertical Odyssey Skill Grid Layout -->
+    <main id="matrix-grid">
+        <!-- Tree 1: The Crucible -->
+        <div class="tree-column" id="tree-crucible">
+            <div class="tree-header" style="--tree-color: #d97706;">
+                <span class="tree-icon">⎋</span>
+                <h2>THE CRUCIBLE</h2>
+                <p>Systems & Impact</p>
+            </div>
+            <div class="tiers-wrapper" id="nodes-crucible"></div>
+        </div>
+
+        <!-- Tree 2: The Weave -->
+        <div class="tree-column" id="tree-weave">
+            <div class="tree-header" style="--tree-color: #10b981;">
+                <span class="tree-icon">⌥</span>
+                <h2>THE WEAVE</h2>
+                <p>Writing & Narrative</p>
+            </div>
+            <div class="tiers-wrapper" id="nodes-weave"></div>
+        </div>
+
+        <!-- Tree 3: The Wild Card -->
+        <div class="tree-column" id="tree-wildcard">
+            <div class="tree-header" style="--tree-color: #06b6d4;">
+                <span class="tree-icon">◇</span>
+                <h2>THE WILD CARD</h2>
+                <p>Catalysts & Personal</p>
+            </div>
+            <div class="tiers-wrapper" id="nodes-wildcard"></div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
