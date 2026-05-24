@@ -1,60 +1,60 @@
-// 1. IMPROVISATIONAL DATA INVENTORY (Odyssey mechanics interpreted via Basquiat themes)
+// 1. GAME DATA ARCHITECTURE (Sleek, integrated Odyssey-tier values)
 const INITIAL_TREES = {
     crucible: {
-        color: "#e11d48", 
+        color: "#ffcc00", 
         tiers: {
-            1: [{ id: "c_core", name: "CORE LOOP ARCHITECTURE", glyph: "♽", rank: 0, maxRank: 3, prereqs: [], desc: "Hammer out basic mechanics. The continuous repetitive action that commands attention.", unlocks: ["c_psych", "c_flow"] }],
+            1: [{ id: "c_core", name: "CORE LOOP ARCHITECTURE", glyph: "♽", rank: 0, maxRank: 3, prereqs: [], desc: "Architect structural design interactions. The base engine that governs player behavior.", unlocks: ["c_psych", "c_flow"] }],
             2: [
-                { id: "c_psych", name: "PSYCHOLOGICAL INCENTIVES", glyph: "🧠", rank: 0, maxRank: 3, prereqs: ["c_core"], desc: "Expose structural desires. Use behavioral triggers to drive looping feedback.", unlocks: ["c_coauthor", "w_pace"] },
-                { id: "c_flow", name: "RESOURCE FLOW & SCARCITY", glyph: "⚖", rank: 0, maxRank: 2, prereqs: ["c_core"], desc: "Establish math structures. Control inputs, systemic leaks, and value metrics.", unlocks: ["c_asym"] }
+                { id: "c_psych", name: "PSYCHOLOGICAL INCENTIVES", glyph: "🧠", rank: 0, maxRank: 3, prereqs: ["c_core"], desc: "Incorporate intrinsic motivation systems and feedback mechanisms into layouts.", unlocks: ["c_coauthor", "w_pace"] },
+                { id: "c_flow", name: "RESOURCE FLOW & SCARCITY", glyph: "⚖", rank: 0, maxRank: 2, prereqs: ["c_core"], desc: "Balance economic loops, balancing system leaks, inflation curves, and point scarcity.", unlocks: ["c_asym"] }
             ],
             3: [
-                { id: "c_coauthor", name: "CO-AUTHORSHIP FRAMEWORKS", glyph: "🤝", rank: 0, maxRank: 3, prereqs: ["c_psych", "w_micro"], desc: "Rip down design silos. Empower local youth or non-designers to author gameplay.", unlocks: ["c_hope"] },
-                { id: "c_asym", name: "ASYMMETRIC POWER DYNAMICS", glyph: "⍋", rank: 0, maxRank: 2, prereqs: ["c_flow"], desc: "Build structural inequality into starting resources. Forcing alternative play styles.", unlocks: [] }
+                { id: "c_coauthor", name: "CO-AUTHORSHIP FRAMEWORKS", glyph: "🤝", rank: 0, maxRank: 3, prereqs: ["c_psych", "w_micro"], desc: "Empower non-traditional creators or community units to natively co-author design spaces.", unlocks: ["c_hope"] },
+                { id: "c_asym", name: "ASYMMETRIC POWER DYNAMICS", glyph: "⍋", rank: 0, maxRank: 2, prereqs: ["c_flow"], desc: "Introduce structural asymmetry into starting systems, driving specialized strategic loops.", unlocks: [] }
             ],
-            4: [{ id: "c_hope", name: "SYSTEMS OF RADICAL HOPE", glyph: "👑", rank: 0, maxRank: 1, prereqs: ["c_coauthor", "wc_facilitate"], desc: "Capstone: Transform mechanics into structural engines that spawn collective real-world hope.", unlocks: [] }]
+            4: [{ id: "c_hope", name: "SYSTEMS OF RADICAL HOPE", glyph: "🔱", rank: 0, maxRank: 1, prereqs: ["c_coauthor", "wc_facilitate"], desc: "Capstone: Channel raw mechanical interaction loops into structures that generate collective hope.", unlocks: [] }]
         }
     },
     weave: {
-        color: "#eab308", 
+        color: "#e5c158", 
         tiers: {
-            1: [{ id: "w_res", name: "DEEP RESEARCH ROUTINE", glyph: "🕳", rank: 0, maxRank: 3, prereqs: [], desc: "Excavate raw source artifacts. Sift through archives and documents to feed themes.", unlocks: ["w_branch", "w_micro"] }],
+            1: [{ id: "w_res", name: "DEEP RESEARCH ROUTINE", glyph: "🕳", rank: 0, maxRank: 3, prereqs: [], desc: "Excavate raw source artifacts. Sift through archives and academic contexts to build structural backdrops.", unlocks: ["w_branch", "w_micro"] }],
             2: [
-                { id: "w_branch", name: "BRANCHING LOGIC SYSTEMS", glyph: "🌿", rank: 0, maxRank: 3, prereqs: ["w_res"], desc: "Draft split scripts that flex seamlessly around messy user input.", unlocks: ["w_synth", "w_pace"] },
-                { id: "w_micro", name: "MICRONARRATIVE CRAFT", glyph: "✍", rank: 0, maxRank: 2, prereqs: ["w_res"], desc: "Hone concise layout copy. Short, striking poetry applied directly to interactive spaces.", unlocks: ["c_coauthor"] }
+                { id: "w_branch", name: "BRANCHING LOGIC SYSTEMS", glyph: "🌿", rank: 0, maxRank: 3, prereqs: ["w_res"], desc: "Construct flexible content flows that branch gracefully around complex user interactions.", unlocks: ["w_synth", "w_pace"] },
+                { id: "w_micro", name: "MICRONARRATIVE CRAFT", glyph: "✍", rank: 0, maxRank: 2, prereqs: ["w_res"], desc: "Distill massive atmospheric details into minimalist, hard-hitting interface prose.", unlocks: ["c_coauthor"] }
             ],
             3: [
-                { id: "w_synth", name: "SCIENCE SYNTHESIS PROSE", glyph: "⚛", rank: 0, maxRank: 3, prereqs: ["w_branch"], desc: "Expose hidden patterns. Turn astrophysics or complex data data bias into rhythmic language.", unlocks: ["w_mythos"] },
-                { id: "w_pace", name: "STRUCTURAL PACING ARCS", glyph: "⎋", rank: 0, maxRank: 2, prereqs: ["w_branch", "c_psych"], desc: "Sync structural narrative tension exactly to the peak focus limits of mechanical play.", unlocks: [] }
+                { id: "w_synth", name: "SCIENCE SYNTHESIS PROSE", glyph: "⚛", rank: 0, maxRank: 3, prereqs: ["w_branch"], desc: "Translate complex system concepts, data behaviors, or algorithmic bias into accessible narratives.", unlocks: ["w_mythos"] },
+                { id: "w_pace", name: "STRUCTURAL PACING ARCS", glyph: "⎋", rank: 0, maxRank: 2, prereqs: ["w_branch", "c_psych"], desc: "Calibrate structural storytelling beats with mechanical tension over sustained periods.", unlocks: [] }
             ],
-            4: [{ id: "w_mythos", name: "THE COSMIC MYTHOS", glyph: "👁", rank: 0, maxRank: 1, prereqs: ["w_synth"], desc: "Capstone: Fuse sprawling historical narratives and raw human empathy into permanent texts.", unlocks: [] }]
+            4: [{ id: "w_mythos", name: "THE COSMIC MYTHOS", glyph: "🦅", rank: 0, maxRank: 1, prereqs: ["w_synth"], desc: "Capstone: Integrate grand thematic perspectives with deep empathy to generate eternal texts.", unlocks: [] }]
         }
     },
     wildcard: {
-        color: "#2563eb", 
+        color: "#c5a059", 
         tiers: {
-            1: [{ id: "wc_rhythm", name: "DAILY RHYTHM FOUNDATION", glyph: "⚡", rank: 0, maxRank: 3, prereqs: [], desc: "Set strict boundaries. Protect initial daily blocks to isolate essential focus channels.", unlocks: ["wc_sprint", "wc_optimize"] }],
+            1: [{ id: "wc_rhythm", name: "DAILY RHYTHM FOUNDATION", glyph: "⚡", rank: 0, maxRank: 3, prereqs: [], desc: "Establish rigid structural time limits. Quarantine morning focus windows from modern communication leaks.", unlocks: ["wc_sprint", "wc_optimize"] }],
             2: [
-                { id: "wc_sprint", name: "DEEP WORK SPRINT BLOCKS", glyph: "⏱", rank: 0, maxRank: 3, prereqs: ["wc_rhythm"], desc: "Isolate high-frequency generation phases without digital notification bleed.", unlocks: ["wc_acoustic"] },
-                { id: "wc_optimize", name: "BIO-VESSEL OPTIMIZATION", glyph: "🫀", rank: 0, maxRank: 3, prereqs: ["wc_rhythm"], desc: "Prioritize foundational physical systems: functional movement, solid nutrition, and deep sleep cycles to boost life expectancy [L.E.].", unlocks: ["wc_facilitate"] }
+                { id: "wc_sprint", name: "DEEP WORK SPRINT BLOCKS", glyph: "⏱", rank: 0, maxRank: 3, prereqs: ["wc_rhythm"], desc: "Isolate uninterrupted execution periods to complete complex mechanical goals.", unlocks: ["wc_acoustic"] },
+                { id: "wc_optimize", name: "BIO-VESSEL OPTIMIZATION", glyph: "🫀", rank: 0, maxRank: 3, prereqs: ["wc_rhythm"], desc: "Systematically calibrate foundational physiological habits—sleep cycles, mobility patterns, and fuel vectors to maximize life expectancy [L.E.].", unlocks: ["wc_facilitate"] }
             ],
             3: [
-                { id: "wc_facilitate", name: "DYNAMIC ROOM FACILITATION", glyph: "📢", rank: 0, maxRank: 2, prereqs: ["wc_optimize"], desc: "Take control of collective settings. Direct attention and decipher structural friction loops.", unlocks: ["c_hope"] },
-                { id: "wc_acoustic", name: "ACOUSTIC LANDSCAPES", glyph: "🎸", rank: 0, maxRank: 3, prereqs: ["wc_sprint"], desc: "Unpack musical scales or signal modulation to design immersive, atmospheric backdrops.", unlocks: ["wc_poly"] }
+                { id: "wc_facilitate", name: "DYNAMIC ROOM FACILITATION", glyph: "📢", rank: 0, maxRank: 2, prereqs: ["wc_optimize"], desc: "Control group attention dynamics, analyze real-time friction points, and manage live social workshops.", unlocks: ["c_hope"] },
+                { id: "wc_acoustic", name: "ACOUSTIC LANDSCAPES", glyph: "🎸", rank: 0, maxRank: 3, prereqs: ["wc_sprint"], desc: "Deconstruct frequency manipulation and composition principles to construct rich acoustic tapestries.", unlocks: ["wc_poly"] }
             ],
-            4: [{ id: "wc_poly", name: "TOTAL POLYMATHY SYNTHESIS", glyph: "✶", rank: 0, maxRank: 1, prereqs: ["wc_facilitate", "wc_acoustic"], desc: "Capstone: Synthesize somatic health, sound layers, and mechanical logic into a single expressive practice.", unlocks: [] }]
+            4: [{ id: "wc_poly", name: "TOTAL POLYMATHY SYNTHESIS", glyph: "⚔", rank: 0, maxRank: 1, prereqs: ["wc_facilitate", "wc_acoustic"], desc: "Capstone: Fuse biological longevity, somatic performance, sound logic, and system theory into an ultimate life practice.", unlocks: [] }]
         }
     }
 };
 
-// LocalStorage Hydration Layer
-let gameState = JSON.parse(localStorage.getItem('rpg_basquiat_matrix_save')) || {
+// State Persistence Controller
+let gameState = JSON.parse(localStorage.getItem('odyssey_skill_tree_save')) || {
     profile: { name: "SYSTEM ARCHETYPE", level: 1, currentXp: 0, skillPoints: 3 },
     streaks: { currentStreak: 0, lastLogDate: null },
     trees: JSON.parse(JSON.stringify(INITIAL_TREES))
 };
 
-// Tree Processing Utilities
+// Deep Search Utilities
 function findNodeById(nodeId) {
     for (let treeKey in gameState.trees) {
         for (let tierKey in gameState.trees[treeKey].tiers) {
@@ -79,7 +79,7 @@ function hasActiveDependents(parentNodeId) {
     return false;
 }
 
-// 2. BEBOP JAZZ RHYTHM COMPILER (XP / STREAK ENGINE)
+// 2. XP & STREAK CALCULATOR ENGINE
 function logTask(description, difficulty) {
     let xpBase = difficulty * 100;
     const todayString = new Date().toDateString();
@@ -90,6 +90,7 @@ function logTask(description, difficulty) {
         
         if (gameState.streaks.lastLogDate === yesterday.toDateString()) {
             gameState.streaks.currentStreak++;
+            // Milestones multipliers based on epic performance curves
             if (gameState.streaks.currentStreak === 3) xpBase += 50;
             if (gameState.streaks.currentStreak === 5) xpBase += 150;
             if (gameState.streaks.currentStreak >= 7 && gameState.streaks.currentStreak % 7 === 0) xpBase += 300;
@@ -117,7 +118,7 @@ function evaluateLevelUp() {
     }
 }
 
-// 3. LEFT-CLICK CHALK INVESTMENT RUNTIME
+// 3. SKILL INVESTMENT RUNTIME (LEFT CLICK)
 function purchaseNode(nodeId) {
     const node = findNodeById(nodeId);
     if (!node || gameState.profile.skillPoints < 1 || node.rank >= node.maxRank) return;
@@ -135,13 +136,13 @@ function purchaseNode(nodeId) {
     syncAndRender();
 }
 
-// 4. RIGHT-CLICK REFUND INTERCEPT LOOP
+// 4. POINT REFUND ENGINE (RIGHT CLICK COOLDOWN INTERCEPT)
 function refundNodePoint(nodeId) {
     const node = findNodeById(nodeId);
     if (!node || node.rank <= 0) return;
     
     if (hasActiveDependents(nodeId)) {
-        console.warn(`🔒 REFUND DENIED // ACTIVE HIGHER DEPENDENCIES REQUIRE CONTEXT`);
+        console.warn(`🔒 REFUND LOCKED // HIGHER CONSTELLATIONS RELY ON THIS ABILITY`);
         return;
     }
     
@@ -151,9 +152,9 @@ function refundNodePoint(nodeId) {
     syncAndRender();
 }
 
-// 5. DESTRUCTIVE SYSTEM ERASE TERMINAL
+// 5. ABILITY NUKE CONTROLLER
 function triggerSystemReset() {
-    const message = "🚨 C̶O̶N̶F̶I̶R̶M̶ ̶D̶E̶S̶T̶R̶U̶C̶T̶I̶O̶N̶ // ARE YOU ABSOLUTELY SURE?\n\nTHIS ATOMIZES CODES, WIPES INVESTED RANKS, AND ERASES TRACKED ACCUMULATION ENTIRELY.";
+    const message = "⚠️ RESET ABILITIES?\n\nThis will return all invested Ability Points and clear your progress trees completely.";
     if (confirm(message)) {
         gameState = {
             profile: { name: "SYSTEM ARCHETYPE", level: 1, currentXp: 0, skillPoints: 3 },
@@ -164,7 +165,7 @@ function triggerSystemReset() {
     }
 }
 
-// 6. ASYMMETRIC CANVAS RENDER MATRIX
+// 6. EPIC RENDER MATRIX
 function renderMatrixUI() {
     document.getElementById('hud-level').innerText = gameState.profile.level;
     document.getElementById('hud-points').innerText = gameState.profile.skillPoints;
@@ -174,8 +175,8 @@ function renderMatrixUI() {
     const neededXp = gameState.profile.level * 500;
     document.getElementById('hud-xp-needed').innerText = neededXp;
     
-    // Smooth rendering anchor for progress line calculation
-    document.getElementById('xp-fill-raw').style.width = `${(gameState.profile.currentXp / neededXp) * 100}%`;
+    // Dynamically expand progress bar width
+    document.getElementById('xp-fill').style.width = `${(gameState.profile.currentXp / neededXp) * 100}%`;
     
     for (let treeKey in gameState.trees) {
         const container = document.getElementById(`nodes-${treeKey}`);
@@ -204,30 +205,29 @@ function renderMatrixUI() {
                 else if (node.prereqs.length === 0 || depsMet) statusClass = 'available';
                 
                 button.className = `skill-node-raw ${statusClass}`;
-                button.style.setProperty('--accent-color', tree.color);
+                button.style.setProperty('--pillar-gold', tree.color);
                 
-                // Left Click -> Invest
+                // Left Click Assignment
                 button.onclick = () => purchaseNode(node.id);
                 
-                // Right Click -> Refund Context Menu Hijack
+                // Right Click Allocation Shift
                 button.oncontextmenu = (e) => {
                     e.preventDefault(); 
                     refundNodePoint(node.id);
                 };
                 
-                let actionNotice = "✗ CLICK TO INVEST CHALK";
-                if (node.rank >= node.maxRank) actionNotice = "👑 MASTERED // CROWN CONFERRED";
-                else if (node.rank > 0 && !hasActiveDependents(node.id)) actionNotice = "✗ CLICK TO UPGRADE // ↩ RIGHT-CLICK TO REFUND POINT";
-                else if (node.rank > 0 && hasActiveDependents(node.id)) actionNotice = "✗ LOCKED // DEEPER ROOTS DEPEND ON THIS POSITION";
-                else if (statusClass === '') actionNotice = "🔒 CHANNELS CLOSED // REQUIRE LOWER TIER FULFILLMENT";
+                let actionNotice = "⚡ CLICK TO ACQUIRE ABILITY";
+                if (node.rank >= node.maxRank) actionNotice = "👑 ABILITY FULLY MASTERED";
+                else if (node.rank > 0 && !hasActiveDependents(node.id)) actionNotice = "⚡ CLICK TO UPGRADE // [RIGHT-CLICK] TO REFUND POINT";
+                else if (node.rank > 0 && hasActiveDependents(node.id)) actionNotice = "🔒 LOCKED // HIGHER SKILLS REQUIRE THIS UNLOCK";
+                else if (statusClass === '') actionNotice = "🔒 LOCKED // PATHWAY NOT YET REACHED";
                 
                 button.innerHTML = `
                     <div class="node-display-glyph">${node.glyph}</div>
-                    <div class="node-title-raw">${node.name}</div>
                     <div class="node-rank-raw">${node.rank}/${node.maxRank}</div>
                     <div class="node-tooltip-raw">
-                        <strong>${node.name}</strong><br><br>
-                        ${node.desc}<br><br>
+                        <strong>${node.name}</strong>
+                        <div class="node-tooltip-desc">${node.desc}</div>
                         <div class="tooltip-action-alert">${actionNotice}</div>
                     </div>
                 `;
@@ -248,7 +248,7 @@ function handleFormSubmit() {
 }
 
 function syncAndRender() {
-    localStorage.setItem('rpg_basquiat_matrix_save', JSON.stringify(gameState));
+    localStorage.setItem('odyssey_skill_tree_save', JSON.stringify(gameState));
     renderMatrixUI();
 }
 
