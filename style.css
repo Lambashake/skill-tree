@@ -250,6 +250,31 @@ body {
     outline: none;
     cursor: pointer;
 }
+/* --- STARTING POINTS INPUT STYLING --- */
+#starting-points-input, 
+.starting-points-deck input,
+.hud-data-nodes input {
+    background: #020408;
+    border: 1px solid var(--grid-border);
+    color: var(--neon-core);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 0.4rem;
+    width: 70px;
+    text-align: center;
+    outline: none;
+    box-shadow: 0 0 6px var(--neon-glow);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#starting-points-input:focus,
+.starting-points-deck input:focus,
+.hud-data-nodes input:focus {
+    border-color: var(--neon-core);
+    box-shadow: 0 0 12px var(--neon-core);
+}
+
 
 /* Buttons */
 .tron-btn {
@@ -438,6 +463,25 @@ body {
 .tron-node-row:hover .node-string-title { color: #fff; }
 .tron-node-row.maxed .node-string-title { font-weight: 700; color: #fff; }
 
+/* Inline Skill Title Input Setup */
+.node-string-title input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed var(--text-muted);
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    width: 100%;
+    outline: none;
+    padding: 2px 0;
+}
+
+.node-string-title input:focus {
+    border-bottom: 1px solid var(--neon-core);
+    color: #fff;
+}
+
 .node-right-action-cluster {
     display: flex;
     align-items: center;
@@ -467,8 +511,30 @@ body {
     color: #20354d;
     border-left: 1px solid var(--grid-border);
     padding-left: 0.75rem;
-    pointer-events: none;
     transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+/* Styles the numeric max input field within the points cluster */
+.node-charge-pip input {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    width: 25px;
+    text-align: center;
+    outline: none;
+    padding: 0;
+}
+
+.node-charge-pip input:hover,
+.node-charge-pip input:focus {
+    background: rgba(13, 25, 43, 0.8);
+    color: #fff;
 }
 
 .tron-node-row.has-points .node-charge-pip { color: var(--neon-core); text-shadow: 0 0 5px var(--neon-core); }
@@ -732,15 +798,10 @@ body {
         padding: 0.75rem;
     }
 
-    input, 
+/* Prevent input stretching on mobile screens, ignoring system numerical entries */
+    input:not(#starting-points-input):not(.node-charge-pip input), 
     textarea, 
     .injector-form-panel {
         width: 100%;
-        box-sizing: border-box; /* Limit breakout layouts */
+        box-sizing: border-box;
     }
-
-    .modal-action-row {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-}
