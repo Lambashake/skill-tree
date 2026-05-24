@@ -661,3 +661,29 @@ body {
 .purge-link:hover {
     color: var(--neon-core);
 }
+/* Responsive Mobile Optimization */
+@media (max-width: 768px) {
+    #grid-network {
+        grid-template-columns: 1fr; /* Force 1 column on mobile */
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .hud-wrapper {
+        flex-direction: column; /* Stack HUD elements */
+        gap: 1rem;
+    }
+
+    #input-terminal-deck {
+        padding: 0 1rem;
+    }
+
+    .sector-column {
+        min-height: auto; /* Remove fixed height on mobile to save space */
+    }
+
+    .tron-node-row {
+        height: auto; /* Allow row to expand if text is long */
+        padding: 0.75rem;
+    }
+}
