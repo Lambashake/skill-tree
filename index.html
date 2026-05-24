@@ -83,6 +83,19 @@
             <div class="sector-header-plate">THE CRUCIBLE</div>
             <div class="sector-sub">SYSTEMS & HOPE</div>
             <div class="node-container-stack" id="nodes-crucible"></div>
+            
+            <!-- Injection Port for New Node Vectors -->
+            <div class="dynamic-node-injector">
+                <button class="injector-toggle-btn" onclick="toggleInjectorDeck('crucible')">+ INITIALIZE NEW VECTOR NODE</button>
+                <div class="injector-form-panel" id="form-deck-crucible">
+                    <input type="text" id="add-name-crucible" placeholder="NODE IDENTIFIER...">
+                    <textarea id="add-desc-crucible" placeholder="FUNCTION BLUEPRINT SPECIFICATION..."></textarea>
+                    <div class="injector-row-group">
+                        <input type="number" id="add-max-crucible" value="5" min="1" max="10" placeholder="MAX">
+                        <button class="tron-btn min-padding" onclick="injectCustomNode('crucible')">INJECT</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Sector 2: Writing & Dialectics -->
@@ -90,6 +103,19 @@
             <div class="sector-header-plate">THE WEAVE</div>
             <div class="sector-sub">WRITING & DIALECTICS</div>
             <div class="node-container-stack" id="nodes-weave"></div>
+
+            <!-- Injection Port for New Node Vectors -->
+            <div class="dynamic-node-injector">
+                <button class="injector-toggle-btn" onclick="toggleInjectorDeck('weave')">+ INITIALIZE NEW VECTOR NODE</button>
+                <div class="injector-form-panel" id="form-deck-weave">
+                    <input type="text" id="add-name-weave" placeholder="NODE IDENTIFIER...">
+                    <textarea id="add-desc-weave" placeholder="FUNCTION BLUEPRINT SPECIFICATION..."></textarea>
+                    <div class="injector-row-group">
+                        <input type="number" id="add-max-weave" value="5" min="1" max="10" placeholder="MAX">
+                        <button class="tron-btn min-padding" onclick="injectCustomNode('weave')">INJECT</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Sector 3: Catalysts & Visions -->
@@ -97,17 +123,63 @@
             <div class="sector-header-plate">THE WILD CARD</div>
             <div class="sector-sub">CATALYSTS & VISIONS</div>
             <div class="node-container-stack" id="nodes-wildcard"></div>
+
+            <!-- Injection Port for New Node Vectors -->
+            <div class="dynamic-node-injector">
+                <button class="injector-toggle-btn" onclick="toggleInjectorDeck('wildcard')">+ INITIALIZE NEW VECTOR NODE</button>
+                <div class="injector-form-panel" id="form-deck-wildcard">
+                    <input type="text" id="add-name-wildcard" placeholder="NODE IDENTIFIER...">
+                    <textarea id="add-desc-wildcard" placeholder="FUNCTION BLUEPRINT SPECIFICATION..."></textarea>
+                    <div class="injector-row-group">
+                        <input type="number" id="add-max-wildcard" value="5" min="1" max="10" placeholder="MAX">
+                        <button class="tron-btn min-padding" onclick="injectCustomNode('wildcard')">INJECT</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </main>
 
-    <!-- Fixed Floating Context Display Control Frame (Zero Layout Interference) -->
+    <!-- Fixed Floating Context Display Control Frame -->
     <div id="fixed-grid-tooltip" class="fixed-tooltip-frame">
         <div class="tooltip-angle-tl"></div><div class="tooltip-angle-tr"></div>
         <div class="tooltip-angle-bl"></div><div class="tooltip-angle-br"></div>
         <div class="tooltip-title" id="tt-name">SYSTEM READY</div>
         <div class="tooltip-desc" id="tt-desc">Safely scan user nodes inside the vector matrix streams to extract node metadata blueprints.</div>
         <div class="tooltip-status" id="tt-action">SECURE SECTOR ACCESS</div>
+    </div>
+
+    <!-- Persistent Global Core Node Editor Module Overlay (Fixed Sandbox) -->
+    <div id="mainframe-node-editor-modal" class="editor-modal-overlay">
+        <div class="editor-modal-box">
+            <div class="tooltip-angle-tl"></div><div class="tooltip-angle-tr"></div>
+            <div class="tooltip-angle-bl"></div><div class="tooltip-angle-br"></div>
+            <div class="modal-title">EDIT_NODE_SPECIFICATIONS://</div>
+            <input type="hidden" id="edit-node-target-id">
+            
+            <div class="modal-field">
+                <label>IDENTIFIER LABEL</label>
+                <input type="text" id="edit-node-name">
+            </div>
+            
+            <div class="modal-field">
+                <label>FUNCTION BLUEPRINT BEHAVIOR DESCRIPTION</label>
+                <textarea id="edit-node-desc" rows="3"></textarea>
+            </div>
+            
+            <div class="modal-field">
+                <label>MAX ARCHETYPE CAPACITY LIMIT</label>
+                <input type="number" id="edit-node-max" min="1" max="20">
+            </div>
+            
+            <div class="modal-action-row">
+                <button class="tron-btn text-accent-red" onclick="deleteTargetNode()">DELETE NODE</button>
+                <div class="modal-right-buttons">
+                    <button class="tron-btn secondary" onclick="closeNodeEditorMatrix()">ABORT</button>
+                    <button class="tron-btn" onclick="commitNodeModifications()">COMMIT</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer id="grid-mainframe-base">
