@@ -16,8 +16,8 @@
             <div class="hud-identity">
                 <div class="identity-disc"></div>
                 <div>
-                    <h1>SYSTEM ARCHETYPE MATRIX</h1>
-                    <div class="grid-subtext">USER_ACCESS:// SYSTEM_DECK_2026.SYS</div>
+                    <input type="text" id="user-archetype" value="ENTER NAME" class="archetype-input">
+            
                 </div>
             </div>
 
@@ -63,7 +63,7 @@
     <!-- Command Input Deck Terminal -->
     <section id="input-terminal-deck">
         <form id="task-form" onsubmit="event.preventDefault(); handleFormSubmit();">
-            <input type="text" id="task-desc" placeholder="COMPILE NEW LOGGED CONTRACT TRACE..." required autocomplete="off">
+            <input type="text" id="task-desc" placeholder="Today I..." required autocomplete="off">
             <select id="task-diff">
                 <option value="1">TIER I [100 ENERGY]</option>
                 <option value="2">TIER II [200 ENERGY]</option>
