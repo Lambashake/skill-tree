@@ -406,32 +406,27 @@ function paintGridUI() {
             else if (node.rank > 0) modifier = 'has-points';
             
             row.className = `tron-node-row ${modifier}`;
-            
-            row.addEventListener('click', () => allocatePoint(node.id));
-            row.addEventListener('contextmenu', (e) => { e.preventDefault(); purgePoint(node.id); });
-            
-            row.addEventListener('mouseenter', () => {
-                SynthAudioModule.triggerHoverSound();
-                refreshTooltipText(node);
-            });
-            row.addEventListener('mouseleave', () => {
-                refreshTooltipText(null);
-            });
+            // Toggle description on click
+            row.onclick = () => toggleDescription(row);
             
             row.innerHTML = `
                 <div class="node-meta-left">
-                    <div class="css-mask-icon" style="-webkit-mask-image: ${node.mask}; mask-image: ${node.mask};"></div>
+                    <div class="css-mask-image" style="-webkit-mask-image: ${node.mask}; mask-image: ${node.mask};"></div>
                     <span class="node-string-title">${node.name}</span>
                 </div>
-                <div class="node-right-action-cluster">
-                    <button class="node-config-gear-trigger" title="Edit Node Architecture">⚙️</button>
+                <div class="node-right-action-cluster" onclick="event.stopPropagation()">
+                    <button class="tron-btn min-padding text-accent-red" onclick="purgePoint('${node.id}')">-</button>
+                    <button class="tron-btn min-padding" onclick="allocatePoint('${node.id}')">+</button>
                     <div class="node-charge-pip">${node.rank}/${node.maxRank}</div>
+                    <button class="node-config-gear-trigger" onclick="openNodeEditorMatrix(event, '${node.id}')">⚙️</button>
+                </div>
+                <div class="task-description-box" style="display:none; padding: 10px; border-top: 1px solid var(--grid-border); color: #ccc;">
+                    ${node.desc}
                 </div>
             `;
             
-            row.querySelector('.node-config-gear-trigger').addEventListener('click', (e) => openNodeEditorMatrix(e, node.id));
-            
             rootStack.appendChild(row);
+        });
         });
     }
 }
